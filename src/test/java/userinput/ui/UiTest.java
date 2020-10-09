@@ -1,8 +1,8 @@
-package UI;
+package userinput.ui;
 
 import org.junit.jupiter.api.Test;
 
-class UITest {
+class UiTest {
 
     @Test
     public void displayWelcomeScreen() {

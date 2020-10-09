@@ -33,7 +33,4 @@ public class UI {
         String cs = "";
         System.out.println(index + ": " + cs);
     }
-    public int hello(int testing) {
-        return testing;
-    }
 }
