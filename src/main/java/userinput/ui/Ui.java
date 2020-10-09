@@ -1,10 +1,10 @@
-package UI;
+package userinput.ui;
 
 import java.util.Scanner;
 
-public class UI {
+public class Ui {
 
-    public UI() {
+    public Ui() {
 
     }
 
