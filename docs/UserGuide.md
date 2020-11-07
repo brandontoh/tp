@@ -335,23 +335,50 @@ After getting prompted to enter a command, you can search for cheat sheets using
 2. `/find /k <KEYWORD>` to search for cheat sheets with contents that contains `KEYWORD`.
 3. `/find /s <SUBJECT> /k <KEYWORD>` to search for cheat sheets with matching subject and contains `KEYWORD`.
 
-`/find /s <SUBJECT>`       | ` /find /k <KEYWORD>`     | `/find /s <SUBJECT> /k <KEYWORD>`
-:-------------------------:|:-------------------------:|:-------------------------:
-![image](https://i.ibb.co/kSVw5r3/image.png) | ![image](https://i.ibb.co/TM4J8s1/image.png) | ![image](https://i.ibb.co/fGdPMdC/image.png)
+| `/find /s <SUBJECT>` |
+| :-------------------------: |
+| ![image](https://i.ibb.co/kSVw5r3/image.png) |
+
+| ` /find /k <KEYWORD>` |
+| :-------------------------: |
+| ![image](https://i.ibb.co/TM4J8s1/image.png) |
+
+| `/find /s <SUBJECT> /k <KEYWORD>` |
+| :-------------------------: |
+| ![image](https://i.ibb.co/fGdPMdC/image.png) |
+
 
 Cheat sheets that meet the criteria of the command you entered would be displayed in a table as shown in the images below.
 
-`/find /s <SUBJECT>`       | ` /find /k <KEYWORD>`     | `/find /s <SUBJECT> /k <KEYWORD>`
-:-------------------------:|:-------------------------:|:-------------------------:
-![image](https://i.ibb.co/HB7MNJx/image.png) | ![image](https://i.ibb.co/z7X4KF2/image.png) | ![image](https://i.ibb.co/hym26SW/image.png)
+| `/find /s <SUBJECT>` |
+| :-------------------------: |
+| ![image](https://i.ibb.co/HB7MNJx/image.png) |
 
+| ` /find /k <KEYWORD>` |
+| :-------------------------: |
+| ![image](https://i.ibb.co/z7X4KF2/image.png) |
+
+| `/find /s <SUBJECT> /k <KEYWORD>` |
+| :-------------------------: |
+| ![image](https://i.ibb.co/hym26SW/image.png) |
 
 CheatLogs then enters Sorting Mode. In sorting Mode, you can sort according to names or subjects by inputting the corresponding index (1-4).
 
+| Name ascending |
+| :-------------------------: | 
+| ![image](https://i.ibb.co/yPRhvH3/image.png) |
 
-Name ascending       | Subject ascending     | Name descending | Subject descending
-:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-![image](https://i.ibb.co/yPRhvH3/image.png) | ![image](https://i.ibb.co/z2jHKSB/image.png) | ![image](https://i.ibb.co/f8D0QXY/image.png) | ![image](https://i.ibb.co/ThvTVnG/image.png)
+| Subject ascending | 
+| :-------------------------: |
+| ![image](https://i.ibb.co/z2jHKSB/image.png) |
+
+| Name descending | 
+| :-------------------------: | 
+| ![image](https://i.ibb.co/f8D0QXY/image.png) |
+
+| Subject descending |
+| :-------------------------: | 
+| ![image](https://i.ibb.co/ThvTVnG/image.png) |
 
 To exit Sorting Mode and simply enter another character (excluding 1-4).
 
@@ -388,9 +415,17 @@ After getting prompted to enter a command, you can view a specific cheat sheet u
 2. `/view /i <CHEATSHEET_INDEX>` to view the cheat sheet with index, `CHEATSHEET_INDEX`
 3. `/view /n <CHEATSHEET_NAME> /i <CHEATSHEET_INDEX>` to view the cheat sheet with name and index corresponding to `CHEATSHEET_NAME` and `CHEATSHEET_INDEX`. NOTE: If `CHEATSHEET_NAME` and `CHEATSHEET_INDEX` are pointing at two different cheat sheet, no cheat sheet's content would be displayed.
 
-`/view /n <CHEATSHEET_NAME>`| `/view /i <CHEATSHEET_INDEX>`  | `/view /n <CHEATSHEET_NAME> /i <CHEATSHEET_INDEX>`
-:-------------------------:|:-------------------------:|:-------------------------:
-![image](https://i.ibb.co/ypPympz/image.png) | ![image](https://i.ibb.co/k58qGf6/image.png) | ![image](https://i.ibb.co/h7qS4x8/image.png)
+| `/view /n <CHEATSHEET_NAME>`|
+| :-------------------------: |
+| ![image](https://i.ibb.co/ypPympz/image.png) |
+
+| `/view /i <CHEATSHEET_INDEX>` |
+| :-------------------------: |
+|  ![image](https://i.ibb.co/k58qGf6/image.png) |
+
+| `/view /n <CHEATSHEET_NAME> /i <CHEATSHEET_INDEX>` |
+| :-------------------------: |
+| ![image](https://i.ibb.co/h7qS4x8/image.png) |
 
 Examples:
 * `/view /n Read /i 2`
@@ -414,9 +449,21 @@ After getting prompted to enter a command, you can view a specific cheat sheet u
 
 CheatLogs then enters Sorting Mode. In sorting Mode, you can sort according to names or subjects by inputting the corresponding index (1-4).
 
-Name ascending       | Subject ascending     | Name descending | Subject descending
-:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-![image](https://i.ibb.co/yPRhvH3/image.png) | ![image](https://i.ibb.co/z2jHKSB/image.png) | ![image](https://i.ibb.co/f8D0QXY/image.png) | ![image](https://i.ibb.co/ThvTVnG/image.png)
+| Name ascending |
+| :-------------------------: | 
+| ![image](https://i.ibb.co/yPRhvH3/image.png) |
+
+| Subject ascending | 
+| :-------------------------: |
+| ![image](https://i.ibb.co/z2jHKSB/image.png) |
+
+| Name descending | 
+| :-------------------------: | 
+| ![image](https://i.ibb.co/f8D0QXY/image.png) |
+
+| Subject descending |
+| :-------------------------: | 
+| ![image](https://i.ibb.co/ThvTVnG/image.png) |
 
 To exit Sorting Mode and simply enter another character (excluding 1-4).
 
