@@ -1,6 +1,7 @@
 
 
 
+
 <h1 align="center">  CheatLogs User Guide </h1>
 
 
@@ -33,7 +34,7 @@ The table of contents below lets you easily access the documentation for install
    * [4.1. Storage commands](#storage-command-type)
    	  * [4.1.1. Adding a cheatsheet: `/add`](#add-command)
    	    * [4.1.1.1. Adding a cheatsheet using the easy mode](#add-command-easy)
-   	    * [4.1.1.2 Adding a cheatsheet using the advanced mode](#add-command-advanced)
+   	    * [4.1.1.2. Adding a cheatsheet using the advanced mode](#add-command-advanced)
 	  * [4.1.2. Deleting a cheatsheet: `/delete`](#delete-command)
 	  * [4.1.3. Clearing all entries: `/clear`](#clear-command)
   * [4.2.  Manipulation commands](#manipulation-command-type)
@@ -50,14 +51,14 @@ The table of contents below lets you easily access the documentation for install
 	    * [4.4.2.2 Change behavior of help message](#settings-help-message)
 	 * [4.4.3. Exiting the program: `/exit`](#exit-command)
 * [5. Data storage](#data-storage)
-  * [5.1 Data file contents](#data-file-contents)
+  * [5.1. Data file contents](#data-file-contents)
 	  * [5.1.1. XML file configurations](#xml-file-configurations)  
 	  * [5.1.2. Main](#main) 	
 	  * [5.1.3. Favourite](#favourite) 
 	  * [5.1.4. Subject](#subject) 
 	  * [5.1.5. Contents](#contents) 	
-  * [5.2 Data file organization](#data-file-organization)
-  * [5.3 Preloaded data files](#preloaded-data-files)  	     	    	  	    
+  * [5.2. Data file organization](#data-file-organization)
+  * [5.3. Preloaded data files](#preloaded-data-files)  	     	    	  	    
 * [6. FAQ](#faq)
 * [7. Command Cheatsheet](#command-cheatsheet)
 
@@ -168,7 +169,7 @@ ___
 You can easily use the **/add** command to add your own cheat sheets to the list by using 2 different methods **easy** and **hard** mode.
 
 <a id="add-command-easy"></a>
-#### 4.1.1.1 Adding a cheatsheet using the easy mode
+#### 4.1.1.1. Adding a cheatsheet using the easy mode
 > Format: `/add`
 
 The first method that you can use to add cheatsheet is the easy mode. Just type `/add` without adding any flag or description. 
@@ -182,7 +183,7 @@ Enter the details of your cheatsheet there, then click `Actions` then `Save`
 Congratulations! You have added your first cheatsheet into CheatLogs.
 
 <a id="add-command-advanced"></a>
-#### 4.1.1.2 Adding a cheatsheet using the advanced mode
+#### 4.1.1.2. Adding a cheatsheet using the advanced mode
 >Format: `/add /n <CHEATSHEET_NAME> /s <SUBJECT>` <br>
 >Flag optionality: `/n` (required)`/s` (optional)
 >
@@ -483,7 +484,7 @@ These are useful general purpose commands that don't fit into the other categori
 ---
 
 <a id="help-command"></a>
-### 4.4.1 Viewing help: `/help`<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
+### 4.4.1. Viewing help: `/help`<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
 >Format: `/help`
 >
 If you forgot the syntax of a certain command, you can simply type `/help`. It will list all the possible commands that can be executed in the application together with its format and example. Below is what you should expect to see.
@@ -495,12 +496,12 @@ Example:
 ---
 
 <a id="settings-command"></a>
-### 4.4.2 Change program settings: `/set`<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
+### 4.4.2. Change program settings: `/set`<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
 CheatLogs is highly customizable. By using the `/set` command, you can choose to enable/disable the help messages on each command and change the color scheme of output text can be changed. 
 The settings will be saved automatically and the next time you lauch CheatLogs, it will be exactly the still the same as last time you opened it!
 
 <a id="settings-color"></a>
-#### 4.4.2.1 Change color scheme
+#### 4.4.2.1. Change color scheme
 >Format: `/set /c COLORSCHEME`<br> 
 >Flag optionality: `/c` (required) 
 
@@ -517,7 +518,7 @@ If your flag description `COLORSCHEME` does not fall in the range mentioned abov
  * `/set /c 2`
  
 <a id="settings-help-message"></a>
-#### 4.4.2.2 Change behavior of help message
+#### 4.4.2.2. Change behavior of help message
 >Format: `/set /m [on/off]` <br>
 >Flag optionality: `/m` (required) 
 
@@ -532,7 +533,7 @@ You can disable these help messages by using the `/set /m off` and later when yo
 ---
 
 <a id="exit-command"></a>
-### 4.4.3 Exiting the program: `/exit`<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
+### 4.4.3. Exiting the program: `/exit`<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
 >Format: `/exit`
 
 If you are done using CheatLogs, simple type `/exit` to close the application. CheatLogs hopes you will open it again.
@@ -557,7 +558,7 @@ file.
 <br>
 
 <a id="data-file-contents"></a>
-## 5.1 Data file contents<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
+## 5.1. Data file contents<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
 
 Each cheat sheet file uses an XML file format. This file format organizes the contents
 of the file into different sections based on certain attributes of the cheatsheet. The code
@@ -573,7 +574,7 @@ explore each segment of this format.
 ---
 
 <a id="xml-file-configurations"></a>
-### 5.1.1 XML file configurations<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
+### 5.1.1. XML file configurations<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
 
 This section configures the settings of the XML file. By default, CheatLogs writes this line into
 XML files that it creates or modifies.
@@ -587,7 +588,7 @@ XML files that it creates or modifies.
 ---
 
 <a id="main"></a>
-### 5.1.2 Main<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
+### 5.1.2. Main<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
 
 This section acts as the root element of the document. CheatLogs analyses the relevant
 sections you place inside `main` and creates a cheat sheet based on the input given by them.
@@ -601,7 +602,7 @@ sections you place inside `main` and creates a cheat sheet based on the input gi
 ---
 
 <a id="favourite"></a>
-### 5.1.3 Favourite<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
+### 5.1.3. Favourite<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
 
 This section indicates if the cheat sheet should be marked as [favourite](#favourite-command).
 
@@ -614,7 +615,7 @@ This section indicates if the cheat sheet should be marked as [favourite](#favou
 ---
 
 <a id="subject"></a>
-### 5.1.4 Subject<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
+### 5.1.4. Subject<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
 
 This section includes the subject of the cheatsheet. It allows CheatLogs to organize your cheat
 sheet files by assigning cheat sheets of the same subject to the same folder.
@@ -626,7 +627,7 @@ sheet files by assigning cheat sheets of the same subject to the same folder.
 ---
 
 <a id="contents"></a>
-### 5.1.5 Contents<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
+### 5.1.5. Contents<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
 
 This section includes the contents of the cheatsheet.
 >Format: `<contents>CONTENTS</contents>`
@@ -634,7 +635,7 @@ This section includes the contents of the cheatsheet.
 > :bulb:  You can append the contents on a separate line.
 
 <a id="data-file-organization"></a>
-## 5.2 Data organization<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
+## 5.2. Data organization<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
 
 All the data files can be found in the */data* directory, which is located in the same directory as
 CheatLogs.jar. Within */data*, CheatLogs stores data files in subdirectories whose name matches its
@@ -652,7 +653,7 @@ subject name. This allows you to create cheat sheets for common concepts which m
 based on the subject you are taking.
 
 <a id="preloaded-data-files"></a>
-## 5.3 Preloaded data files<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
+## 5.3. Preloaded data files<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
 
 CheatLogs.jar contains some example cheat sheet files. These files will be moved over to the */data(
 directory when you run the application for the first time. To differentiate these files from your 
