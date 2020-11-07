@@ -32,6 +32,8 @@ The table of contents below lets you easily access the documentation for install
 * [4. Commands](#commands)
    * [4.1. Storage commands](#storage-command-type)
    	  * [4.1.1. Adding a cheatsheet: `/add`](#add-command)
+   	    * [4.1.1.1. Adding a cheatsheet using the easy mode](#add-command-easy)
+   	    * [4.1.1.2 Adding a cheatsheet using the advanced mode](#add-command-advanced)
 	  * [4.1.2. Deleting a cheatsheet: `/delete`](#delete-command)
 	  * [4.1.3. Clearing all entries: `/clear`](#clear-command)
   * [4.2.  Manipulation commands](#manipulation-command-type)
@@ -44,6 +46,8 @@ The table of contents below lets you easily access the documentation for install
   * [4.4.  General commands](#general-command-type)
 	 * [4.4.1. Viewing help: `/help`](#help-command)
 	 * [4.4.2. Change program settings: `/set`](#settings-command)
+	    * [4.4.2.1 Change color scheme](#settings-color)
+	    * [4.4.2.2 Change behavior of help message](#settings-help-message)
 	 * [4.4.3. Exiting the program: `/exit`](#exit-command)
 * [5. Data storage](#data-storage)
   * [5.1 Data file contents](#data-file-contents)
@@ -53,17 +57,14 @@ The table of contents below lets you easily access the documentation for install
 	  * [5.1.4. Subject](#subject) 
 	  * [5.1.5. Contents](#contents) 	
   * [5.2 Data file organization](#data-file-organization)
-  * [5.3 Preloaded data files](#preloaded-data-files)  
-  * [5.4 Reading data files](#reading-data-files)
-  * [5.5 Writing data files](#writing-data-files)  	   
-  * [5.6 Deleting data files](#deleting-data-files)  	     	    	  	    
+  * [5.3 Preloaded data files](#preloaded-data-files)  	     	    	  	    
 * [6. FAQ](#faq)
 * [7. Command Cheatsheet](#command-cheatsheet)
 
 <br>
 
 <a id="before-start"></a>
-##  1. Before you start<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+#  1. Before you start<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 CheatLogs requires Java 11 or above installed on your computer. You can follow the the following instructions to install Java 11:
 > &nbsp;:exclamation: If you use earlier versions of Java, there may be compatibility issues. Thus, we recommend using the same one we developed on, Java 11. 
 > 
@@ -79,7 +80,7 @@ CheatLogs requires Java 11 or above installed on your computer. You can follow t
 <br>
 
 <a id="start"></a>
-##  2. Running CheatLogs<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+#  2. Running CheatLogs<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 CheatLogs is easy to get running. You can follow the  steps below to do so.
 1.  You can download the latest version of CheatLogs from [here](https://github.com/AY2021S1-CS2113T-W11-3/tp/releases).
 2. Scroll to the latest release.
@@ -109,7 +110,7 @@ A bit confused? Here is a video guide on doing steps 4-9 using the terminal (not
  <br>
  
 <a id="editor"></a>
-##  3. GUI text editor<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+#  3. GUI text editor<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 CheatLogs provides a simple graphical user interface (GUI) text editor that automatically pops up on certain commands. These commands include: `add` and `edit`. This allows you to have an easier time manipulating data, performing simple operations such as cut, copy and paste or even using your mouse which are typically unavailable on the CLI. Below is what you can expect to see and be able to do when it pops up.
 <p align="center">
    <img width="500" height="350" src="https://i.ibb.co/3kZ7Xjq/cheatlogs-editor.gif">
@@ -133,7 +134,7 @@ Edit tab - Actions to manipulate the contents
 In the following sections, we will be referring to this editor as **the Editor**. 
  
 <a id="commands"></a>
-## 4. Commands<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+# 4. Commands<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 Commands are how you interact with Cheatlogs. To understand the terminology being used in the later sections, we would like you to understand the typical structure of a command, illustrated below.
 
 <p align="center">
@@ -165,6 +166,8 @@ ___
 <a id="add-command"></a>
 ### 4.1.1. Adding a cheatsheet: `/add` <font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
 You can easily use the **/add** command to add your own cheat sheets to the list by using 2 different methods **easy** and **hard** mode.
+
+<a id="add-command-easy"></a>
 #### 4.1.1.1 Adding a cheatsheet using the easy mode
 > Format: `/add`
 
@@ -178,6 +181,7 @@ Enter the details of your cheatsheet there, then click `Actions` then `Save`
 
 Congratulations! You have added your first cheatsheet into CheatLogs.
 
+<a id="add-command-advanced"></a>
 #### 4.1.1.2 Adding a cheatsheet using the advanced mode
 >Format: `/add /n <CHEATSHEET_NAME> /s <SUBJECT>` <br>
 >Flag optionality: `/n` (required)`/s` (optional)
@@ -494,6 +498,8 @@ Example:
 ### 4.4.2 Change program settings: `/set`<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
 CheatLogs is highly customizable. By using the `/set` command, you can choose to enable/disable the help messages on each command and change the color scheme of output text can be changed. 
 The settings will be saved automatically and the next time you lauch CheatLogs, it will be exactly the still the same as last time you opened it!
+
+<a id="settings-color"></a>
 #### 4.4.2.1 Change color scheme
 >Format: `/set /c COLORSCHEME`<br> 
 >Flag optionality: `/c` (required) 
@@ -509,6 +515,8 @@ If your flag description `COLORSCHEME` does not fall in the range mentioned abov
  
   Example:   
  * `/set /c 2`
+ 
+<a id="settings-help-message"></a>
 #### 4.4.2.2 Change behavior of help message
 >Format: `/set /m [on/off]` <br>
 >Flag optionality: `/m` (required) 
@@ -536,7 +544,7 @@ If you are done using CheatLogs, simple type `/exit` to close the application. C
 <br>
 
 <a id="data-storage"></a>
-## 5. Data storage<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
+# 5. Data storage<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
 
 CheatLogs provides a robust storage system that works together with certain
 commands to store your cheat sheets for future reference. This ensures that you
@@ -655,7 +663,7 @@ The figure below shows a sample organization of the cheat sheet files in a user'
 a few preloaded cheat  included.
 
 ![image](https://i.ibb.co/7KS8vqn/preloaded-Org.png)
-*
+
 In the example above, you can see that CheatLogs keeps the organization of such preloaded cheat sheets seperate
 from the other cheat sheet files. This is to help you to better identify which files are marked as
 preloaded.
@@ -665,7 +673,7 @@ preloaded.
 <br>
 
 <a id="faq"></a>
-## 6. FAQ<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
+# 6. FAQ<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
 **Q**: How do I transfer my data to another computer? <br>
 **A**: You can simply drag and drop the `cheatlogs.jar`  and the `/data` directory in that same folder into the other computer.
 
@@ -678,7 +686,7 @@ preloaded.
 <br>
 
 <a id="command-cheatsheet"></a>
-## 7. Command Cheatsheet<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
+# 7. Command Cheatsheet<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
 The table below is for quick and easy reference to the CheatLogs commands with examples of use.
 
 Action | Format | Examples
