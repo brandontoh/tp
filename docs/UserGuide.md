@@ -24,7 +24,7 @@ The table of contents below lets you easily access the documentation for install
 
 <br>
 
-## Table of contents
+# Table of contents
 
 * [1. Before you start](#before-start)
 * [2. Running CheatLogs](#start)
