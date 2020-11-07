@@ -2,6 +2,7 @@
 
 
 
+
 <h1 align="center">  CheatLogs User Guide </h1>
 
 
@@ -169,7 +170,7 @@ ___
 You can easily use the **/add** command to add your own cheat sheets to the list by using 2 different methods **easy** and **hard** mode.
 
 <a id="add-command-easy"></a>
-#### 4.1.1.1. Adding a cheatsheet using the easy mode
+#### 4.1.1.1. Adding a cheatsheet using the easy mode<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 > Format: `/add`
 
 The first method that you can use to add cheatsheet is the easy mode. Just type `/add` without adding any flag or description. 
@@ -183,7 +184,7 @@ Enter the details of your cheatsheet there, then click `Actions` then `Save`
 Congratulations! You have added your first cheatsheet into CheatLogs.
 
 <a id="add-command-advanced"></a>
-#### 4.1.1.2. Adding a cheatsheet using the advanced mode
+#### 4.1.1.2. Adding a cheatsheet using the advanced mode<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 >Format: `/add /n <CHEATSHEET_NAME> /s <SUBJECT>` <br>
 >Flag optionality: `/n` (required)`/s` (optional)
 >
@@ -501,7 +502,7 @@ CheatLogs is highly customizable. By using the `/set` command, you can choose to
 The settings will be saved automatically and the next time you lauch CheatLogs, it will be exactly the still the same as last time you opened it!
 
 <a id="settings-color"></a>
-#### 4.4.2.1. Change color scheme
+#### 4.4.2.1. Change color scheme<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
 >Format: `/set /c COLORSCHEME`<br> 
 >Flag optionality: `/c` (required) 
 
@@ -518,7 +519,7 @@ If your flag description `COLORSCHEME` does not fall in the range mentioned abov
  * `/set /c 2`
  
 <a id="settings-help-message"></a>
-#### 4.4.2.2. Change behavior of help message
+#### 4.4.2.2. Change behavior of help message<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
 >Format: `/set /m [on/off]` <br>
 >Flag optionality: `/m` (required) 
 
