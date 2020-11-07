@@ -2,7 +2,6 @@ package ui;
 
 import cheatsheet.CheatSheet;
 import cheatsheet.CheatSheetList;
-import exception.CommandException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,20 +13,19 @@ public class TablePrinter {
     String[][] rawTable;
     ArrayList<String[]> finalTable;
     int maxWidth = 30;
-    boolean leftJustifiedRows = true;
     Printer printer;
 
-    public TablePrinter(Printer printer, CheatSheetList cheatSheetList) throws CommandException {
+    public TablePrinter(Printer printer, CheatSheetList cheatSheetList) {
         this.printer = printer;
         makeRawTable(cheatSheetList.getList());
     }
 
-    public TablePrinter(Printer printer, ArrayList<CheatSheet> cheatSheetToBePrinted) throws CommandException {
+    public TablePrinter(Printer printer, ArrayList<CheatSheet> cheatSheetToBePrinted) {
         this.printer = printer;
         makeRawTable(cheatSheetToBePrinted);
     }
 
-    private void makeRawTable(ArrayList<CheatSheet> cheatSheetsToBePrinted) throws CommandException {
+    private void makeRawTable(ArrayList<CheatSheet> cheatSheetsToBePrinted) {
         rawTable = new String[cheatSheetsToBePrinted.size() + 1][4];
         rawTable[0][0] = "INDEX";
         rawTable[0][1] = "NAME";
@@ -121,7 +119,7 @@ public class TablePrinter {
 
     public StringBuilder prepareStringFormatForEachRow(HashMap<Integer, Integer> columnLengths) {
         final StringBuilder stringFormat = new StringBuilder("");
-        String flag = leftJustifiedRows ? "-" : "";
+        String flag = "-";
         int col = 0;
         String color = "";
         for (HashMap.Entry<Integer, Integer> e : columnLengths.entrySet()) {

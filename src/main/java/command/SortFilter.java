@@ -62,7 +62,7 @@ public class SortFilter {
             printer.print("Sorted subject in descending order");
             break;
         default:
-            throw new CommandException("Exiting list command ...");
+            throw new CommandException("Exited list command");
         }
     }
 }

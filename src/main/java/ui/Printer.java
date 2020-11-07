@@ -152,8 +152,7 @@ public final class Printer {
 
                 + ConsoleColorsEnum.BOLD + "" + logoColor + "/set /c <OPTION_NUMBER>"
                 + reset + NEWLINE
-                + "\tChanges the color scheme of the application. Available options: 1 - 3."
-                + "Type 0 to reset to default color scheme" + NEWLINE
+                + "\tChanges the color scheme of the application. Available options: 0 - 3." + NEWLINE
 
                 + ConsoleColorsEnum.BOLD + "" + logoColor + "/set /m on"
                 + reset + NEWLINE
@@ -294,41 +293,6 @@ public final class Printer {
         }
     }
 
-    // prints all colors, for debugging purposes only
-    public void printColors() {
-        print(ConsoleColorsEnum.BLACK_TEXT + "TEST\n" + reset);
-        print(ConsoleColorsEnum.BRIGHT_BLACK_TEXT + "TEST\n" + reset);
-        print(ConsoleColorsEnum.BOLD_BLACK_TEXT + "TEST\n" + reset);
-
-        print(ConsoleColorsEnum.WHITE_TEXT + "TEST\n" + reset);
-        print(ConsoleColorsEnum.BRIGHT_WHITE_TEXT + "TEST\n" + reset);
-        print(ConsoleColorsEnum.BOLD_WHITE_TEXT + "TEST\n" + reset);
-
-        print(ConsoleColorsEnum.BLUE_TEXT + "TEST\n" + reset);
-        print(ConsoleColorsEnum.BRIGHT_BLUE_TEXT + "TEST\n" + reset);
-        print(ConsoleColorsEnum.BOLD_BLUE_TEXT + "TEST\n" + reset);
-
-        print(ConsoleColorsEnum.RED_TEXT + "TEST\n" + reset);
-        print(ConsoleColorsEnum.BRIGHT_RED_TEXT + "TEST\n" + reset);
-        print(ConsoleColorsEnum.BOLD_RED_TEXT + "TEST\n" + reset);
-
-        print(ConsoleColorsEnum.CYAN_TEXT + "TEST\n" + reset);
-        print(ConsoleColorsEnum.BRIGHT_CYAN_TEXT + "TEST\n" + reset);
-        print(ConsoleColorsEnum.BOLD_CYAN_TEXT + "TEST\n" + reset);
-
-        print(ConsoleColorsEnum.YELLOW_TEXT + "TEST\n" + reset);
-        print(ConsoleColorsEnum.BRIGHT_YELLOW_TEXT + "TEST\n" + reset);
-        print(ConsoleColorsEnum.BOLD_YELLOW_TEXT + "TEST\n" + reset);
-
-        print(ConsoleColorsEnum.GREEN_TEXT + "TEST\n" + reset);
-        print(ConsoleColorsEnum.BRIGHT_GREEN_TEXT + "TEST\n" + reset);
-        print(ConsoleColorsEnum.BOLD_GREEN_TEXT + "TEST\n" + reset);
-
-        print(ConsoleColorsEnum.MAGENTA_TEXT + "TEST\n" + reset);
-        print(ConsoleColorsEnum.BRIGHT_MAGENTA_TEXT + "TEST\n" + reset);
-        print(ConsoleColorsEnum.BOLD_MAGENTA_TEXT + "TEST\n" + reset);
-    }
-
     public void printStartHelpMessage() {
         print(ConsoleColorsEnum.BRIGHT_YELLOW_TEXT
                 + NEWLINE + "Here are some basics commands to get you started: "
@@ -432,7 +396,7 @@ public final class Printer {
         print(ConsoleColorsEnum.BRIGHT_YELLOW_TEXT
                 + "The LIST command lists all current existing cheat sheets."
                 + NEWLINE + "You could also sort the cheat sheets according to name or subject"
-                + NEWLINE + "To stop messages like from appearing again, input this command: \"/set /m remove\""
+                + NEWLINE + "To stop messages like from appearing again, input this command: \"/set /m off\""
                 + ConsoleColorsEnum.RESET_TEXT);
     }
 
@@ -446,10 +410,10 @@ public final class Printer {
     public void printSetDisplayingHelpMessages(boolean isDisplayingHelpMessages) {
         if (isDisplayingHelpMessages) {
             print("You have enabled the help messages."
-                    + NEWLINE + "You can disable the help messages using \"/set /m remove\"\n");
+                    + NEWLINE + "You can disable the help messages using \"/set /m off\"\n");
         } else {
             print("You have disabled the help messages."
-                    + NEWLINE + "You can re-enable it again using \"/set /m include\"\n");
+                    + NEWLINE + "You can re-enable it again using \"/set /m on\"\n");
         }
     }
 }

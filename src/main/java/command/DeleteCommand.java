@@ -46,7 +46,6 @@ public class DeleteCommand extends FinderCommand {
                 cheatSheetList.remove(cheatSheetToDelete.getName());
                 printer.printDeleteCheatSheetMessage(cheatSheetToDelete, cheatSheetList);
             }
-            printer.printCheatSheetSize(cheatSheetList);
         } catch (NullPointerException | IndexOutOfBoundsException | NumberFormatException e) {
             throw new CommandException("Please enter a valid name or/and index");
         }

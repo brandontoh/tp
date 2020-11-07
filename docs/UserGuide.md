@@ -484,7 +484,7 @@ These are useful general purpose commands that don't fit into the other categori
 >
 If you forgot the syntax of a certain command, you can simply type `/help`. It will list all the possible commands that can be executed in the application together with its format and example. Below is what you should expect to see.
 
-![image](https://i.ibb.co/6mGh0wV/image.png)
+![image](https://i.ibb.co/n7gWdpQ/image.png)
 
 Example:
 * `/help`
@@ -492,12 +492,16 @@ Example:
 
 <a id="settings-command"></a>
 ### 4.4.2 Change program settings: `/set`<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
->Format: `/set /c COLORSCHEME`
->Flag optionality: `/c`(required) 
+CheatLogs is highly customizable. By using the `/set` command, you can choose to enable/disable the help messages on each command and change the color scheme of output text can be changed. 
+The settings will be saved automatically and the next time you lauch CheatLogs, it will be exactly the still the same as last time you opened it!
+#### 4.4.2.1 Change color scheme
+>Format: `/set /c COLORSCHEME`<br> 
+>Flag optionality: `/c` (required) 
 
-CheatLogs is highly customizable. You can use the `/set` command to change the behavior of CheatLogs. Currently, only the color scheme of output text can be changed. You can change to any of the 3 additional color scheme options available numbering from 0 to 3 and CheatLogs switch to the one matching `COLORSCHEME`. The image below shows the result of a successful change.
 
-![image](https://i.ibb.co/5GFvnHb/image.png)
+CheatLogs provides 3 additional color scheme options numbered from 1 to 3. CheatLogs will change the settings to the one matching `COLORSCHEME`. The image below shows the result of `/set /c` command.
+
+![image](https://i.ibb.co/0JM5gBd/image.png)
 
 If your flag description `COLORSCHEME` does not fall in the range mentioned above, it will change the color scheme to the default setting (option 0).
 
@@ -505,7 +509,18 @@ If your flag description `COLORSCHEME` does not fall in the range mentioned abov
  
   Example:   
  * `/set /c 2`
+#### 4.4.2.2 Change behavior of help message
+>Format: `/set /m [on/off]` <br>
+>Flag optionality: `/m` (required) 
 
+CheatLogs provides help messages for each command. Here is an example from `/add` command.
+![image](https://i.ibb.co/6wPMRvF/image.png)
+
+You can disable these help messages by using the `/set /m off` and later when you want to re-enable them again, you can type `/set /m on`.
+
+  Example:   
+ * `/set /m on`
+ * `/set /m off`
 ---
 
 <a id="exit-command"></a>
@@ -518,9 +533,7 @@ If you are done using CheatLogs, simple type `/exit` to close the application. C
 
  Example:   
  * `/exit`
-
 <br>
-
 
 <a id="data-storage"></a>
 ## 5. Data storage<font size="5"> [:arrow_up_small:](#table-of-contents)</font> 

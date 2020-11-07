@@ -235,9 +235,6 @@ public class DataFileReader extends DataFile {
             }
 
             try {
-
-                extractCheatSheet(dataDirectoryFile);
-
                 if (dataDirectoryFile.getName().equals("settings.txt")) {
                     loadUserSettings(dataDirectoryFile);
                 } else {

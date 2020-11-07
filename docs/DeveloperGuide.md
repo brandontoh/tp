@@ -15,10 +15,22 @@
     + [3.1. Architecture](#31-architecture)
     + [3.2. Components](#32-components)
         - [3.2.1. User Interface (Abner)](#321-user-interface-abner)
-        - [3.2.2. Command Parser (Brandon)](#322-command-parser-brandon)
-        - [3.2.3. Cheat Sheet Structure (Aldo)](#323-cheat-sheet-structure-aldo)
-        - [3.2.4. Cheat Sheet Management (Adhy)](#324-cheat-sheet-management-adhy)
-        - [3.2.5. Data Storage (Theo)](#325-data-storage-theo)
+        - [3.2.2. Parser](#322-parser)
+        - [3.2.3. Command (Brandon)](#323-command-brandon)
+            * [3.2.3.1. Add](#3231-add)
+            * [3.2.3.2. Edit](#3232-edit)
+            * [3.2.3.3. View](#3233-view)
+            * [3.2.3.4. Exit](#3234-exit)
+            * [3.2.3.5. List](#3235-list)
+            * [3.2.3.6. Find](#3236-find)
+            * [3.2.3.7. Setting](#3237-setting)
+            * [3.2.3.8. Delete](#3238-delete)
+            * [3.2.3.9. Clear](#3239-clear)
+            * [3.2.3.10. Favorite](#32310-favorite)
+            * [3.2.3.11. Exit](#32311-help)
+        - [3.2.3. Cheat Sheet Structure (Aldo)](#324-cheat-sheet-structure-aldo)
+        - [3.2.4. Cheat Sheet Management (Adhy)](#325-cheat-sheet-management-adhy)
+        - [3.2.5. Data Storage (Theo)](#326-data-storage-theo)
 * [4. Implementation](#4-implementation)
     + [4.1. Parsing of Data to Construct Commands](#41-parsing-of-data-to-construct-commands)
     + [4.2. Editing Feauture](#42-editing-feauture)
@@ -154,7 +166,9 @@ These common objects are injected into other objects that need them via the clas
 The common objects include the Ui and  Printer helper classes which provide an organized way to read and write data. 
 Most of the programmes’ output is made via calls to the same common printer object.
 
-#### 3.2.2. Command Parser (Brandon)
+#### 3.2.2. Parser 
+
+#### 3.2.3. Command (Brandon)
 
 This component would parse the user input to produce useful information which would be used to construct a Command and executed the command. 
 
@@ -176,8 +190,29 @@ The steps below explain the sequence diagram:
 5. CommandExecutor#execute() would be called to create a new Command object according to type of command user inputted
 6. Command#execute() would call other methods from CheatSheet and CheatSheetList to carry out specific instructions.
 
+##### 3.2.3.1 Add
 
-#### 3.2.3. Cheat Sheet Structure (Aldo)
+##### 3.2.3.2 Edit
+
+##### 3.2.3.3 View
+
+##### 3.2.3.4 Exit
+
+##### 3.2.3.5 List
+
+##### 3.2.3.6 Find
+
+##### 3.2.3.7 Setting 
+
+##### 3.2.3.8 Delete
+
+##### 3.2.3.9 Clear
+
+##### 3.2.3.10 Favorite
+
+##### 3.2.3.11 Help
+
+#### 3.2.4. Cheat Sheet Structure (Aldo)
 
 To further understand our cheatsheet management application, it is important to understand the inner workings of the CheatSheet class. 
 CheatLogs comes with preloaded cheat sheets and the application has an in-built ability for the user to add, edit, and delete their own cheat sheets. 
@@ -211,7 +246,7 @@ With the use of XML file, it simplifies the parsing process of the cheatsheet fi
 
 Image 7: XML file showing the content of a cheatsheet file
 
-#### 3.2.4. Cheat Sheet Management (Adhy)
+#### 3.2.5. Cheat Sheet Management (Adhy)
 
 All cheat sheets, both pre-loaded and user-defined, are stored in a class called `CheatSheetList` during runtime. 
 Upon receiving a valid input from the user, the `execute()` method from `Command` class will invoke the mutation of `CheatSheetList`, 
@@ -232,7 +267,7 @@ Here is the list of `Commands` that invokes a method call of CheatSheetList:
 - `/list`
 - `/view`
 
-#### 3.2.5. Data Storage (Theo)
+#### 3.2.6. Data Storage (Theo)
 
 This feature allows the application to read and update data in the form of text files. 
 Having an external source to store data will allow the application to be able to retrieve it when it is relaunched at another instance. 
