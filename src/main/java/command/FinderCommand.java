@@ -29,7 +29,13 @@ public abstract class FinderCommand extends Command {
         }
 
         if (desiredCheatSheet == null) {
-            throw new CommandException("Please enter a valid name or/and an index");
+            if (name != null && index == null) {
+                throw new CommandException("Please enter a valid name");
+            } else if (name == null && index != null) {
+                throw new CommandException("Please enter a valid index");
+            } else if (name != null) {
+                throw new CommandException("No cheat sheet matches the name and index entered");
+            }
         }
         return desiredCheatSheet;
     }
