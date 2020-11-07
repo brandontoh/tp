@@ -166,7 +166,7 @@ The anatomy of the command is broken down to color coded sections in the picture
 This is one of the most used command type in CheatLogs. They allow you to manage the input and output of cheatsheets to and from the entire list of cheatsheets. CheatLogs only has one list of cheatsheets and the following storage commands all refer to this as **the List**.
 ___
 
-<a id="add-command"></a>
+<a id="add-command"></a> 
 ### 4.1.1. Adding a cheatsheet: `/add` <font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
 
 > :exclamation: The subject name would be automatically converted to pascal case, no matter whether the input by user is in lower or upper case.
