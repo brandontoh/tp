@@ -61,6 +61,9 @@ public class AddCommand extends Command {
 
         String subject = flagsToDescriptions.get(CommandFlag.SUBJECT);
         if (subject != null) {
+            if (!subject.matches(NO_SPECIAL_CHAR)) {
+                throw new CommandException("Subject can only contain alphanumeric characters");
+            }
             subject = convertToPascalCaseNoSpace(subject);
         } else {
             subject = "Unsorted";
