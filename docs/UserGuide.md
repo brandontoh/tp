@@ -8,6 +8,7 @@
 
 ![Our Logo](https://i.ibb.co/VxzKbbz/a1.png)
 
+CheatLogs is a free and open-source cheatsheet manager with blazing fast organization, editing and searching via both a command-line interface (CLI) and a graphical user interface (GUI) .
 
 This user guide serves as a reference for using the features of CheatLogs. The level of technicality within this document is tailored towards our target audience, novice programmers. If you are new, we recommend reading this from the very [start](#before-start).
 

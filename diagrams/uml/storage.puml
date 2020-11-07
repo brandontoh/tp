@@ -1,0 +1,24 @@
+@startuml
+
+hide circle
+skinparam classAttributeIconSize 0
+
+abstract class DataFile
+
+
+DataFile <|-d- DataFileReader
+DataFile <|-d- DataFileDestroyer
+DataFile <|-d- DataFileWriter
+
+DataFile -u-> "0..1" Printer : uses
+
+DataFileWriter -d-> "1" CheatSheetList : references
+DataFileReader -d-> "1" CheatSheetList : references
+DataFileDestroyer -d-> "1" CheatSheetList : references
+
+DataFileWriter -d-> "*" Cheatsheet : contains
+
+hide attributes
+hide method
+
+@enduml

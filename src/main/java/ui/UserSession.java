@@ -57,7 +57,6 @@ public class UserSession {
 
         // Ask for new user input and executes it until user types the exit command
         do {
-            printer.printUserInputPrompt();
             String userInput = ui.getUserInput();
             try {
                 Command parsedUserCommand = userCommandParser.parse(userInput);
