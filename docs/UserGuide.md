@@ -167,6 +167,13 @@ ___
 
 <a id="add-command"></a>
 ### 4.1.1. Adding a cheatsheet: `/add` <font size="5"> [:arrow_up_small:](#table-of-contents)</font> 
+
+> :exclamation: The subject name would be automatically converted to pascal case, no matter whether the input by user is in lower or upper case.
+> Example: 
+> * `java` would be converted to `Java`
+> * `PYTHON` would be converted to `Python`
+> * `ruby on rails` would be converted to `RubyOnRails`
+
 You can easily use the **/add** command to add your own cheat sheets to the list by using 2 different methods **easy** and **hard** mode.
 
 <a id="add-command-easy"></a>
