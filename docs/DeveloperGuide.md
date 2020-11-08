@@ -224,12 +224,15 @@ The steps below explain the sequence diagram:
 
 <a id="list"></a>
 ##### 4.2.3.5 List
+The `list` command lists all the cheatsheets im cheatSheetList.
 
 <a id="find"></a>
 ##### 4.2.3.6 Find
+The `find` command searches through cheatSheetList to find matching cheatsheets.
 
 <a id="setting"></a>
 ##### 4.2.3.7 Setting 
+The `setting` command allows user to change color scheme and either turn off or on help messages for commands.
 
 <a id="delete"></a>
 ##### 3.2.3.8 Delete
