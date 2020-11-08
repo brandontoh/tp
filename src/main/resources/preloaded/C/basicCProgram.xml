@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <main>
-   <favourite>No</favourite>
+   <favourite>NO</favourite>
    <subject>C</subject>
    <contents>
    Before we study the basic building blocks of the C programming language, let us look at a bare minimum C program structure so that we can take it as a reference in the upcoming chapters.

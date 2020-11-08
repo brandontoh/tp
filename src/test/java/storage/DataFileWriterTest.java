@@ -17,7 +17,7 @@ public class DataFileWriterTest extends DataFileTest {
             + System.lineSeparator()
             + "<main>"
             + System.lineSeparator()
-            + "    <favourite>No</favourite>"
+            + "    <favourite>NO</favourite>"
             + System.lineSeparator()
             + "    <subject>Test</subject>"
             + System.lineSeparator()
@@ -30,7 +30,7 @@ public class DataFileWriterTest extends DataFileTest {
             + System.lineSeparator()
             + "<main>"
             + System.lineSeparator()
-            + "    <favourite>No</favourite>"
+            + "    <favourite>NO</favourite>"
             + System.lineSeparator()
             + "    <subject>Test</subject>"
             + System.lineSeparator()
@@ -54,9 +54,7 @@ public class DataFileWriterTest extends DataFileTest {
 
         testWriter.executeFunction();
         userDirectoryFiles = dataDir.toFile().list();
-        if (!isDataDirPresent) {
-            eraseFile(dataDir);
-        }
+        restoreDataDir(isDataDirPresent);
 
         testCheatSheetList.clear();
 
@@ -86,9 +84,7 @@ public class DataFileWriterTest extends DataFileTest {
         }
 
         eraseFile(sampleTestDir);
-        if (!isDataDirPresent) {
-            eraseFile(dataDir);
-        }
+        restoreDataDir(isDataDirPresent);
 
         testCheatSheetList.clear();
         assertTrue(isSampleAdded);
@@ -106,7 +102,6 @@ public class DataFileWriterTest extends DataFileTest {
                 "Test",
                 "Test Success!");
         testCheatSheetList.add(testCheatSheet);
-
         testWriter.executeFunction();
 
         String writtenFile = empty;
@@ -120,9 +115,7 @@ public class DataFileWriterTest extends DataFileTest {
             }
 
             eraseFile(sampleTestDir);
-            if (!isDataDirPresent) {
-                eraseFile(dataDir);
-            }
+            restoreDataDir(isDataDirPresent);
 
             testCheatSheetList.clear();
             assertEquals(fileInput, writtenFile);
@@ -132,9 +125,6 @@ public class DataFileWriterTest extends DataFileTest {
     @Test
     void writeFileExists_missingUserDir_success() {
         final boolean isDataDirPresent = checkDataDirectoryExistence();
-        if (isDataDirPresent) {
-            shiftExistingDataFiles();
-        }
 
         testCheatSheetList.clear();
         CheatSheet testCheatSheet = new CheatSheet(sample,
@@ -149,16 +139,7 @@ public class DataFileWriterTest extends DataFileTest {
             eraseFile(sampleTest);
         }
         eraseFile(sampleTestDir);
-        eraseFile(dataDir);
-
-        if (isDataDirPresent) {
-            try {
-                Files.move(tempDataDir, dataDir);
-                eraseFile(tempDir);
-            } catch (IOException e) {
-                printer.print(e.getMessage());
-            }
-        }
+        restoreDataDir(isDataDirPresent);
 
         testCheatSheetList.clear();
         assertTrue(isSampleAdded);
@@ -170,6 +151,7 @@ public class DataFileWriterTest extends DataFileTest {
         if (!isDataDirPresent) {
             createDirectory(dataDir);
         }
+        createDirectory(sampleTestDir);
         createSampleFile(sampleTest, fileInput);
 
         testCheatSheetList.clear();
@@ -177,7 +159,6 @@ public class DataFileWriterTest extends DataFileTest {
                 "Test",
                 "Test Updated Success!");
         testCheatSheetList.add(testCheatSheet);
-
         testWriter.executeFunction();
 
         String writtenFile = empty;
@@ -189,11 +170,8 @@ public class DataFileWriterTest extends DataFileTest {
             if (sampleTest.toFile().exists()) {
                 eraseFile(sampleTest);
             }
-
             eraseFile(sampleTestDir);
-            if (!isDataDirPresent) {
-                eraseFile(dataDir);
-            }
+            restoreDataDir(isDataDirPresent);
 
             testCheatSheetList.clear();
             assertEquals(fileInput2, writtenFile);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <main>
-    <favourite>No</favourite>
+    <favourite>NO</favourite>
     <subject>C</subject>
     <contents>
     Strings are actually one-dimensional array of characters terminated by a null character '\0'. Thus a null-terminated string contains the characters that comprise the string followed by a null.

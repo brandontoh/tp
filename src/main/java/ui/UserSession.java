@@ -39,7 +39,7 @@ public class UserSession {
         fileWriter = new DataFileWriter(settings, printer, cheatSheetList);
 
         fileDestroyer = new DataFileDestroyer(printer, cheatSheetList);
-        userCommandParser = new Parser(cheatSheetList, editor, fileDestroyer, printer, ui, settings);
+        userCommandParser = new Parser(cheatSheetList, editor, fileDestroyer, printer, ui, settings, fileReader);
         isFirstRun = false;
     }
 

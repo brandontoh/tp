@@ -18,6 +18,7 @@ import editor.Editor;
 import exception.CommandException;
 import settings.Settings;
 import storage.DataFileDestroyer;
+import storage.DataFileReader;
 import ui.Ui;
 import ui.Printer;
 
@@ -26,6 +27,7 @@ import java.util.LinkedHashMap;
 public class ParserStub {
     private CheatSheetList cheatSheetList;
     private DataFileDestroyer fileDestroyer;
+    private DataFileReader fileReader;
     private Editor editor;
     private Printer printer;
     private Ui ui;
@@ -39,9 +41,11 @@ public class ParserStub {
     }
 
     public ParserStub(CheatSheetList cheatSheetList, Editor editor,
-                  DataFileDestroyer fileDestroyer, Printer printer, Ui ui, Settings settings) {
+                  DataFileDestroyer fileDestroyer, Printer printer, Ui ui, Settings settings,
+                  DataFileReader fileReader) {
         this.cheatSheetList = cheatSheetList;
         this.editor = editor;
+        this.fileReader = fileReader;
         this.fileDestroyer = fileDestroyer;
         this.printer = printer;
         this.ui = ui;
@@ -63,7 +67,7 @@ public class ParserStub {
         case AddCommandStub.invoker:
             return new AddCommandStub(printer, cheatSheetList, editor);
         case ClearCommand.invoker:
-            return new ClearCommand(printer, cheatSheetList, fileDestroyer);
+            return new ClearCommand(printer, cheatSheetList, fileDestroyer, fileReader);
         case DeleteCommand.invoker:
             return new DeleteCommand(printer, cheatSheetList, fileDestroyer);
         case EditCommand.invoker:

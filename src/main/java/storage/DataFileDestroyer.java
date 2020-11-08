@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class DataFileDestroyer extends DataFile {
 
-    private final CheatSheetList cheatSheetList;
+
     private final Logger destroyLogger = Logger.getLogger("FileDestroyer");
 
     public DataFileDestroyer(Printer printer, CheatSheetList cheatSheetList) {
@@ -96,6 +96,7 @@ public class DataFileDestroyer extends DataFile {
      */
     private void clearDataDirectory() throws DirectoryIsEmptyException {
         clearDirectory(DATA_DIR);
+        
     }
 
     /**
@@ -121,6 +122,7 @@ public class DataFileDestroyer extends DataFile {
 
             try {
                 deleteFile(dataDirectoryFile.replace(XML_EXTENSION, EMPTY));
+                preloadedCheatSheets.clear();
             } catch (IOException e) {
                 destroyLogger.log(Level.WARNING, "IO Directory Error");
                 printer.print("CheatLogs could not clear a particular file!"
