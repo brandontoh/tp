@@ -1,5 +1,6 @@
 package storage;
 
+import cheatsheet.CheatSheetList;
 import ui.Printer;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -20,8 +21,8 @@ import java.util.ArrayList;
  */
 public abstract class DataFile {
 
-    protected static final String YES = "Yes";
-    protected static final String NO = "No";
+    protected static final String YES = "YES";
+    protected static final String NO = "NO";
     protected static final String EMPTY = "";
     protected static final String SLASH = "/";
 
@@ -43,7 +44,8 @@ public abstract class DataFile {
     protected static final String SETTINGS_FILENAME = "/settings.txt";
 
     protected Printer printer;
-    protected static ArrayList<Path> preloadedCheatSheets = new ArrayList<>();
+    protected CheatSheetList cheatSheetList;
+    public static ArrayList<Path> preloadedCheatSheets = new ArrayList<>();
 
     /**
      * A method that is to be run based on its subclass.

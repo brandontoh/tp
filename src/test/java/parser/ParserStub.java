@@ -3,7 +3,7 @@ package parser;
 import cheatsheet.CheatSheetList;
 
 import command.Command;
-import command.AddCommand;
+import command.AddCommandStub;
 import command.ClearCommand;
 import command.DeleteCommand;
 import command.EditCommand;
@@ -24,7 +24,7 @@ import ui.Printer;
 
 import java.util.LinkedHashMap;
 
-public class Parser {
+public class ParserStub {
     private CheatSheetList cheatSheetList;
     private DataFileDestroyer fileDestroyer;
     private DataFileReader fileReader;
@@ -35,14 +35,14 @@ public class Parser {
 
     private static final String FLAG_REGEX = "(?=(/[a-z]))";
 
-    public Parser(Printer printer, Settings settings) {
+    public ParserStub(Printer printer, Settings settings) {
         this.printer = printer;
         this.settings = settings;
     }
 
-    public Parser(CheatSheetList cheatSheetList, Editor editor,
-                  DataFileDestroyer fileDestroyer, Printer printer,
-                  Ui ui, Settings settings, DataFileReader fileReader) {
+    public ParserStub(CheatSheetList cheatSheetList, Editor editor,
+                  DataFileDestroyer fileDestroyer, Printer printer, Ui ui, Settings settings,
+                  DataFileReader fileReader) {
         this.cheatSheetList = cheatSheetList;
         this.editor = editor;
         this.fileReader = fileReader;
@@ -64,8 +64,8 @@ public class Parser {
     private Command parseCommandType(String userInput) throws CommandException {
         String parsedInput = userInput.split(" ")[0];
         switch (parsedInput) {
-        case AddCommand.invoker:
-            return new AddCommand(printer, cheatSheetList, editor);
+        case AddCommandStub.invoker:
+            return new AddCommandStub(printer, cheatSheetList, editor);
         case ClearCommand.invoker:
             return new ClearCommand(printer, cheatSheetList, fileDestroyer, fileReader);
         case DeleteCommand.invoker:
@@ -92,7 +92,7 @@ public class Parser {
     }
 
     private LinkedHashMap<CommandFlag, String> parseFlagDescriptions(Command command, String userInput)
-            throws CommandException {
+        throws CommandException {
         LinkedHashMap<CommandFlag, String> flagsToDescriptions = new LinkedHashMap<>();
 
         try {
@@ -138,8 +138,8 @@ public class Parser {
         if (!commandToBeExecuted.hasAlternativeArgument() && settings.getDisplayingHelpMessages()) {
             printer.printCommandHelpMessage(commandToBeExecuted.getClass());
         } else if (settings.getDisplayingHelpMessages()
-                && (commandToBeExecuted.getClass().equals(ListCommand.class)
-                || (commandToBeExecuted.getClass().equals(ClearCommand.class)))) {
+            && (commandToBeExecuted.getClass().equals(ListCommand.class)
+            || (commandToBeExecuted.getClass().equals(ClearCommand.class)))) {
             printer.printCommandHelpMessage(commandToBeExecuted.getClass());
         }
 

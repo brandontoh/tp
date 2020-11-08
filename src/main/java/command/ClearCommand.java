@@ -1,7 +1,9 @@
 package command;
 
 import cheatsheet.CheatSheetList;
+import storage.DataFile;
 import storage.DataFileDestroyer;
+import storage.DataFileReader;
 import ui.Printer;
 import ui.Ui;
 
@@ -10,6 +12,7 @@ import ui.Ui;
  */
 public class ClearCommand extends Command {
     protected DataFileDestroyer fileDestroyer;
+    protected DataFileReader fileReader;
 
     public static final String invoker = "/clear";
 
@@ -21,10 +24,13 @@ public class ClearCommand extends Command {
      * @param cheatSheetList The current list of cheat sheets
      * @param fileDestroyer  The fileDestroyer object removes cheat sheet file from the /data folder
      */
-    public ClearCommand(Printer printer, CheatSheetList cheatSheetList, DataFileDestroyer fileDestroyer) {
+
+    public ClearCommand(Printer printer, CheatSheetList cheatSheetList, DataFileDestroyer fileDestroyer,
+                       DataFileReader fileReader) {
         super(printer);
         this.cheatSheetList = cheatSheetList;
         this.fileDestroyer = fileDestroyer;
+        this.fileReader = fileReader;
     }
 
     /**
@@ -35,9 +41,14 @@ public class ClearCommand extends Command {
     public void execute() {
         printer.printClearConfirmation();
         if (isClearConfirmed()) {
+            final int deletedCheatSheets = cheatSheetList.getSize()
+                    - DataFile.preloadedCheatSheets.size();
             fileDestroyer.executeFunction();
-            printer.printClearCheatSheetMessage(cheatSheetList.getSize());
             cheatSheetList.clear();
+
+            fileReader.extractPreloadedCheatSheets();
+            fileReader.executeFunction();
+            printer.printClearCheatSheetMessage(deletedCheatSheets);
         }
     }
 

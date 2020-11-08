@@ -37,7 +37,7 @@ import ui.Printer;
 public class DataFileWriter extends DataFile {
     private ArrayList<CheatSheet> cheatSheets;
 
-    private final CheatSheetList cheatSheetList;
+
     private final Logger writeLogger = Logger.getLogger("FileWriter");
 
     private Settings settings;

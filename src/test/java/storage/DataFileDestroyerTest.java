@@ -35,9 +35,7 @@ public class DataFileDestroyerTest extends DataFileTest {
             eraseFile(sampleTest3);
             eraseFile(sampleTestDir);
         }
-        if (!isDataDirPresent) {
-            eraseFile(dataDir);
-        }
+        restoreDataDir(isDataDirPresent);
 
         testCheatSheetList.clear();
         assertTrue(isSampleRemoved);
@@ -47,9 +45,6 @@ public class DataFileDestroyerTest extends DataFileTest {
     void clearDirectory_multipleSampleTest_success() {
         final boolean isDataDirPresent = checkDataDirectoryExistence();
 
-        if (isDataDirPresent) {
-            shiftExistingDataFiles();
-        }
         createDirectory(sampleTestDir);
         createSampleFile(sampleTest2, empty);
         createSampleFile(sampleTest3, empty);
@@ -75,11 +70,7 @@ public class DataFileDestroyerTest extends DataFileTest {
             eraseFile(sampleTest3);
             eraseFile(sampleTestDir);
         }
-        eraseFile(dataDir);
-
-        if (isDataDirPresent) {
-            restoreDataDir();
-        }
+        restoreDataDir(isDataDirPresent);
 
         testCheatSheetList.clear();
         assertTrue(isSampleRemoved);

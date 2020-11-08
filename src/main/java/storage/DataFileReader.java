@@ -38,10 +38,10 @@ import java.util.logging.Logger;
  * and insert the cheatsheets present in the folder to the application.
  */
 public class DataFileReader extends DataFile {
-    private final CheatSheetList cheatSheetList;
+
     private final Logger readLogger = Logger.getLogger("FileReader");
     private final Settings settings;
-
+    protected String jarDirectory = JAR_DIR;
 
     public DataFileReader(Settings settings, Printer printer, CheatSheetList cheatSheetList) {
         this.settings = settings;
@@ -107,7 +107,7 @@ public class DataFileReader extends DataFile {
      *                     the files inside CheatLogs.jar.
      */
     private void extractXmlFilesFromJar() throws IOException {
-        JarFile jarFile = new JarFile(JAR_DIR);
+        JarFile jarFile = new JarFile(jarDirectory);
 
         Enumeration<JarEntry> enumEntries = jarFile.entries();
         while (enumEntries.hasMoreElements()) {

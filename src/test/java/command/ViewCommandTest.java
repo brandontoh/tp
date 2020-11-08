@@ -1,48 +1,57 @@
 package command;
 
-import cheatsheet.CheatSheet;
 import cheatsheet.CheatSheetList;
+import editor.Editor;
 import exception.CommandException;
 import org.junit.jupiter.api.Test;
-import parser.Parser;
-
-import javax.swing.text.View;
+import ui.Printer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ViewCommandTest {
-    /*
+
     @Test
-    void execute_validInput_success() {
-        final String userInput = "/view /i 2";
-        CheatSheetList.clear();
-        for (int i = 0; i < 10; i++) {
-            CheatSheetList.add(new CheatSheet("Name" + i, "Language" + i, "Details" + i));
-        }
-        try {
-            Parser parser = new Parser();
-            Command viewCommand = parser.parser(userInput);
-            viewCommand.execute();
-        } catch (CommandException e) {
-            fail();
-        }
+    void execute_validIndex_success() throws CommandException {
+        CheatSheetList cheatSheetList = new CheatSheetList();
+        AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
+        addCommandStub.populateFlagsToDescription("FirstTest", "Java");
+        addCommandStub.executeStub("Content1");
+        ViewCommandStub viewCommandStub = new ViewCommandStub(new Printer(), cheatSheetList);
+        viewCommandStub.populateFlagsToDescription(null, "1");
+        assertEquals("FirstTestJavaContent1", viewCommandStub.executeStub());
     }
-    */
-//    @Test
-//    void execute_noArgument_exceptionThrown() {
-//        final String userInput = "/view something";
-//        CheatSheetList.clear();
-//        for (int i = 0; i < 10; i++) {
-//            CheatSheetList.add(new CheatSheet("Name" + i, "Language" + i, "Details" + i));
-//        }
-//        try {
-//            Parser parser = new Parser();
-//            Command viewCommand = parser.parse(userInput);
-//            viewCommand.execute();
-//            fail();
-//        } catch (CommandException e) {
-//            assertEquals("Please enter a name or an index", e.getMessage());
-//        }
-//    }
+
+    @Test
+    void execute_validName_success() throws CommandException {
+        CheatSheetList cheatSheetList = new CheatSheetList();
+        AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
+        addCommandStub.populateFlagsToDescription("FirstTest", "Java");
+        addCommandStub.executeStub("Content1");
+        ViewCommandStub viewCommandStub = new ViewCommandStub(new Printer(), cheatSheetList);
+        viewCommandStub.populateFlagsToDescription("FirstTest", null);
+        assertEquals("FirstTestJavaContent1", viewCommandStub.executeStub());
+    }
+
+    @Test
+    void execute_InvalidName_exceptionThrown() throws CommandException {
+        CheatSheetList cheatSheetList = new CheatSheetList();
+        AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
+        addCommandStub.populateFlagsToDescription("FirstTest", "Java");
+        addCommandStub.executeStub("Content1");
+        ViewCommandStub viewCommandStub = new ViewCommandStub(new Printer(), cheatSheetList);
+        viewCommandStub.populateFlagsToDescription("namethatdontexist", null);
+        assertThrows(CommandException.class, viewCommandStub::executeStub);
+    }
+
+    @Test
+    void execute_InvalidIndex_exceptionThrown() throws CommandException {
+        CheatSheetList cheatSheetList = new CheatSheetList();
+        AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
+        addCommandStub.populateFlagsToDescription("FirstTest", "Java");
+        addCommandStub.executeStub("Content1");
+        ViewCommandStub viewCommandStub = new ViewCommandStub(new Printer(), cheatSheetList);
+        viewCommandStub.populateFlagsToDescription("FirstTest", "2");
+        assertThrows(CommandException.class, viewCommandStub::executeStub);
+    }
 }

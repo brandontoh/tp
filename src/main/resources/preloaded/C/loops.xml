@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <main>
-    <favourite>No</favourite>
+    <favourite>NO</favourite>
     <subject>C</subject>
     <contents>
     Programming languages provide various control structures that allow for more complicated execution paths.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <main>
-    <favourite>No</favourite>
+    <favourite>NO</favourite>
     <subject>C</subject>
     <contents>
     There are several data types in a C program. These are the few native datatypes that is available in C:

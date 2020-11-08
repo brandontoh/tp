@@ -17,7 +17,10 @@ public class DataFileTest {
     String test = "Test";
     String empty = "";
     String sample = "sample";
+    String sampleJarFile = Paths.get("src", "test", "java", "storage", "Test.jar")
+            .toString();
 
+    Path settingsPath = Paths.get(userDir, data, "settings.txt");
     Path sampleTestDir = Paths.get(userDir, data, test);
     Path dataDir = Paths.get(userDir, data);
     Path tempDir = Paths.get(userDir, temp);
@@ -62,16 +65,26 @@ public class DataFileTest {
         }
     }
 
-    void restoreDataDir() {
-        try {
-            Files.move(tempDataDir, dataDir);
-            eraseFile(tempDir);
-        } catch (IOException e) {
-            printer.print(e.getMessage());
+    void restoreDataDir(boolean isDataDirOriginallyExistent) {
+        eraseFile(settingsPath);
+        eraseFile(dataDir);
+
+        if (isDataDirOriginallyExistent) {
+            try {
+                Files.move(tempDataDir, dataDir);
+                eraseFile(tempDir);
+            } catch (IOException e) {
+                printer.print(e.getMessage());
+            }
         }
     }
 
     boolean checkDataDirectoryExistence() {
-        return Files.exists(dataDir);
+        boolean isDataDirectoryExistent = Files.exists(dataDir);
+        if (isDataDirectoryExistent) {
+            shiftExistingDataFiles();
+        }
+        createDirectory(dataDir);
+        return isDataDirectoryExistent;
     }
 }
