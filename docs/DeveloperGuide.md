@@ -225,6 +225,13 @@ The steps below explain the sequence diagram:
 <a id="list"></a>
 ##### 4.2.3.5 List
 The `list` command lists all the cheatsheets in cheatSheetList.
+![ListCommand Sequence Diagram](https://i.ibb.co/XsPGvk9/Find-Command-List.png)
+
+
+<a id="find"></a>
+##### 4.2.3.6 Find
+The `find` command searches through cheatSheetList to find matching cheatsheets.
+
 ![FindCommand Sequence Diagram](https://i.ibb.co/DVVFM3q/Find-Command.png)
 
 The steps below explain the sequence diagram for `list`:
@@ -233,17 +240,18 @@ The steps below explain the sequence diagram for `list`:
 2. FindCommand object calls flagToDescriptions.get(CommandFlag.NAME) and assigns it to variable `name`
 3. FindCommand object calls flagToDescriptions.get(CommandFlag.SUBJECT) and assigns it to variable `subject`
 4. FindCommand object calls flagToDescriptions.get(CommandFlag.SECTIONKEYWORD) and assigns it to variable `keyword`
-5. A new ArrayList<cheatSheet> object is created and named `matchedContent`
-6.
-
-<a id="find"></a>
-##### 4.2.3.6 Find
-The `find` command searches through cheatSheetList to find matching cheatsheets.
-
+5. A new `ArrayList<cheatSheet>` object is created and named `matchedContent`
+6. For every cheatsheet in cheatSheetList, if the cheatsheet corresponds to what the user inputted, the cheatsheet would be added to `matchedContent`
+7. If `matchedContent` is empty after the loop, it means no matching cheatsheet is found and Command Exception would be thrown
+8. Else, 
+    1. new `TablePrinter` object would be created and TablePrinter#execute() would be called to print a table with all matching cheatsheets
+    2. new `SortFilter` object would be created and SortFilter#execute() would be called to enter Sorting Mode.
 
 <a id="setting"></a>
 ##### 4.2.3.7 Setting 
 The `setting` command allows user to change color scheme and either turn off or on help messages for commands.
+![SettingsCommand Sequence Diagram](https://i.ibb.co/HxDqqsz/Settings-Command.png)
+
 
 <a id="delete"></a>
 ##### 3.2.3.8 Delete
