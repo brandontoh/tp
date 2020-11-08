@@ -100,7 +100,7 @@ public class AddCommand extends Command {
         if (input.length() == 0) {
             return "Unsorted";
         }
-        String[] splitInput = input.split("\\p{IsWhite_Space}+");
+        String[] splitInput = input.trim().split("\\p{IsWhite_Space}+");
         for (int i = 0; i < splitInput.length; i++) {
             splitInput[i] = splitInput[i].substring(0, 1).toUpperCase() + splitInput[i].substring(1).toLowerCase();
         }
