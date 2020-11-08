@@ -1,4 +1,4 @@
-package parser;
+/*package parser;
 
 import cheatsheet.CheatSheetList;
 
@@ -146,11 +146,11 @@ public class ParserStub {
         while (!commandToBeExecuted.hasAlternativeArgument()) {
             printer.printAlternativeArgumentPrompt(commandToBeExecuted);
 
-            for (CommandFlag key : map.keySet()) {
+            for (CommandFlag key : map.keySet()) {*/
                 /* If the key is an alternative argument of the command
                   but the command already has another alternative argument filled
                    skip this key*/
-                if (commandToBeExecuted.getAlternativeArguments().contains(key)
+                /*if (commandToBeExecuted.getAlternativeArguments().contains(key)
                     && commandToBeExecuted.hasAlternativeArgument()) {
                     continue;
                 } else if ((map.get(key) == null || map.get(key).isBlank()) && key != CommandFlag.DELETE) {
@@ -175,3 +175,4 @@ public class ParserStub {
         return -1;
     }
 }
+*/
