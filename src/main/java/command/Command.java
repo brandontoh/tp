@@ -26,6 +26,11 @@ public abstract class Command {
     public Command() {
     }
 
+    /**
+     * Constructor for Command.
+     *
+     * @param printer The printer object handles the user interaction
+     */
     public Command(Printer printer) {
         this.printer = printer;
         this.alternativeArguments = new ArrayList<>();
@@ -45,6 +50,12 @@ public abstract class Command {
         return alternativeArguments;
     }
 
+    /**
+     * Checks if the command does not have any required argument.
+     * Checks if the user entered all the required arguments for the command.
+     *
+     * @return A boolean whether the user inputted all required arguments
+     */
     public boolean hasAlternativeArgument() {
         if (alternativeArguments.size() == 0) {
             return true;
@@ -57,6 +68,6 @@ public abstract class Command {
         }
         return false;
     }
-
+    
     public abstract void execute() throws CommandException, InterruptedException, IOException;
 }
