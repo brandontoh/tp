@@ -217,6 +217,15 @@ public final class Printer {
         printCheatSheet(cheatSheet);
     }
 
+    public void printFavouriteStatusAlreadySet(CheatSheet cheatSheet, boolean isAddFav) {
+        if (isAddFav) {
+            print(textColor + "This cheat sheet already been favourited: " + reset);
+        } else {
+            print(textColor + "This cheat sheet already been unfavourited: " + reset);
+        }
+        printCheatSheet(cheatSheet);
+    }
+    
     public void printAlternativeArgumentPrompt(Command command) {
         print(NEWLINE);
         System.out.print(ConsoleColorsEnum.RED_TEXT + "Please enter at least ONE of these: ");
@@ -231,7 +240,7 @@ public final class Printer {
         System.out.print(textColor + "Please input " + curArg.name() + ": " + reset);
     }
 
-    public void setColor(int option) {
+    public void setColor(int option, boolean isInit) {
         switch (option) {
         case 1:
             textColor = ConsoleColorsEnum.WHITE_TEXT;
@@ -274,7 +283,9 @@ public final class Printer {
             reset = ConsoleColorsEnum.WHITE_TEXT;
             break;
         }
-        printSetColorMessage(option);
+        if (!isInit) {
+            printSetColorMessage(option);
+        }
     }
 
     public void printSetColorMessage(int option) {

@@ -39,7 +39,7 @@ public class EditCommand extends FinderCommand {
      * @return A boolean on whether the EditCommand contains the required flag arguments
      */
     @Override
-    public boolean hasAlternativeArgument() {
+    public boolean hasRequiredArguments() {
         return flagsToDescriptions.get(CommandFlag.NAME) != null
                 || flagsToDescriptions.get(CommandFlag.INDEX) != null;
     }
@@ -67,9 +67,8 @@ public class EditCommand extends FinderCommand {
      * @param desiredCheatSheet The cheatsheet specified by the user
      */
     private void callContentEditor(CheatSheet desiredCheatSheet) {
-        editor.setEditingContentAttributes(desiredCheatSheet.getName(), desiredCheatSheet.getSubject());
         editor.open();
-        editor.setContent(desiredCheatSheet.getDetails());
+        editor.setContent(desiredCheatSheet);
         editor.waitForClose();
 
         try {

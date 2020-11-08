@@ -1,5 +1,6 @@
 package editor;
 
+import cheatsheet.CheatSheet;
 import exception.EditorException;
 
 import javax.imageio.ImageIO;
@@ -24,7 +25,6 @@ import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.Component;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
@@ -34,6 +34,7 @@ public class Editor extends JFrame implements ActionListener {
     private JLabel footerLabel;
     private String cheatSheetName;
     private String cheatSheetSubject;
+    private String originalContent;
 
     public Editor() {
         generateEditorUI();
@@ -43,8 +44,6 @@ public class Editor extends JFrame implements ActionListener {
      * Initializes the editor with the necessary elements.
      */
     private void generateEditorUI() {
-        textArea = new JTextArea();
-
         setEditorLayout();
         generateTextArea();
         generateRightPane();
@@ -52,28 +51,26 @@ public class Editor extends JFrame implements ActionListener {
         generateEditorHeader();
     }
 
+    /**
+     * this method generates the right panel that is used for actions and editing.
+     */
     private void generateRightPane() {
         JPanel rightPanel = new JPanel();
 
+        // customizes the buttons panel
         rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
         rightPanel.setBounds(700,50,100,800);
+        rightPanel.setBackground(Color.LIGHT_GRAY);
+        addBlackBorder(rightPanel);
 
-        JLabel editingLabel = new JLabel("  Edit \n",JLabel.CENTER);
-        editingLabel.setHorizontalAlignment(JLabel.CENTER);
+        // generates the buttons for the right panel
+        generateEditingButtons(rightPanel);
+        generateActionsButtons(rightPanel);
 
-        JButton copyButton = new JButton("Copy");
-        JButton cutButton = new JButton("Cut");
-        JButton pasteButton = new JButton("Paste");
+        add(rightPanel,BorderLayout.EAST);
+    }
 
-        copyButton.addActionListener(this);
-        cutButton.addActionListener(this);
-        pasteButton.addActionListener(this);
-
-        rightPanel.add(editingLabel);
-        rightPanel.add(copyButton);
-        rightPanel.add(cutButton);
-        rightPanel.add(pasteButton);
-
+    private void generateActionsButtons(JPanel rightPanel) {
         JLabel actionsLabel = new JLabel("  Actions \n",JLabel.CENTER);
         actionsLabel.setBounds(700,800,100,50);
         actionsLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -94,11 +91,28 @@ public class Editor extends JFrame implements ActionListener {
         rightPanel.add(clearButton);
         rightPanel.add(saveButton);
         rightPanel.add(cancelButton);
+    }
 
-        rightPanel.setBackground(Color.LIGHT_GRAY);
-        addBlackBorder(rightPanel);
+    /**
+     * generates the editing buttons for the editor.
+     * @param rightPanel creates the button into the right panel.
+     */
+    private void generateEditingButtons(JPanel rightPanel) {
+        JLabel editingLabel = new JLabel("  Edit \n",JLabel.CENTER);
+        editingLabel.setHorizontalAlignment(JLabel.CENTER);
 
-        add(rightPanel,BorderLayout.EAST);
+        JButton copyButton = new JButton("Copy");
+        JButton cutButton = new JButton("Cut");
+        JButton pasteButton = new JButton("Paste");
+
+        copyButton.addActionListener(this);
+        cutButton.addActionListener(this);
+        pasteButton.addActionListener(this);
+
+        rightPanel.add(editingLabel);
+        rightPanel.add(copyButton);
+        rightPanel.add(cutButton);
+        rightPanel.add(pasteButton);
     }
 
     /**
@@ -129,13 +143,16 @@ public class Editor extends JFrame implements ActionListener {
             pictureIcon.setBounds(0,0,800,0);
             topPanel.add(pictureIcon);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("The image cannot be retrieved");
         }
 
         addBlackBorder(topPanel);
         add(topPanel,BorderLayout.PAGE_START);
     }
 
+    /**
+     * method to change the settings of the editor window.
+     */
     private void setEditorLayout() {
         setSize(800,600); // sets the editor window size
         setTitle("CheatLogs Editor"); // sets the editor name
@@ -155,7 +172,7 @@ public class Editor extends JFrame implements ActionListener {
 
         JScrollPane textAreaScroll = new JScrollPane(textArea);
         textAreaScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        textAreaScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        textAreaScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         textAreaScroll.setViewportView(textArea);
 
         textAreaPanel.add(textAreaScroll, BorderLayout.CENTER);
@@ -233,10 +250,18 @@ public class Editor extends JFrame implements ActionListener {
         menuBar.add(actionsMenu);
     }
 
+    /**
+     * this method checks if the text area of the editor is empty.
+     * @return returns true if it is empty.
+     */
     private boolean checkIsEditorEmpty() {
         return textArea.getText().isBlank();
     }
 
+    /**
+     * this method determines the action when a button is pushed.
+     * @param a an action event - invoked by pressing the button.
+     */
     public void actionPerformed(ActionEvent a) {
         String action = a.getActionCommand();
         switch (action) {
@@ -252,6 +277,7 @@ public class Editor extends JFrame implements ActionListener {
             textArea.setText("");
             break;
         case "Cancel":
+            revertToOriginal();
             close();
             break;
         case "Copy":
@@ -268,10 +294,27 @@ public class Editor extends JFrame implements ActionListener {
         }
     }
 
-    public void setContent(String content) {
-        textArea.setText(content);
+    private void revertToOriginal() {
+        textArea.setText(originalContent);
+        originalContent = "";
     }
 
+    /**
+     * The method sets the content of the textArea and the footer.
+     * @param cheatSheet this method extracts the content of the cheatsheet into the editor.
+     */
+    public void setContent(CheatSheet cheatSheet) {
+        cheatSheetName = cheatSheet.getName();
+        cheatSheetSubject = cheatSheet.getSubject();
+        textArea.setText(cheatSheet.getDetails());
+        originalContent = cheatSheet.getDetails();
+    }
+
+    /**
+     * this method extracts the content of the textArea.
+     * @return returns a string that is the content of the text area.
+     * @throws EditorException throws an exception if the text editor is empty.
+     */
     public String getContent() throws EditorException {
         if (textArea.getText().equals("")) {
             throw new EditorException();
@@ -290,6 +333,9 @@ public class Editor extends JFrame implements ActionListener {
         cheatSheetSubject = subject;
     }
 
+    /**
+     * Opens the text editor, and initializes the textArea.
+     */
     public void open() {
         textArea.setText("");
         showCheatsheetInfo();
@@ -313,4 +359,5 @@ public class Editor extends JFrame implements ActionListener {
     public void close() {
         setVisible(false);
     }
+
 }

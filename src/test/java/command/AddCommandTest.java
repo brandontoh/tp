@@ -55,6 +55,7 @@ class AddCommandTest {
     }
 
     @Test
+
     void execute_nameNotFilledSubjectNotFilled_exceptionThrown() {
         CheatSheetList cheatSheetList = new CheatSheetList();
         AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());

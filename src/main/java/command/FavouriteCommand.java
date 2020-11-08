@@ -42,6 +42,11 @@ public class FavouriteCommand extends FinderCommand {
         try {
             CheatSheet cheatSheetToFavourite = getCheatSheetFromNameOrIndex();
             boolean isAddFav = (flagsToDescriptions.get(CommandFlag.DELETE) == null);
+
+            if (isAddFav == cheatSheetToFavourite.getIsFavourite()) {
+                printer.printFavouriteStatusAlreadySet(cheatSheetToFavourite, isAddFav);
+                return;
+            }
             cheatSheetToFavourite.setFavourite(isAddFav);
             printer.printFavouritedCheatSheetMessage(cheatSheetToFavourite, isAddFav);
         } catch (NullPointerException | IndexOutOfBoundsException i) {
