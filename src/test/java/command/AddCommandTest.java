@@ -6,175 +6,64 @@ import exception.CommandException;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
-import parser.CommandFlag;
-import parser.Parser;
+
 import ui.Printer;
-import ui.Ui;
+
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 class AddCommandTest {
-    //    @Test
-    //    void addOneCheatSheet_completeInput_success() {
-    //        final String userInput = "/add /n name /slanguage /d details";
-    //        CheatSheetList.clear();
-    //        try {
-    //            Parser parser = new Parser(null, new Printer(), null);
-    //            Command addCommand = parser.parse(userInput);
-    //            addCommand.execute();
-    //            assertEquals(1, CheatSheetList.getSize());
-    //        } catch (CommandException e) {
-    //            fail();
-    //        }
-    //    }
-    //
-    //    @Test
-    //    void addOneCheatSheet_SpacedInput_success() {
-    //        final String userInput = "/add /n Did someone say /sPython v2";
-    //        CheatSheetList.clear();
-    //        try {
-    //            Parser parser = new Parser(null, new Printer(), null);
-    //            Command addCommand = parser.parse(userInput);
-    //            addCommand.execute();
-    //            assertEquals(1, CheatSheetList.getSize());
-    //            assertEquals("PythonV2", CheatSheetList.getCheatSheet(1).getSubject());
-    //        } catch (CommandException e) {
-    //            fail();
-    //        }
-    //        Command addCommand = new AddCommand(new Printer());
-    //    }
-    //
-    //    @Test
-    //    void addOneCheatSheet_allFieldsFilled_success() throws CommandException {
-    //        CheatSheetList.clear();
-    //        String userInput = "/add /n FirstTest /sJava /d Content1";
-    //        Parser parser = new Parser(null, new Printer(), null);
-    //        Command addCommand = parser.parse(userInput);
-    //        addCommand.execute();
-    //        Assertions.assertAll(
-    //            () -> assertEquals("FirstTest", CheatSheetList.getCheatSheet(1).getName()),
-    //            () -> assertEquals("Java", CheatSheetList.getCheatSheet(1).getSubject()),
-    //            () -> assertEquals("Content1", CheatSheetList.getCheatSheet(1).getDetails())
-    //        );
-    //    }
-    //
-    //    @Test
-    //    void addOneCheatSheet_nameAndLanguageFilled_success() throws CommandException {
-    //        CheatSheetList.clear();
-    //        String userInput = "/add /n FirstTest /sJava";
-    //        Parser parser = new Parser(null, new Printer(), null);
-    //        Command addCommand = parser.parse(userInput);
-    //        addCommand.execute();
-    //        Assertions.assertAll(
-    //            () -> assertEquals("FirstTest", CheatSheetList.getCheatSheet(1).getName()),
-    //            () -> bassertEquals("Java", CheatSheetList.getCheatSheet(1).getSubject()),
-    //            () -> assertNull(CheatSheetList.getCheatSheet(1).getDetails())
-    //        );
-    //    }
-    //
-    //    @Test
-    //    void addOneCheatSheet_nameAndDescriptionFilled_success() throws CommandException {
-    //        CheatSheetList.clear();
-    //        String userInput = "/add /n FirstTest /d Content1";
-    //        Parser parser = new Parser(null, new Printer(), null);
-    //        Command addCommand = parser.parse(userInput);
-    //        addCommand.execute();
-    //        Assertions.assertAll(
-    //            () -> assertEquals("FirstTest", CheatSheetList.getCheatSheet(1).getName()),
-    //            () -> assertNull(CheatSheetList.getCheatSheet(1).getSubject()),
-    //            () -> assertEquals("Content1", CheatSheetList.getCheatSheet(1).getDetails())
-    //        );
-    //    }
-    //
-    //    //    @Test
-    //    //    void addOneCheatSheet_languageAndDescriptionFilled_CommandExceptionThrown() throws CommandException {
-    //    //        CheatSheetList.clear();
-    //    //        String userInput = "/add /sJava /d Content1";
-    //    //        Parser parser = new Parser(null, new Printer(), null);
-    //    //        Command addCommand = parser.parse(userInput);
-    //    //        try {
-    //    //            addCommand.execute();
-    //    //        } catch (CommandException c) {
-    //    //            assertEquals("Please enter a name", c.getMessage());
-    //    //        }
-    //    //    }
-    //
-    //    @Test
-    //    void addOneCheatSheet_nameFilled_CommandExceptionThrown() throws CommandException {
-    //        CheatSheetList.clear();
-    //        String userInput = "/add /n FirstTest";
-    //        Parser parser = new Parser(null, new Printer(), null);
-    //        Command addCommand = parser.parse(userInput);
-    //        addCommand.execute();
-    //        Assertions.assertAll(
-    //            () -> assertEquals("FirstTest", CheatSheetList.getCheatSheet(1).getName()),
-    //            () -> assertNull(CheatSheetList.getCheatSheet(1).getSubject()),
-    //            () -> assertNull(CheatSheetList.getCheatSheet(1).getDetails())
-    //        );
-    //    }
 
-    //    @Test
-    //    void addOneCheatSheet_LanguageFilled_CommandExceptionThrown() throws CommandException {
-    //        CheatSheetList.clear();
-    //        String userInput = "/add /sJava";
-    //        Parser parser = new Parser(null, new Printer(), new Ui());
-    //        Command addCommand = parser.parse(userInput);
-    //        try {
-    //            addCommand.execute();
-    //        } catch (CommandException c) {
-    //            assertEquals("Please enter a name", c.getMessage());
-    //        }
-    //    }
-
-    //    @Test
-    //    void addOneCheatSheet_DescriptionFilled_PromptName() throws CommandException {
-    //        CheatSheetList.clear();
-    //        String userInput = "/add /d Content1";
-    //        Parser parser = new Parser(null, new Printer(), new Ui());
-    //        Command addCommand = parser.parse(userInput);
-    //        try {
-    //            addCommand.execute();
-    //        } catch (CommandException c) {
-    //            assertEquals("Please enter a name", c.getMessage());
-    //        }
-    //    }
-
-    //    @Test
-    //    void execute_noName_exceptionThrown() {
-    //        final String userInput = "/add";
-    //        CheatSheetList.clear();
-    //        try {
-    //            Parser parser = new Parser(null, new Printer(), null);
-    //            Command addCommand = parser.parse(userInput);
-    //            addCommand.execute();
-    //            fail();
-    //        } catch (CommandException e) {
-    //            assertEquals("Please enter a name", e.getMessage());
-    //        }
-    //    }
+    public AddCommandTest() {
+    }
 
     @Test
-    void execute_noNameGotSubject_exceptionThrown() {
-        final CheatSheetList cheatSheetList = new CheatSheetList();
-        try {
-            Command addCommand = new AddCommand(new Printer(), cheatSheetList, null);
-            LinkedHashMap<CommandFlag, String> linkedHashMap = new LinkedHashMap<>();
-            linkedHashMap.put(CommandFlag.SUBJECT, null);
-            addCommand.setFlagstodescriptionsMap(linkedHashMap);
-            addCommand.execute();
-            fail();
-        } catch (CommandException e) {
-            assertEquals("Name cannot be blank", e.getMessage());
-        } catch (InterruptedException | IOException e) {
-            assert false;
-        }
-        assert true;
+    void execute_nameAndSubjectFilled_success() throws CommandException, IOException, InterruptedException {
+        CheatSheetList cheatSheetList = new CheatSheetList();
+        AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
+        addCommandStub.populateFlagsToDescription("FirstTest", "Java");
+        addCommandStub.executeStub("Content1");
+        Assertions.assertAll(
+            () -> assertEquals("FirstTest", cheatSheetList.get(1).getName()),
+            () -> assertEquals("Java", cheatSheetList.get(1).getSubject()),
+            () -> assertEquals("Content1", cheatSheetList.get(1).getDetails())
+        );
+    }
+
+    @Test
+    void execute_nameFilledSubjectNotFilled_success() throws CommandException {
+        CheatSheetList cheatSheetList = new CheatSheetList();
+        AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
+        addCommandStub.populateFlagsToDescription("FirstTest", null);
+        addCommandStub.executeStub("Content1");
+        Assertions.assertAll(
+            () -> assertEquals("FirstTest", cheatSheetList.get(1).getName()),
+            () -> assertEquals("Unsorted", cheatSheetList.get(1).getSubject()),
+            () -> assertEquals("Content1", cheatSheetList.get(1).getDetails())
+        );
+    }
+
+    @Test
+    void execute_nameNotFilledSubjectFilled_exceptionThrown() {
+        CheatSheetList cheatSheetList = new CheatSheetList();
+        AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
+        addCommandStub.populateFlagsToDescription(null, "Java");
+        assertThrows(CommandException.class, () -> {
+            addCommandStub.executeStub("Content1");
+        });
+    }
+
+    @Test
+    void execute_nameNotFilledSubjectNotFilled_exceptionThrown() {
+        CheatSheetList cheatSheetList = new CheatSheetList();
+        AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
+        addCommandStub.populateFlagsToDescription(null, null);
+        assertThrows(CommandException.class, () -> {
+            addCommandStub.executeStub("Content1");
+        });
     }
 }

@@ -68,6 +68,6 @@ public abstract class Command {
         }
         return false;
     }
-    
+
     public abstract void execute() throws CommandException, InterruptedException, IOException;
 }
