@@ -17,3 +17,5 @@ bin/
 /text-ui-test/ACTUAL.txt
 text-ui-test/EXPECTED-UNIX.TXT
 src/test/java/storage/data_present/Sample1
+/data
+/temp/data
