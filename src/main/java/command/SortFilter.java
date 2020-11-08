@@ -24,7 +24,7 @@ public class SortFilter {
     ArrayList<CheatSheet> cheatSheetArrayList;
 
     /**
-     * Constructor for SortFilter
+     * Constructor for SortFilter.
      *
      * @param cheatSheetArrayList The cheatSheetArrayList object holds the current list of cheatsheets in an
      *                            ArrayList type instead of CheatSheetList type

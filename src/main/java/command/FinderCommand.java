@@ -7,7 +7,7 @@ import parser.CommandFlag;
 import ui.Printer;
 
 /**
- * Base class for commands that searches through cheatSheetList for matching content
+ * Base class for commands that searches through cheatSheetList for matching content.
  */
 public abstract class FinderCommand extends Command {
     protected CheatSheetList cheatSheetList;
@@ -15,7 +15,7 @@ public abstract class FinderCommand extends Command {
     /**
      * Constructor of FinderCommand.
      *
-     * @param printer The printer object handles the user interaction
+     * @param printer The printer object handles the user interaction.
      * @param cheatSheetList The cheatSheetList object holds the current list of cheatsheets
      */
     public FinderCommand(Printer printer, CheatSheetList cheatSheetList) {

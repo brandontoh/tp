@@ -17,7 +17,7 @@ public class EditCommand extends FinderCommand {
     public static final String invoker = "/edit";
 
     /**
-     * Constructor for EditCommand
+     * Constructor for EditCommand.
      * Required argument: either NAME or INDEX.
      *
      * @param printer        The printer object handles user interaction
@@ -62,7 +62,7 @@ public class EditCommand extends FinderCommand {
     }
 
     /**
-     * Opens the editor
+     * Opens the editor.
      *
      * @param desiredCheatSheet The cheatsheet specified by the user
      */

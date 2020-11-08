@@ -9,7 +9,7 @@ public class ExitCommand extends Command {
     public static final String invoker = "/exit";
 
     /**
-     * Constructor for ExitCommand
+     * Constructor for ExitCommand.
      *
      * @param printer The printer object handles the user interaction.
      */
