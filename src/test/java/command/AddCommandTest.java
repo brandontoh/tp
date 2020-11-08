@@ -18,9 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AddCommandTest {
 
-    public AddCommandTest() {
-    }
-
     @Test
     void execute_nameAndSubjectFilled_success() throws CommandException, IOException, InterruptedException {
         CheatSheetList cheatSheetList = new CheatSheetList();

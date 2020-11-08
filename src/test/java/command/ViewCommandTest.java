@@ -1,56 +1,56 @@
 package command;
 
-import cheatsheet.CheatSheet;
 import cheatsheet.CheatSheetList;
+import editor.Editor;
 import exception.CommandException;
 import org.junit.jupiter.api.Test;
-import parser.Parser;
-import settings.Settings;
 import ui.Printer;
 
-import javax.swing.text.View;
-
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ViewCommandTest {
 
     @Test
-    void execute_validInput_success() {
+    void execute_validIndex_success() throws CommandException {
         CheatSheetList cheatSheetList = new CheatSheetList();
-        final String userInput = "/view /i 2";
-        //cheatSheetList.clear();
-        for (int i = 0; i < 10; i++) {
-            cheatSheetList.add(new CheatSheet("Name" + i, "Language" + i, "Details" + i));
-        }
-        try {
-            Parser parser = new Parser(new Printer(), new Settings(new Printer()));
-            Command viewCommand = parser.parse(userInput);
-            viewCommand.execute();
-        } catch (CommandException e) {
-            fail();
-        } catch (InterruptedException | IOException e) {
-            e.printStackTrace();
-        }
+        AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
+        addCommandStub.populateFlagsToDescription("FirstTest", "Java");
+        addCommandStub.executeStub("Content1");
+        ViewCommandStub viewCommandStub = new ViewCommandStub(new Printer(), cheatSheetList);
+        viewCommandStub.populateFlagsToDescription(null, "1");
+        assertEquals("FirstTestJavaContent1", viewCommandStub.executeStub());
     }
 
     @Test
-    void execute_noArgument_exceptionThrown() {
+    void execute_validName_success() throws CommandException {
         CheatSheetList cheatSheetList = new CheatSheetList();
-        final String userInput = "/view something";
-        //cheatSheetList.clear();
-        for (int i = 0; i < 10; i++) {
-            cheatSheetList.add(new CheatSheet("Name" + i, "Language" + i, "Details" + i));
-        }
-        try {
-            Parser parser = new Parser(new Printer(), new Settings(new Printer()));
-            Command viewCommand = parser.parse(userInput);
-            viewCommand.execute();
-            //fail();
-        } catch (CommandException | InterruptedException | IOException e) {
-            assertEquals("Please enter a name or an index", e.getMessage());
-        }
+        AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
+        addCommandStub.populateFlagsToDescription("FirstTest", "Java");
+        addCommandStub.executeStub("Content1");
+        ViewCommandStub viewCommandStub = new ViewCommandStub(new Printer(), cheatSheetList);
+        viewCommandStub.populateFlagsToDescription("FirstTest", null);
+        assertEquals("FirstTestJavaContent1", viewCommandStub.executeStub());
+    }
+
+    @Test
+    void execute_InvalidName_exceptionThrown() throws CommandException {
+        CheatSheetList cheatSheetList = new CheatSheetList();
+        AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
+        addCommandStub.populateFlagsToDescription("FirstTest", "Java");
+        addCommandStub.executeStub("Content1");
+        ViewCommandStub viewCommandStub = new ViewCommandStub(new Printer(), cheatSheetList);
+        viewCommandStub.populateFlagsToDescription("namethatdontexist", null);
+        assertThrows(CommandException.class, viewCommandStub::executeStub);
+    }
+
+    @Test
+    void execute_InvalidIndex_exceptionThrown() throws CommandException {
+        CheatSheetList cheatSheetList = new CheatSheetList();
+        AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
+        addCommandStub.populateFlagsToDescription("FirstTest", "Java");
+        addCommandStub.executeStub("Content1");
+        ViewCommandStub viewCommandStub = new ViewCommandStub(new Printer(), cheatSheetList);
+        viewCommandStub.populateFlagsToDescription("FirstTest", "2");
+        assertThrows(CommandException.class, viewCommandStub::executeStub);
     }
 }
