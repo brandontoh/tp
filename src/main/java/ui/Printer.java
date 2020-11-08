@@ -217,6 +217,15 @@ public final class Printer {
         printCheatSheet(cheatSheet);
     }
 
+    public void printFavouriteStatusAlreadySet(CheatSheet cheatSheet, boolean isAddFav) {
+        if (isAddFav) {
+            print(textColor + "This cheat sheet already been favourited: " + reset);
+        } else {
+            print(textColor + "This cheat sheet already been unfavourited: " + reset);
+        }
+        printCheatSheet(cheatSheet);
+    }
+    
     public void printAlternativeArgumentPrompt(Command command) {
         print(NEWLINE);
         System.out.print(ConsoleColorsEnum.RED_TEXT + "Please enter at least ONE of these: ");

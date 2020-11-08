@@ -4,7 +4,6 @@ import cheatsheet.CheatSheetList;
 import exception.CommandException;
 
 import parser.CommandFlag;
-import settings.Settings;
 import ui.Printer;
 
 import java.io.IOException;
@@ -19,7 +18,9 @@ public abstract class Command {
     protected Printer printer;
     protected CheatSheetList cheatSheetList;
 
-    protected ArrayList<CommandFlag> alternativeArguments;
+    protected ArrayList<CommandFlag> alternativeArguments; // At least one of these must be filled
+    protected ArrayList<CommandFlag> necessaryArguments; // All of these must be filled
+
     protected LinkedHashMap<CommandFlag, String> flagsToDescriptions;
     public boolean isExitCommand;
 
@@ -34,29 +35,47 @@ public abstract class Command {
     public Command(Printer printer) {
         this.printer = printer;
         this.alternativeArguments = new ArrayList<>();
+        this.necessaryArguments = new ArrayList<>();
         this.flagsToDescriptions = new LinkedHashMap<>();
         isExitCommand = false;
     }
 
-    public LinkedHashMap<CommandFlag, String> getFlagstodescriptionsMap() {
+    public LinkedHashMap<CommandFlag, String> getFlagsToDescriptionsMap() {
         return flagsToDescriptions;
     }
 
-    public void setFlagstodescriptionsMap(HashMap<CommandFlag, String> flagstodescriptions) {
-        this.flagsToDescriptions.putAll(flagstodescriptions);
+    public void setFlagsToDescriptionsMap(HashMap<CommandFlag, String> flagsToDescriptions) {
+        this.flagsToDescriptions.putAll(flagsToDescriptions);
     }
 
     public ArrayList<CommandFlag> getAlternativeArguments() {
         return alternativeArguments;
     }
 
+    public ArrayList<CommandFlag> getNecessaryArguments() {
+        return necessaryArguments;
+    }
+
+    public boolean hasRequiredArguments() {
+        return hasNecessaryArguments() && hasAlternativeArguments();
+    }
+
+    public boolean hasNecessaryArguments() {
+        for (CommandFlag arg : necessaryArguments) {
+            if (flagsToDescriptions.get(arg) == null) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     /**
-     * Checks if the command does not have any required argument.
-     * Checks if the user entered all the required arguments for the command.
+     * Checks if the user has at least one of the alternative arguments.
      *
-     * @return A boolean whether the user inputted all required arguments
+     * @return A boolean whether the user inputted at least one of the alternative arguments
      */
-    public boolean hasAlternativeArgument() {
+    public boolean hasAlternativeArguments() {
         if (alternativeArguments.size() == 0) {
             return true;
         }
