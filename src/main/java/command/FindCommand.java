@@ -9,10 +9,20 @@ import ui.TablePrinter;
 
 import java.util.ArrayList;
 
+/**
+ * Command to find a specific cheatsheet in CheatSheetList via name or index.
+ */
 public class FindCommand extends FinderCommand {
     private CheatSheetList cheatSheetList;
     public static final String invoker = "/find";
 
+    /**
+     * Constructor for FindCommand.
+     * Required Argument: NAME, SUBJECT, SECTIONKEYWORD (at LEAST one of these three)
+     *
+     * @param printer The printer object handles the user interaction
+     * @param cheatSheetList The cheatSheetList object holds the current list of cheatsheets.
+     */
     public FindCommand(Printer printer, CheatSheetList cheatSheetList) {
         super(printer, cheatSheetList);
         this.cheatSheetList = cheatSheetList;
@@ -24,6 +34,16 @@ public class FindCommand extends FinderCommand {
         alternativeArguments.add(CommandFlag.SECTIONKEYWORD);
     }
 
+    /**
+     * Searches through every cheatsheet in CheatSheetList to find for cheatsheets that matched
+     * the name or subject or keyword of what the user entered.
+     * Prints a table with all cheatsheets that met the criteria of the user input.
+     * Header of each column in table: Index, Name, Subject, Preview
+     * If there is cheatsheet in the list, the program enters sorting mode that allows user to sort by name or subject.
+     *
+     * @throws CommandException Thrown if no cheatsheet in CheatSheetList matched the name or subject or keyword
+     *                          that the user entered.
+     */
     @Override
     public void execute() throws CommandException {
 
@@ -36,7 +56,7 @@ public class FindCommand extends FinderCommand {
 
         for (CheatSheet cs : cheatSheetList.getList()) {
 
-            if (checkCheatSheetExistsInCheatSheetList(cs, name, subject, keyword)) {
+            if (checkCheatSheetMatchesWithFields(cs, name, subject, keyword)) {
                 matchedContents.add(cs);
             }
         }
