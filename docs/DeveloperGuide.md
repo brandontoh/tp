@@ -224,11 +224,22 @@ The steps below explain the sequence diagram:
 
 <a id="list"></a>
 ##### 4.2.3.5 List
-The `list` command lists all the cheatsheets im cheatSheetList.
+The `list` command lists all the cheatsheets in cheatSheetList.
+![FindCommand Sequence Diagram](https://i.ibb.co/DVVFM3q/Find-Command.png)
+
+The steps below explain the sequence diagram for `list`:
+
+1. FindCommand#execute() is called
+2. FindCommand object calls flagToDescriptions.get(CommandFlag.NAME) and assigns it to variable `name`
+3. FindCommand object calls flagToDescriptions.get(CommandFlag.SUBJECT) and assigns it to variable `subject`
+4. FindCommand object calls flagToDescriptions.get(CommandFlag.SECTIONKEYWORD) and assigns it to variable `keyword`
+5. A new ArrayList<cheatSheet> object is created and named `matchedContent`
+6.
 
 <a id="find"></a>
 ##### 4.2.3.6 Find
 The `find` command searches through cheatSheetList to find matching cheatsheets.
+
 
 <a id="setting"></a>
 ##### 4.2.3.7 Setting 
