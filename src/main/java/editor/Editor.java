@@ -26,6 +26,7 @@ import java.awt.Component;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class Editor extends JFrame implements ActionListener {
@@ -122,18 +123,16 @@ public class Editor extends JFrame implements ActionListener {
 
         BufferedImage logoPicture = null;
         try {
-            //wPic = ImageIO.read(new URL("https://i.ibb.co/QCjG7v7/cheatlogs-copy.png"));
-            logoPicture = ImageIO.read(new File("src/main/resources/EditorResources/cheatlogs.png"));
+            logoPicture = ImageIO.read(new URL("https://i.ibb.co/QCjG7v7/cheatlogs-copy.png"));
+            JLabel pictureIcon = new JLabel(new ImageIcon(logoPicture));
+            pictureIcon.setAlignmentX(Component.CENTER_ALIGNMENT);
+            pictureIcon.setBounds(0,0,800,0);
+            topPanel.add(pictureIcon);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        JLabel pictureIcon = new JLabel(new ImageIcon(logoPicture));
-        pictureIcon.setAlignmentX(Component.CENTER_ALIGNMENT);
-        pictureIcon.setBounds(0,0,800,0);
 
-        topPanel.add(pictureIcon);
         addBlackBorder(topPanel);
-
         add(topPanel,BorderLayout.PAGE_START);
     }
 

@@ -1,12 +1,12 @@
-<h1 align="center">  CheatLogs User Guide </h1>
+
+<h1 align="center">  CheatLogs Developer Guide </h1>
 
 
 ![Our Logo](https://i.ibb.co/VxzKbbz/a1.png)
 
-Welcome to the official developer guide of CheatLogs, a free and open-source cheatsheet manager with blazing fast organization and searching via a command-line interface (CLI). 	
+Welcome to the official developer guide of CheatLogs, a free and open-source cheatsheet manager with blazing fast organization, editing and searching via both a command-line interface (CLI) and a graphical user interface (GUI) .
 
-This guide serves as an in-depth reference of the features of CheatLogs.
-
+The table of contents below lets you easily access the documentation for CheatLogs's architecture and feature design/implmentation details.
 
 > <font size = "5" >:bulb: Here are some patterns you will come across and their definitions.
 > ------
@@ -24,114 +24,73 @@ This guide serves as an in-depth reference of the features of CheatLogs.
 # Table of Contents
 
 * [1. Introduction](#introduction)
-    + [1.1. Purpose](#purpose)
-    + [1.2. Product Scope](#product-scope)
-        - [1.2.1. Target User Profile](#target-user-profile)
-        - [1.2.2. Value Proposition](#value-proposition)
-    + [1.3. Design Goals](#design-goals)
-    + [1.4. Definitions](#definitions)
-* [2. Setting Up, Getting Started](#setting-up-getting-started)
-    + [2.1. Prerequisites](#prerequisites)
-    + [2.2. Running the Project](#running-the-project)
-    + [2.3 Importing into IntelliJ [optional]](#importing-into-intellij)
-* [3. Design](#design)
-    + [3.1. Architecture](#architecture)
-    + [3.2. Components](#components)
-        - [3.2.1. User Interface](#user-interface)
-        - [3.2.2. Command Parser](#command-parser)
-        - [3.2.3. Cheat Sheet Structure](#cheat-sheet-structure)
-            * [3.2.3.1. Add](#add)
-            * [3.2.3.2. Edit](#edit)
-            * [3.2.3.3. View](view)
-            * [3.2.3.4. Exit](#exit)
-            * [3.2.3.5. List](#list)
-            * [3.2.3.6. Find](#find)
-            * [3.2.3.7. Setting](#setting)
-            * [3.2.3.8. Delete](#delete)
-            * [3.2.3.9. Clear](#clear)
-            * [3.2.3.10. Favourite](#favourite)
-            * [3.2.3.11. Exit](#help)
-        - [3.2.4. Cheat Sheet Management](#cheat-sheet-management)
-        - [3.2.5. Data Storage](#data-storage)
-* [4. Implementation](#implementation)
-    + [4.1. Parsing of Data to Construct Commands](#parsing-of-data-to-construct-commands)
-    + [4.2. Editing Feature](#editing-feature)
-    + [4.3. Sorting Feature](#sorting-feature)
-    + [4.4. Storage & Reading of Cheatsheet files](#storage-reading-of-cheatsheet-files)
-    + [4.5. Colour coding for code snippet](#colour-coding-for-code-snippet)
-* [5. Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
-* [6. Appendix: Requirements](#appendix-requirements)
-    + [6.1. Product scope](#product-scope-appendix)
-    + [6.2. User stories](#user-stories)
-    + [6.3. Use cases](#use-cases)
-    + [6.4. Non-Functional Requirements](#non-functional-requirements)
-    + [6.5. Glossary](#glossary)
-* [7. Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
-
+* [2. Purpose](#purpose)
+* [3. Setting Up, Getting Started](#setting-up-getting-started)
+    * [3.1. Prerequisites](#prerequisites)
+    * [3.2. Running the Project](#running-the-project)
+    * [3.3 Importing into IntelliJ [optional]](#importing-into-intellij)
+* [4. Design](#design)
+    * [4.1. Architecture](#architecture)
+    * [4.2. Components](#components)
+        * [4.2.1. User Interface](#user-interface)
+        * [4.2.2. Command Parser](#command-parser)
+        * [4.2.3. Command](#command)
+            * [4.2.3.1. Add](#add)
+            * [4.2.3.2. Edit](#edit)
+            * [4.2.3.3. View](view)
+            * [4.2.3.4. Exit](#exit)
+            * [4.2.3.5. List](#list)
+            * [4.2.3.6. Find](#find)
+            * [4.2.3.7. Setting](#setting)
+            * [4.2.3.8. Delete](#delete)
+            * [4.2.3.9. Clear](#clear)
+            * [4.2.3.10. Favourite](#favourite)
+            * [4.2.3.11. Exit](#help)
+        * [4.2.4. Cheat Sheet Management](#cheat-sheet-management)
+        * [4.2.5. Data Storage](#data-storage)
+* [5. Implementation](#implementation)
+    * [5.1. Parsing of Data to Construct Commands](#parsing-of-data-to-construct-commands)
+    * [5.2. Editing Feature](#editing-feature)
+    * [5.3. Sorting Feature](#sorting-feature)
+    * [5.4. Storage & Reading of Cheatsheet files](#storage-reading-of-cheatsheet-files)
+    * [5.5. Colour coding for code snippet](#colour-coding-for-code-snippet)
+* [6. Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
+* [7. Appendix: Requirements](#appendix-requirements)
+    * [7.1. Product scope](#product-scope-appendix)
+    * [7.2. User stories](#user-stories)
+    * [7.3. Use cases](#use-cases)
+    * [7.4. Non-Functional Requirements](#non-functional-requirements)
+* [8. Glossary](#glossary)
+* [9. Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
 <br>
 
 <a id="introduction"></a>
 # 1. Introduction<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
-**CheatLogs** is a Command Line Interface Application that is targeted at novice or beginner programmers to help them develop their own applications. 
-It has a text based interface that allows the user to access cheat sheets and notes for various programming syntax and functions. 
+The motivation behind CheatLogs is to reduce the time spent to scroll through pages of stack overflow posts or online documentation sites to find a syntax for a programming language, which is very common for novice programmers. 
 
-The user can quickly `find` and `view` the preloaded cheat sheets and it will be displayed with nice color coding for better readability.
-Moreover, the user can `add`, `edit`, and `delete` their own cheat sheets.
+**CheatLogs** allows it's user to access cheat sheets and notes for various programming syntax and functions. This gives novice programmers a way faster to get references as they build their applications. It also provides a set of preloaded cheatsheets for common languages novice programmers adopt. It consists of both a command line interface and a graphical user interface. Below is a summary of all the commands.
 
+To cheatsheets in the list of cheatsheets:  `add`, `delete`, or`clear` 
+
+To modify properties of a specific cheatsheet: `edit` or `favorite`.
+
+To get specific cheatsheets:  `find`, `view`  and `list`
+
+To use more general commands:  `help` , `set`, `exit`
 
 <a id="purpose"></a>
-## 1.1. Purpose<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+# 2. Purpose<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
-This document specifies the architecture and software design decisions taken to develop our application, CheatLogs. 
-Targeted towards developers who are or want to work on CheatLogs.
-
-
-<a id="product-scope"></a>
-## 1.2. Product Scope<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
-
-This document will cover the high-level architecture of the program, as well as the details for the implementation of the features.
-
----
-
-<a id="target-user-profile"></a>
-### 1.2.1. Target User Profile<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
-- has a need to store and manage a significant number of cheat sheets
-- is willing to learn/is comfortable using CLI application
-
----
-
-<a id="value-proposition"></a>
-### 1.2.2. Value Proposition<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
-
-The motivation behind CheatLogs is to reduce the time spent to scroll through pages of stack overflow posts or online documentation sites to find a syntax for a programming language,
-which is very common for novice programmers. The user can find the desired syntax by using `/find` command and the result will show up instantly.
-
----
-
-
-<a id="design-goals"></a>
-## 1.3. Design Goals<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
-
-Our main goal is to design a cheatsheet management system that will help novice and beginner programmers to learn and adapt to various programming languages. 
-Our cheatsheet app comes with a set of preloaded cheatsheets. 
-Additionally, the user can input their own cheat sheets into the application. 
-This will make cheatlogs a comprehensive, one-stop solution for every student to manage their cheatsheet.
-
-
-<a id="definitions"></a>
-## 1.4. Definitions<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
-
-
-<br>
+This document specifies the high-level architecture and software design decisions of CheatLogs and aims to quickly get developers familiar with the project. 
 
 <a id="setting-up-getting-started"></a>
-# 2. Setting Up, Getting Started<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+# 3. Setting Up, Getting Started<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 xx
 
 
 <a id="prerequisites"></a>
-## 2.1. Prerequisites<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+## 3.1. Prerequisites<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
 1. JDK 11.0.8
 2. Java IDE (IntelliJ Recommended)
@@ -141,7 +100,7 @@ You are free to use any java file editor and run the program by following the st
 
 
 <a id="running-the-project"></a>
-## 2.2. Running the Project<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+## 3.2. Running the Project<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
 1. Ensure you have Java 11 or above installed in your Computer.
 2. Download the latest CheatLogs.jar from [here](https://github.com/AY2021S1-CS2113T-W11-3/tp/releases).
@@ -152,7 +111,7 @@ You are free to use any java file editor and run the program by following the st
 
 
 <a id="importing-to-intellij"></a>
-## 2.3 Importing into IntelliJ [optional]<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+## 3.3 Importing into IntelliJ [optional]<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
 In case you prefer to use IDEs to develop. 
 IntelliJ IDEA community edition is a popular free choice. 
@@ -164,13 +123,13 @@ After installing a version of it you can import it using the “Get from Version
 <br>
 
 <a id="design"></a>
-# 3. Design<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+# 4. Design<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
 This section will elaborate on the architecture and component design of CheatLogs.
 
 
 <a id="architecture"></a>
-## 3.1. Architecture<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+## 4.1. Architecture<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
 The image below illustrates the high-level design of CheatLogs.
 
@@ -197,7 +156,7 @@ For each component, it can be further split into different classes which have a 
 
 
 <a id="components"></a>
-## 3.2. Components<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+## 4.2. Components<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
 This application contains five different components. 
 Each component has a unique function and contributes to the functionality of this application.
@@ -205,7 +164,7 @@ Each component has a unique function and contributes to the functionality of thi
 ---
 
 <a id="user-interface"></a>
-### 3.2.1. User Interface<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+### 4.2.1. User Interface<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 //Abner
 This component handles interactions with the user and manages the input and output of the programme. 
 
@@ -223,10 +182,8 @@ These common objects are injected into other objects that need them via the clas
 The common objects include the Ui and  Printer helper classes which provide an organized way to read and write data. 
 Most of the programmes’ output is made via calls to the same common printer object.
 
-#### 3.2.3. Command (Brandon)
-
 <a id="command-parser"></a>
-### 3.2.2. Command Parser<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+### 4.2.2. Command Parser<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 //Brandon
 This component would parse the user input to produce useful information which would be used to construct a Command and executed the command. 
 
@@ -249,46 +206,45 @@ The steps below explain the sequence diagram:
 6. Command#execute() would call other methods from CheatSheet and CheatSheetList to carry out specific instructions.
 
 
-<a id="cheat-sheet-structure"></a>
-### 3.2.3. Cheat Sheet Structure<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+<a id="command"></a>
+### 4.2.3. Commands	<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 //Aldo
 
 <a id="add"></a>
-##### 3.2.3.1 Add
-
+##### 4.2.3.1 Add
 
 <a id="edit"></a>
-##### 3.2.3.2 Edit
+##### 4.2.3.2 Edit
 
 <a id="view"></a>
-##### 3.2.3.3 View
+##### 4.2.3.3 View
 
 <a id="exit"></a>
-##### 3.2.3.4 Exit
+##### 4.2.3.4 Exit
 
 <a id="list"></a>
-##### 3.2.3.5 List
+##### 4.2.3.5 List
 
 <a id="find"></a>
-##### 3.2.3.6 Find
+##### 4.2.3.6 Find
 
 <a id="setting"></a>
-##### 3.2.3.7 Setting 
+##### 4.2.3.7 Setting 
 
 <a id="delete"></a>
 ##### 3.2.3.8 Delete
 
 <a id="clear"></a>
-##### 3.2.3.9 Clear
+##### 4.2.3.9 Clear
 
 <a id="favourite"></a>
-##### 3.2.3.10 Favourite
+##### 4.2.3.10 Favourite
 
 <a id="help"></a>
-##### 3.2.3.11 Help
+##### 4.2.3.11 Help
 
 <a id="cheat-sheet-structure"></a>
-#### 3.2.4. Cheat Sheet Structure 
+#### 4.2.4. Cheat Sheet Structure 
 //Aldo
 
 To further understand our cheatsheet management application, it is important to understand the inner workings of the CheatSheet class. 
@@ -329,7 +285,7 @@ Image 7: XML file showing the content of a cheatsheet file
 
 
 <a id="cheat-sheet-management"></a>
-### 3.2.5. Cheat Sheet Management<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+### 4.2.5. Cheat Sheet Management<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 //Adhy
 All cheat sheets, both pre-loaded and user-defined, are stored in a class called `CheatSheetList` during runtime. 
 Upon receiving a valid input from the user, the `execute()` method from `Command` class will invoke the mutation of `CheatSheetList`, 
@@ -351,7 +307,7 @@ Here is the list of `Commands` that invokes a method call of CheatSheetList:
 - `/view`
 
 <a id="data-storage"></a>
-### 3.2.6. Data Storage<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+### 4.2.6. Data Storage<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 //Theo
 This feature allows the application to read and update data in the form of text files. 
 Having an external source to store data will allow the application to be able to retrieve it when it is relaunched at another instance. 
@@ -374,13 +330,13 @@ Table 1: Summary of the functions of data storage
 <br>
 
 <a id="implementation"></a>
-# 4. Implementation<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+# 5. Implementation<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
 This section describes some noteworthy details on how certain features are implemented.
 
 
 <a id="parsing-of-data-to-construct-commands"></a>
-## 4.1. Parsing of Data to Construct Commands<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+## 5.1. Parsing of Data to Construct Commands<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
 The command classes follow the command pattern. 
 During construction in Parser.parse() they get the information they need to execute from parsed data based on the user input. 
@@ -390,7 +346,7 @@ The command can execute at a random time later via commandObj.execute().12
 
 
 <a id="editing-feature"></a>
-## 4.2. Editing Feauture<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+## 5.2. Editing Feauture<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
 The editing feature is enabled using a simple text editor that uses a graphical user interface. 
 The strong reason that we wanted to use a GUI is that it offers more flexibility and editing power for the user rather than just using command-line editing methods.
@@ -401,7 +357,7 @@ The text editor is instantiated when the edit command is invoked.
 
 
 <a id="sorting-feature"></a>
-## 4.3. Sorting Feature<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+## 5.3. Sorting Feature<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
 This feature allows cheat sheets to be sorted in ascending or descending order according to the name or programming language of the cheat sheet.
 
@@ -420,14 +376,14 @@ By using the sort() method present in java. util. Collections class, we would ha
 
 
 <a id="storage-reading-of-cheatsheet-files"></a>
-## 4.4. Storage & Reading of Cheatsheet files<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+## 5.4. Storage & Reading of Cheatsheet files<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
 This feature stores cheat sheets on the hard-drive in the form of a text file. 
 When the application is loaded subsequently, data from these files will be converted and loaded into the application.
 
 
 <a id="colour-coding-for-code-snippet"></a>
-## 4.5. Colour coding for code snippet<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+## 5.5. Colour coding for code snippet<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 //Proposed
 The idea of this feature is to improve the readability of the code snippets (if present) inside the cheat sheet. 
 To make this possible, several adjustments must be made to the save data format to allow more information to be stored inside a single file instead of scattered across multiple files. 
@@ -455,24 +411,24 @@ Alternative 2: Save different sections of the cheat sheet using a different file
 <br>
 
 <a id="documentation-logging-testing-configuration-dev-ops"></a>
-# 5. Documentation, logging, testing, configuration, dev-ops<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+# 6. Documentation, logging, testing, configuration, dev-ops<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
 
 <br>
 
 <a id="appendix-requirements"></a>
-# 6. Appendix: Requirements<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+# 7. Appendix: Requirements<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
 
 <br>
 
 <a id="product-scope-appendix"></a>
-## 6.1 Product scope<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+## 7.1 Product scope<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
 
 
 <a id="user-stories"></a>
-## 6.2 User stories<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+## 7.2 User stories<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 The table below describes the particular needs of relevant users that the respective
 versions of CheatLogs was designed to solve.
 
@@ -487,28 +443,25 @@ versions of CheatLogs was designed to solve.
 
 
 <a id="use-cases"></a>
-## 6.3 Use cases<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+## 7.3 Use cases<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
 
 
 <a id="non-functional-requirements"></a>
-## 6.4 Non-Functional Requirements<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+## 7.4 Non-Functional Requirements<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 {Give non-functional requirements}
 
 
 <a id="glossary"></a>
-## 6.5 Glossary<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+# 8. Glossary<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 * *glossary item* - Definition
-
 
 <br>
 
 <a id="appendix-instructions-for-manual-testing"></a>
-# 7. Appendix: Instructions for manual testing<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+# 9. Appendix: Instructions for manual testing<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
-
-
 
 <!---
 There are few major components inside the code, and those components are broken down into separate classes. 
