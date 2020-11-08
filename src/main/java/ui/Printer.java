@@ -240,7 +240,7 @@ public final class Printer {
         System.out.print(textColor + "Please input " + curArg.name() + ": " + reset);
     }
 
-    public void setColor(int option) {
+    public void setColor(int option, boolean isInit) {
         switch (option) {
         case 1:
             textColor = ConsoleColorsEnum.WHITE_TEXT;
@@ -283,7 +283,9 @@ public final class Printer {
             reset = ConsoleColorsEnum.WHITE_TEXT;
             break;
         }
-        printSetColorMessage(option);
+        if (!isInit) {
+            printSetColorMessage(option);
+        }
     }
 
     public void printSetColorMessage(int option) {

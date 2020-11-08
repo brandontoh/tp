@@ -47,12 +47,19 @@ The table of contents below lets you easily access the documentation for CheatLo
             * [4.2.3.10. Favourite](#favourite)
             * [4.2.3.11. Exit](#help)
         * [4.2.4. Cheat Sheet Management](#cheat-sheet-management)
-        * [4.2.5. Data Storage](#data-storage)
+        * [4.2.6. Data Storage](#data-storage)
+            * [4.2.6.1 Overview](#overview-design)
+            * [4.2.6.2 Writing files](#file-writer-design)
+            * [4.2.6.3 Reading files](#file-reader-design)
+            * [4.2.6.4 Deleting files](#file-destroyer-design)
 * [5. Implementation](#implementation)
     * [5.1. Parsing of Data to Construct Commands](#parsing-of-data-to-construct-commands)
     * [5.2. Editing Feature](#editing-feature)
     * [5.3. Sorting Feature](#sorting-feature)
-    * [5.4. Storage & Reading of Cheatsheet files](#storage-reading-of-cheatsheet-files)
+    * [5.4. Storage & Reading of Cheatsheet files](#data-storage)
+        * [5.4.1 Writing files](#file-writer)
+        * [5.4.2 Reading files](#file-reader)
+        * [5.4.3 Deleting files](#file-destroyer)
     * [5.5. Colour coding for code snippet](#colour-coding-for-code-snippet)
 * [6. Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
 * [7. Appendix: Requirements](#appendix-requirements)
@@ -313,19 +320,44 @@ This feature allows the application to read and update data in the form of text 
 Having an external source to store data will allow the application to be able to retrieve it when it is relaunched at another instance. 
 This prevents the user from having to repeatedly create new cheatsheets and update the application settings each time he opens up CheatLogs. 
 
+The following UML diagram illustrates the major interactions between the classes present in the 
+*storage* package. 
 
-This feature contains 3 functions, which are indicated in Table 1 below.
+[!Image]()
+
+As we can see from the diagram above, the following 3 classes are subclasses of the *DataFile* class.
+* *DataFileReader*
+* *DataFileWriter*
+* *DataFileDestroyer*
+
+<a id="file-writer"></a>
+## 4.2.6.1 Writing files<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+
+Whenever you give a command to *add* or *edit* a cheatsheet, this feature will be activated. Through this
+feature, CheatLogs will attempt to update all cheatsheet files, creating a new cheat sheet file if a new 
+cheat sheet is created. To ensure that your cheat sheet files
+
+<a id="file-writer-design"></a>
+#### 4.2.6.2 Writing files<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+
+Whenever you give a command to *add* or *edit* a cheatsheet, this feature will be activated. Through this
+feature, CheatLogs will attempt to update all cheatsheet files, creating a new cheat sheet file if a new 
+cheat sheet is created. To ensure that your cheat sheet files
+
+<a id="file-reader-design"></a>
+#### 4.2.6.2 Reading files<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+
+When CheatLogs is launched, it attempts to parse all XML files present in the /data directory and
+use it to create individual cheat sheets for each file. In the event that a particular XML file 
+cannot be read, it will be skipped to ensure that other files can be converted into cheat sheets.
 
 
+<a id="file-destroyer-design"></a>
+#### 4.2.6.3 Deleting files<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
-| Function | Purpose of Function |
-|----------|--------------------------------|
-|Read Files|Allows CheatLogs to extract cheatsheets and user-defined settings from text files provided that they follow a specified format.|
-|Write Files|Allows CheatLogs to write cheatsheets and user-defined settings to the hard-disk in the form of text files.|
-|Delete Files|Allows CheatLogs to remove unnecessary files from the hard-disk.|
-Table 1: Summary of the functions of data storage
-
----
+When you decide to remove a cheat sheet, CheatLogs will delete the relevant cheat sheet files immediately. After this 
+operation, it will perform a search through the /data directory and delete any subdirectories without any cheat sheet.
+This ensures that your /data file is not cluttered with empty directories.
 
 <br>
 
@@ -375,11 +407,35 @@ Con: There would be many duplicate code and not good for reusability.
 By using the sort() method present in java. util. Collections class, we would have better flexibility as the sort method could be reused with different functions just by including a new class that implements comparable.
 
 
-<a id="storage-reading-of-cheatsheet-files"></a>
-## 5.4. Storage & Reading of Cheatsheet files<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+<a id="data-storage"></a>
+## 5.4. Data storage<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
-This feature stores cheat sheets on the hard-drive in the form of a text file. 
-When the application is loaded subsequently, data from these files will be converted and loaded into the application.
+This feature stores cheat sheets on the hard-drive in the form of XML file. 
+When the application loads subsequently, data from these files will be converted and loaded into the application.
+
+<a id="file-writer"></a>
+### 5.4.1 Writing files<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+
+Whenever you give a command to *add* or *edit* a cheatsheet, this feature will be activated. Through this
+feature, CheatLogs will attempt to update all cheatsheet files, creating a new cheat sheet file if a new 
+cheat sheet is created. To ensure that your cheat sheet files
+
+
+<a id="file-reader"></a>
+### 5.4.2 Reading files<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+
+When CheatLogs is launched, it attempts to parse all XML files present in the /data directory and
+use it to create individual cheat sheets for each file. In the event that a particular XML file 
+cannot be read, it will be skipped to ensure that other files can be converted into cheat sheets.
+
+
+<a id="file-destroyer"></a>
+### 5.4.3 Deleting files<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+
+When you decide to remove a cheat sheet, CheatLogs will delete the relevant cheat sheet files immediately. After this 
+operation, it will perform a search through the /data directory and delete any subdirectories without any cheat sheet.
+This ensures that your /data file is not cluttered with empty directories.
+
 
 
 <a id="colour-coding-for-code-snippet"></a>

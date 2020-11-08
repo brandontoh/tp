@@ -35,8 +35,6 @@ public class Settings {
         } else {
             colorOption = 0;
         }
-        if (!isInit) {
-            printer.setColor(option);
-        }
+        printer.setColor(option, isInit);
     }
 }

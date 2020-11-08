@@ -46,15 +46,15 @@ public class UserSession {
     public void runProgramSequence() {
         AnsiConsole.systemInstall();
 
-        printer.printWelcomeScreen();
-        if (settings.getDisplayingHelpMessages()) {
-            printer.printStartHelpMessage();
-        }
         if (isFirstRun) {
             fileReader.extractPreloadedCheatSheets();
         }
         fileReader.executeFunction();
 
+        printer.printWelcomeScreen();
+        if (settings.getDisplayingHelpMessages()) {
+            printer.printStartHelpMessage();
+        }
 
         // Ask for new user input and executes it until user types the exit command
         do {

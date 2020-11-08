@@ -84,6 +84,7 @@ public class AddCommand extends Command {
     /**
      * Opens the GUI-based text editor.
      */
+
     private void callContentEditor(String name, String subject) {
         editor.setEditingContentAttributes(name, subject);
         editor.open();

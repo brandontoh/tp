@@ -40,6 +40,7 @@ public class DataFileWriterTest extends DataFileTest {
             + System.lineSeparator();
 
     Path sampleTest = Paths.get(userDir, data, test, "sample.xml");
+    final Path settingsFile = Paths.get(userDir, data, "settings.txt");
 
     @Test
     void writeDataFiles_emptyTestCheatSheetList_success() {
