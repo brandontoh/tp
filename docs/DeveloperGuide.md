@@ -457,7 +457,7 @@ The text editor is instantiated when the edit command is invoked.
 ## 5.3. Sorting Feature<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
 This feature allows cheat sheets to be sorted in ascending or descending order according to the name or programming language of the cheat sheet.
-The class `sortFilter` with `Comparator` (`SortByName`, `SortByNameRev`, `SortBySubject`, `SortBySubjectRev`) allows the user to sort their cheatsheets.
+The class `sortFilter` uses `sort()` from `java.util. Collections` and `comparator` (`SortByName`, `SortByNameRev`, `SortBySubject`, `SortBySubjectRev`) to sort the cheatsheets according to the user choice.
 
 The image belows shows the sequence diagram for `sortFilter`.
 ![SortFilter Sequence Diagram](https://i.ibb.co/GvXHtYn/Sort-Filter.png)
@@ -467,14 +467,13 @@ These steps explain the sequence diagram for `sortFilter` and how `sortFilter`wo
 1. When `SortFilter#execute()` is called, the program enters Sorting Mode and `SortFilter` object will keep repeating these steps until user entered characters that are not 1-4:
     
     1. `SortFilter` object calls `askForInput()` which will prompt the user to enter a character (1-4), and the cheatsheets will be sorted accordingly.
-        1. If the user entered a valid character, the `SortFilter` will use the corresponding `Comparator` to sort the cheatsheets
+        1. If the user entered a valid character, the `SortFilter` will use the corresponding `Comparator` and `sort()` to sort the cheatsheets
         2. Else, a CommandException will be thrown and the user will exit from Sorting Mode.
     
     2. `TablePrinter` object will be created and `TablePrinter#execute()` will be called to display the cheatsheets in the specified order.
 
-Alternative: Using a for loop to sort by name and another loop that sorts by language
-Con: There would be many duplicate code and not good for reusability. 
-By using the sort() method present in java. util. Collections class, we would have better flexibility as the sort method could be reused with different functions just by including a new class that implements comparable.
+Another alternative to sort the cheatsheets by name or subject is by using a `for` loop for each sorting. However, there would be many duplicate code and not good for reusability. 
+By using the sort() method present in `java.util. Collections` class, we would have better flexibility as the sort method could be reused with different functions just by including a new class that implements `comparator`.
 
 
 <a id="data-storage"></a>
