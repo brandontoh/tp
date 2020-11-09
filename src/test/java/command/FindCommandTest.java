@@ -9,7 +9,8 @@ import ui.Printer;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class FindCommandTest {
 
@@ -19,9 +20,9 @@ class FindCommandTest {
         AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
         addCommandStub.populateFlagsToDescription("FirstTest", "Java");
         addCommandStub.executeStub("Content1");
-        FindCommandStub FindCommandStub = new FindCommandStub(new Printer(), cheatSheetList);
-        FindCommandStub.populateFlagsToDescription("FirstTest", "Java", "tent");
-        ArrayList<CheatSheet> matchedContent = FindCommandStub.executeStub();
+        FindCommandStub findCommandStub = new FindCommandStub(new Printer(), cheatSheetList);
+        findCommandStub.populateFlagsToDescription("FirstTest", "Java", "tent");
+        ArrayList<CheatSheet> matchedContent = findCommandStub.executeStub();
         assertEquals(matchedContent.size(), 1);
     }
 
@@ -31,9 +32,9 @@ class FindCommandTest {
         AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
         addCommandStub.populateFlagsToDescription("FirstTest", "Java");
         addCommandStub.executeStub("Content1");
-        FindCommandStub FindCommandStub = new FindCommandStub(new Printer(), cheatSheetList);
-        FindCommandStub.populateFlagsToDescription("FirstTest", "Java", null);
-        ArrayList<CheatSheet> matchedContent = FindCommandStub.executeStub();
+        FindCommandStub findCommandStub = new FindCommandStub(new Printer(), cheatSheetList);
+        findCommandStub.populateFlagsToDescription("FirstTest", "Java", null);
+        ArrayList<CheatSheet> matchedContent = findCommandStub.executeStub();
         assertEquals(matchedContent.size(), 1);
     }
 
@@ -43,9 +44,9 @@ class FindCommandTest {
         AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
         addCommandStub.populateFlagsToDescription("FirstTest", "Java");
         addCommandStub.executeStub("Content1");
-        FindCommandStub FindCommandStub = new FindCommandStub(new Printer(), cheatSheetList);
-        FindCommandStub.populateFlagsToDescription("FirstTest", null, "nte");
-        ArrayList<CheatSheet> matchedContent = FindCommandStub.executeStub();
+        FindCommandStub findCommandStub = new FindCommandStub(new Printer(), cheatSheetList);
+        findCommandStub.populateFlagsToDescription("FirstTest", null, "nte");
+        ArrayList<CheatSheet> matchedContent = findCommandStub.executeStub();
         assertEquals(matchedContent.size(), 1);
     }
 
@@ -55,9 +56,9 @@ class FindCommandTest {
         AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
         addCommandStub.populateFlagsToDescription("FirstTest", "Java");
         addCommandStub.executeStub("Content1");
-        FindCommandStub FindCommandStub = new FindCommandStub(new Printer(), cheatSheetList);
-        FindCommandStub.populateFlagsToDescription(null, "Ja", "nte");
-        ArrayList<CheatSheet> matchedContent = FindCommandStub.executeStub();
+        FindCommandStub findCommandStub = new FindCommandStub(new Printer(), cheatSheetList);
+        findCommandStub.populateFlagsToDescription(null, "Ja", "nte");
+        ArrayList<CheatSheet> matchedContent = findCommandStub.executeStub();
         assertEquals(matchedContent.size(), 1);
     }
 
@@ -67,9 +68,9 @@ class FindCommandTest {
         AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
         addCommandStub.populateFlagsToDescription("FirstTest", "Java");
         addCommandStub.executeStub("Content1");
-        FindCommandStub FindCommandStub = new FindCommandStub(new Printer(), cheatSheetList);
-        FindCommandStub.populateFlagsToDescription(null, "Python", null);
-        assertThrows(CommandException.class,FindCommandStub::executeStub);
+        FindCommandStub findCommandStub = new FindCommandStub(new Printer(), cheatSheetList);
+        findCommandStub.populateFlagsToDescription(null, "Python", null);
+        assertThrows(CommandException.class, findCommandStub::executeStub);
     }
 
     @Test
@@ -78,8 +79,8 @@ class FindCommandTest {
         AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
         addCommandStub.populateFlagsToDescription("FirstTest", "Java");
         addCommandStub.executeStub("Content1");
-        FindCommandStub FindCommandStub = new FindCommandStub(new Printer(), cheatSheetList);
-        FindCommandStub.populateFlagsToDescription("FirstTest", "Python", null);
-        assertThrows(CommandException.class,FindCommandStub::executeStub);
+        FindCommandStub findCommandStub = new FindCommandStub(new Printer(), cheatSheetList);
+        findCommandStub.populateFlagsToDescription("FirstTest", "Python", null);
+        assertThrows(CommandException.class, findCommandStub::executeStub);
     }
 }
