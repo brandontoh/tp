@@ -271,14 +271,14 @@ The image below shows the sequence diagram for `find` command.
 These steps explain the sequence diagram for `find` command and how `find` command works:
 
 1. When `FindCommand#execute()` is called, 
-    2. `FindCommand` object calls `flagToDescriptions.get(CommandFlag.NAME)` and assigns it to variable `name`
-    3. `FindCommand` object calls `flagToDescriptions.get(CommandFlag.SUBJECT)` and assigns it to variable `subject`
-    4. `FindCommand` object calls `flagToDescriptions.get(CommandFlag.SECTIONKEYWORD)` and assigns it to variable `keyword`
-5. A new `ArrayList<cheatSheet>` object is created and named `matchedContent`
-6. For every cheatsheet in cheatSheetList, if the cheatsheet corresponds to what the user inputted, the cheatsheet would be added to `matchedContent`
-7. 
-    8. If `matchedContent` is empty after the loop, it means no matching cheatsheet is found and Command Exception would be thrown
-    9. Else, 
+    1. `FindCommand` object calls `flagToDescriptions.get(CommandFlag.NAME)` and assigns it to variable `name`
+    2. `FindCommand` object calls `flagToDescriptions.get(CommandFlag.SUBJECT)` and assigns it to variable `subject`
+    3. `FindCommand` object calls `flagToDescriptions.get(CommandFlag.SECTIONKEYWORD)` and assigns it to variable `keyword`
+2. A new `ArrayList<cheatSheet>` object is created and named `matchedContent`
+3. For every cheatsheet in cheatSheetList, if the cheatsheet corresponds to what the user inputted, the cheatsheet would be added to `matchedContent`
+4. 
+    5. If `matchedContent` is empty after the loop, it means no matching cheatsheet is found and Command Exception would be thrown
+    6. Else, 
         1. new `TablePrinter` object would be created and `TablePrinter#execute()` would be called to print a table with all matching cheatsheets
         2. new `SortFilter` object would be created and `SortFilter#execute()` would be called to enter Sorting Mode. More details on Sorting Mode in [Section 5.3](#53-sorting-featurefont-size5-arrow_up_smalltable-of-contentsfont)
 
@@ -293,15 +293,15 @@ The image below shows the sequence diagram for `settings` command.
 These steps explain the sequence diagram for `find` command and how `find` command works:
 
 1. When `FindCommand#execute()` is called, 
-    2. `FindCommand` object calls `flagToDescriptions.get(CommandFlag.COLOUROPTION)` and assigns it to variable `colorOption`
-    3. `FindCommand` object calls `flagToDescriptions.get(CommandFlag.HELPMESSAGE)` and assigns it to variable `helpMessageOption`
-5. If user entered `/c` flag, it means the user wants to change the color scheme:
-    6. If `colorOption` is valid i.e. an integer within 1 -3, `Settings#setColor(colorOption, false)` will be called to set the color scheme to the choice the user chose. 
-    7. Else, a CommandException will be thrown.
-8. If user entered `/m` flag, it means the user wants to turn on/off the help messages. 
-    9. If `helpMessageOption` is `on`, `Settings#SetIsDisplayingHelpMessages(true, false)` will be called to turn on help messages.
-    10. If `helpMessageOption` is `off`, `Settings#SetIsDisplayingHelpMessages(false, false)` will be called to turn off help messages.
-    11. Else, a CommandException will be thrown
+    1. `FindCommand` object calls `flagToDescriptions.get(CommandFlag.COLOUROPTION)` and assigns it to variable `colorOption`
+    2. `FindCommand` object calls `flagToDescriptions.get(CommandFlag.HELPMESSAGE)` and assigns it to variable `helpMessageOption`
+2. If user entered `/c` flag, it means the user wants to change the color scheme:
+    1. If `colorOption` is valid i.e. an integer within 1 -3, `Settings#setColor(colorOption, false)` will be called to set the color scheme to the choice the user chose. 
+    2. Else, a CommandException will be thrown.
+3. If user entered `/m` flag, it means the user wants to turn on/off the help messages. 
+    1. If `helpMessageOption` is `on`, `Settings#SetIsDisplayingHelpMessages(true, false)` will be called to turn on help messages.
+    2. If `helpMessageOption` is `off`, `Settings#SetIsDisplayingHelpMessages(false, false)` will be called to turn off help messages.
+    3. Else, a CommandException will be thrown
     
 <a id="delete"></a>
 ##### 3.2.3.8 Delete
@@ -462,7 +462,13 @@ The class `sortFilter` with `Comparator` (`SortByName`, `SortByNameRev`, `SortBy
 The image belows shows the sequence diagram for `sortFilter`.
 ![SortFilter Sequence Diagram](https://i.ibb.co/t29tNzK/Sort-Filter.png)
 
+These steps explain the sequence diagram for `sortFilter` and how `sortFilter`works:
 
+1. When `SortFilter#execute()` is called, the program enters Sorting Mode and `SortFilter` object will keep repeating these steps until user entered characters that are not 1-4:
+    1. `SortFilter` object calls `askForInput()` which will prompt the user to enter a character (1-4), and the cheatsheets will be sorted accordingly.
+    2. If the user entered a valid character, the `SortFilter` will use the corresponding `Comparator` to sort the cheatsheets
+    3. Else, a CommandException will be thrown and the user will exit from Sorting Mode.
+2. After the user exits from Sorting Mode
 
 Alternative: Using a for loop to sort by name and another loop that sorts by language
 Con: There would be many duplicate code and not good for reusability. 
