@@ -1,14 +1,11 @@
 package command;
-
+/*
 import cheatsheet.CheatSheet;
 import cheatsheet.CheatSheetList;
 import exception.CommandException;
 import parser.CommandFlag;
 import ui.Printer;
 
-/**
- * Views the content of a specific cheatsheet.
- */
 public class ViewCommandStub extends FinderCommand {
 
     public ViewCommandStub(Printer printer, CheatSheetList cheatSheetList) {
@@ -38,3 +35,4 @@ public class ViewCommandStub extends FinderCommand {
         }
     }
 }
+*/
