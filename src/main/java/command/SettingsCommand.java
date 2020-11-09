@@ -25,8 +25,8 @@ public class SettingsCommand extends Command {
         this.settings = settings;
         flagsToDescriptions.put(CommandFlag.COLORSCHEME, null);
         flagsToDescriptions.put(CommandFlag.HELPMESSAGE, null);
-        alternativeArguments.add(CommandFlag.COLORSCHEME);
-        alternativeArguments.add(CommandFlag.HELPMESSAGE);
+        alternativeFlags.add(CommandFlag.COLORSCHEME);
+        alternativeFlags.add(CommandFlag.HELPMESSAGE);
     }
 
     /**

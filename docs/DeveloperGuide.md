@@ -219,15 +219,30 @@ The steps below explain the sequence diagram:
 
 <a id="add"></a>
 ##### 4.2.3.1 Add
+The add command is used to add cheatsheets into CheatLogs.
+The picture bellow shows how the add command is executed.
+![AddCommand Sequence Diagram](https://i.ibb.co/S7qt5pt/Add-Command-1.png)
+1. When the add command is constructed, it will put the name command flag to the FlagToDescription Hash Map.
+2. After that, the subject command flag will be put in the FlagToDescription Hash Map.
+3. The CommandFlag.NAME will be added into the AlternativeArguments.
+4. The CommandFlag.SUBJECT will be added into the AlternativeArguments.
+5. Add command will invoke its own method execute()
+6. Add command invoke the get(CommandFlag.NAME) and will return the name
+7. After that, the add command invoke the get(CommandFlag.SUBJECT) and returns the suject
+8. Add command will invoke the callContentEditor.
+9. T
 
 <a id="edit"></a>
 ##### 4.2.3.2 Edit
+<img src="https://i.ibb.co/ZdVMybF/Edit-Command.png" alt="Edit-Command" border="0">
 
 <a id="view"></a>
 ##### 4.2.3.3 View
+<img src="https://i.ibb.co/74wtmML/View-Command.png" alt="View-Command" border="0">
 
 <a id="exit"></a>
 ##### 4.2.3.4 Exit
+<img src="https://i.ibb.co/1MD50qH/Exit-Command.png" alt="Exit-Command" border="0">
 
 <a id="list"></a>
 ##### 4.2.3.5 List

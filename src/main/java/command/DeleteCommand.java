@@ -9,7 +9,7 @@ import ui.Printer;
 import ui.Ui;
 
 /**
- * Command to delete a cheat sheet from the CheatSheetList.
+ * Command to delete a cheat sheet in the list of cheatsheets.
  */
 public class DeleteCommand extends FinderCommand {
     protected DataFileDestroyer fileDestroyer;
@@ -17,10 +17,10 @@ public class DeleteCommand extends FinderCommand {
 
     /**
      * Constructor for the DeleteCommand.
-     * Required argument: either NAME or SUBJECT.
+     * Required flag: either NAME or INDEX.
      *
      * @param printer        The printer object to handle user interaction
-     * @param cheatSheetList The current list of cheat sheets
+     * @param cheatSheetList The current list of cheatsheets
      * @param fileDestroyer  The DataFileDestroyer object to remove the cheat sheet from the /data folder
      */
     public DeleteCommand(Printer printer, CheatSheetList cheatSheetList, DataFileDestroyer fileDestroyer) {
@@ -29,12 +29,14 @@ public class DeleteCommand extends FinderCommand {
 
         flagsToDescriptions.put(CommandFlag.NAME, null);
         flagsToDescriptions.put(CommandFlag.INDEX, null);
-        alternativeArguments.add(CommandFlag.NAME);
-        alternativeArguments.add(CommandFlag.INDEX);
+        alternativeFlags.add(CommandFlag.NAME);
+        alternativeFlags.add(CommandFlag.INDEX);
     }
 
     /**
-     * Deletes the cheat sheet from the list and delete the corresponding file from the /data folder.
+     * Asks the user to confirm the clearing of cheatsheets, then
+     * Deletes the cheat sheet from the list and delete the corresponding
+     * file from the /data folder.
      */
     @Override
     public void execute() throws CommandException {
@@ -51,6 +53,12 @@ public class DeleteCommand extends FinderCommand {
         }
     }
 
+    /**
+     * Asks for user confirmation of operation. Then verifies
+     * that the user correctly confirmed that all cheatsheets should be cleared
+     *
+     * @return      true if the user has confirmed correctly else false
+     */
     private boolean isDeleteConfirmed() {
         String userAnswer = new Ui().getUserInput();
         userAnswer = userAnswer.toLowerCase();

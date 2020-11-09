@@ -10,7 +10,6 @@ import ui.Printer;
  * Base class for commands that searches through cheatSheetList for matching content.
  */
 public abstract class FinderCommand extends Command {
-    protected CheatSheetList cheatSheetList;
 
     /**
      * Constructor of FinderCommand.

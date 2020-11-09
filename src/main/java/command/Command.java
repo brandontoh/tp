@@ -18,8 +18,8 @@ public abstract class Command {
     protected Printer printer;
     protected CheatSheetList cheatSheetList;
 
-    protected ArrayList<CommandFlag> alternativeArguments; // At least one of these must be filled
-    protected ArrayList<CommandFlag> necessaryArguments; // All of these must be filled
+    protected ArrayList<CommandFlag> alternativeFlags; // At least one of these must be filled
+    protected ArrayList<CommandFlag> necessaryFlags; // All of these must be filled
 
     protected LinkedHashMap<CommandFlag, String> flagsToDescriptions;
     public boolean isExitCommand;
@@ -34,8 +34,8 @@ public abstract class Command {
      */
     public Command(Printer printer) {
         this.printer = printer;
-        this.alternativeArguments = new ArrayList<>();
-        this.necessaryArguments = new ArrayList<>();
+        this.alternativeFlags = new ArrayList<>();
+        this.necessaryFlags = new ArrayList<>();
         this.flagsToDescriptions = new LinkedHashMap<>();
         isExitCommand = false;
     }
@@ -48,20 +48,26 @@ public abstract class Command {
         this.flagsToDescriptions.putAll(flagsToDescriptions);
     }
 
-    public ArrayList<CommandFlag> getAlternativeArguments() {
-        return alternativeArguments;
+    public ArrayList<CommandFlag> getAlternativeFlags() {
+        return alternativeFlags;
     }
 
-    public ArrayList<CommandFlag> getNecessaryArguments() {
-        return necessaryArguments;
+    public ArrayList<CommandFlag> getNecessaryFlags() {
+        return necessaryFlags;
     }
 
-    public boolean hasRequiredArguments() {
-        return hasNecessaryArguments() && hasAlternativeArguments();
+
+    public boolean hasRequiredFlags() {
+        return hasNecessaryFlags() && hasAlternativeFlags();
     }
 
-    public boolean hasNecessaryArguments() {
-        for (CommandFlag arg : necessaryArguments) {
+    /**
+     * Checks if the command has all of the necessary flags.
+     *
+     * @return A boolean of whether the command contains all the necessary flags
+     */
+    public boolean hasNecessaryFlags() {
+        for (CommandFlag arg : necessaryFlags) {
             if (flagsToDescriptions.get(arg) == null) {
                 return false;
             }
@@ -71,16 +77,16 @@ public abstract class Command {
     }
 
     /**
-     * Checks if the user has at least one of the alternative arguments.
+     * Checks if the command has at least one of the alternative flags.
      *
-     * @return A boolean whether the user inputted at least one of the alternative arguments
+     * @return A boolean of whether the command has at least one of the alternative flags
      */
-    public boolean hasAlternativeArguments() {
-        if (alternativeArguments.size() == 0) {
+    public boolean hasAlternativeFlags() {
+        if (alternativeFlags.size() == 0) {
             return true;
         }
 
-        for (CommandFlag arg : alternativeArguments) {
+        for (CommandFlag arg : alternativeFlags) {
             if (flagsToDescriptions.get(arg) != null) {
                 return true;
             }

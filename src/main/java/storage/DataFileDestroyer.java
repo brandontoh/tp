@@ -79,13 +79,26 @@ public class DataFileDestroyer extends DataFile {
      * @throws CommandException Thrown if unwanted file name is not existent.
      */
     private void deleteFile(String unwantedFile) throws IOException, CommandException {
+        Path unwantedFilePath;
+
         String subjectDirectory = cheatSheetList
                 .get(unwantedFile)
                 .getSubject();
-        Path unwantedFilePath = Paths.get(USER_DIR,
+        Path possiblePreloadedPath = Paths.get(USER_DIR,
                 DATA,
+                PRELOADED,
                 subjectDirectory,
                 unwantedFile + XML_EXTENSION);
+
+        if (preloadedCheatSheets.contains(possiblePreloadedPath)) {
+            unwantedFilePath = possiblePreloadedPath;
+            preloadedCheatSheets.remove(possiblePreloadedPath);
+        } else {
+            unwantedFilePath = Paths.get(USER_DIR,
+                    DATA,
+                    subjectDirectory,
+                    unwantedFile + XML_EXTENSION);
+        }
         Files.delete(unwantedFilePath);
     }
 
@@ -114,9 +127,7 @@ public class DataFileDestroyer extends DataFile {
             Path filePath = Paths.get(directoryPath.toString(), dataDirectoryFile);
 
             if (Files.isDirectory(filePath)) {
-                if (!filePath.toFile().getName().equals(PRELOADED)) {
-                    clearDirectory(filePath);
-                }
+                clearDirectory(filePath);
                 continue;
             }
 
@@ -124,7 +135,6 @@ public class DataFileDestroyer extends DataFile {
                 if (!dataDirectoryFile.equals("settings.txt")) {
                     deleteFile(dataDirectoryFile.replace(XML_EXTENSION, EMPTY));
                 }
-                preloadedCheatSheets.clear();
             } catch (IOException e) {
                 destroyLogger.log(Level.WARNING, "IO Directory Error");
                 printer.print("CheatLogs could not clear a particular file!"

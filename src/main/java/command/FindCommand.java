@@ -29,9 +29,9 @@ public class FindCommand extends FinderCommand {
         flagsToDescriptions.put(CommandFlag.NAME, null);
         flagsToDescriptions.put(CommandFlag.SUBJECT, null);
         flagsToDescriptions.put(CommandFlag.SECTIONKEYWORD, null);
-        alternativeArguments.add(CommandFlag.NAME);
-        alternativeArguments.add(CommandFlag.SUBJECT);
-        alternativeArguments.add(CommandFlag.SECTIONKEYWORD);
+        alternativeFlags.add(CommandFlag.NAME);
+        alternativeFlags.add(CommandFlag.SUBJECT);
+        alternativeFlags.add(CommandFlag.SECTIONKEYWORD);
     }
 
     /**
