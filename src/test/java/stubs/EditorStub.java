@@ -2,10 +2,6 @@ package stubs;
 
 import cheatsheet.CheatSheet;
 import editor.Editor;
-import exception.EditorException;
-
-import javax.swing.JTextArea;
-import javax.swing.JLabel;
 
 public class EditorStub extends Editor {
     private String content;
