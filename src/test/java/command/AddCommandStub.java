@@ -1,16 +1,12 @@
 package command;
-
+/*
 import cheatsheet.CheatSheet;
 import cheatsheet.CheatSheetList;
 import editor.Editor;
 import exception.CommandException;
-import exception.EditorException;
 import parser.CommandFlag;
 import ui.Printer;
 
-/**
- * Command to add user-defined cheat sheet to CheatSheetList.
- */
 public class AddCommandStub extends Command {
     private final Editor editor;
     private static final String NO_SPECIAL_CHAR = "^[^`~!@#$%^&*()_+={}\\[\\]|\\\\:;“’<,>.?]*$";
@@ -79,4 +75,4 @@ public class AddCommandStub extends Command {
         return String.join("", splitInput);
     }
 }
-
+*/
