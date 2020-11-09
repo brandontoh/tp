@@ -38,6 +38,7 @@ public class ViewCommand extends FinderCommand {
     public void execute() throws CommandException {
         try {
             CheatSheet desiredCheatSheet = getCheatSheetFromNameOrIndex();
+            assert desiredCheatSheet != null : "No matching cheatsheet found";
             printer.printViewCheatSheetMessage(desiredCheatSheet);
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new CommandException("Please enter a valid name or/and index");

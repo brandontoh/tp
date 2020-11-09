@@ -74,6 +74,7 @@ public class SortFilter {
         printer.print(promptSortConfig);
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
+        assert input != null : "No input detected";
         switch (input) {
         case "1":
             cheatSheetArrayList.sort(new SortByName());

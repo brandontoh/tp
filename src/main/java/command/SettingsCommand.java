@@ -38,17 +38,17 @@ public class SettingsCommand extends Command {
     public void execute() throws CommandException {
         if (flagsToDescriptions.get(CommandFlag.COLORSCHEME) != null) {
             try {
-                int option = Integer.parseInt(flagsToDescriptions.get(CommandFlag.COLORSCHEME));
-                settings.setColor(option, false);
+                int colorOption = Integer.parseInt(flagsToDescriptions.get(CommandFlag.COLORSCHEME));
+                settings.setColor(colorOption, false);
             } catch (NumberFormatException e) {
                 throw new CommandException("Please enter a valid option");
             }
         }
         if (flagsToDescriptions.get(CommandFlag.HELPMESSAGE) != null) {
-            String option = flagsToDescriptions.get(CommandFlag.HELPMESSAGE);
-            if (option.toLowerCase().equals("off")) {
+            String helpMessageOption = flagsToDescriptions.get(CommandFlag.HELPMESSAGE);
+            if (helpMessageOption.toLowerCase().equals("off")) {
                 settings.setDisplayingHelpMessages(false, false);
-            } else if (option.toLowerCase().equals("on")) {
+            } else if (helpMessageOption.toLowerCase().equals("on")) {
                 settings.setDisplayingHelpMessages(true, false);
             } else {
                 throw new CommandException("Please enter a valid option (\"on\" or \"off\")");

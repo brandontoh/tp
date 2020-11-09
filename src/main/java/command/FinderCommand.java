@@ -65,7 +65,7 @@ public abstract class FinderCommand extends Command {
      * @return A boolean on whether the cheatsheet matched what the user inputs
      * @throws CommandException Thrown if name, subject and keyword are null
      */
-    public boolean checkCheatSheetMatchesWithFields(CheatSheet cs, String name, String subject,
+    protected boolean checkCheatSheetMatchesWithFields(CheatSheet cs, String name, String subject,
                                                     String keyword) throws CommandException {
         if (subject != null && keyword == null && name == null) {
             return cs.getSubject().contains(subject);
