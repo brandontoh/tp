@@ -13,6 +13,10 @@ public class EditorStub extends Editor {
     public EditorStub() {
     }
 
+    @Override
+    public void init() {
+    }
+
     public void setContent(CheatSheet cheatSheet) {
         content = cheatSheet.getDetails();
     }
