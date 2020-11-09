@@ -1,4 +1,5 @@
 
+
   
 
 <h1 align="center">  CheatLogs User Guide </h1>
@@ -215,7 +216,7 @@ Congratulations! You have added your first cheatsheet into CheatLogs.
 #### 4.1.1.2. Adding a cheatsheet using the advanced mode<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 >Format: `/add /n <CHEATSHEET_NAME> /s <SUBJECT>` <br>
 >Flag optionality: `/n` (required)`/s` (required)
->
+
 For the more experienced users, you can also add cheatsheets using the advanced mode. 
 A cheatsheet is first constructed with the name `CHEATSHEET_NAME` and subject `SUBJECT`. 
 The Editor will then pop up for you to enter the description of the cheatsheet.
@@ -226,7 +227,6 @@ If a valid description is saved, the cheatsheet is added to the List and stored 
 
 However, if the description is blank or the Editor was canceled, the error message below is shown and the cheatsheet is not saved.
 ![image](https://i.ibb.co/j3STgFF/Screenshot-2020-11-09-at-6-30-28-PM.png)
-
 
 If you try to enter a cheatsheet with a name already in the List. You will get a message to input another one, this is depicted below.
 
@@ -325,15 +325,15 @@ ___
 
 Edits the description of an existing cheatsheet. After `/edit`  is called, CheatLogs will match for a single cheatsheet in **the List** with a name matching `CHEATSHEET_NAME` or index matching `CHEATSHEET_INDEX` whichever you included (it will try to match only the name if you included both). 
 
-On a match, the Editor will pop up for you to edit the description of the matched cheatsheet. After you are done editing, saving or canceling the Editor updates the cheatsheet details and the message below will be printed on the terminal, showing the updated version of the cheatsheet.
+On a match, **the Editor** will pop up for you to edit the description of the matched cheatsheet. After you are done editing, saving or canceling **the Editor** updates the cheatsheet details and the message below will be printed on the terminal, showing the updated version of the cheatsheet.
 
 ![image](https://i.ibb.co/c8xq2wY/image.png)
 
-When either the name or index does not match, the Editor does not pop up and CheatLogs will specify an error as shown below.
+When either the name or index does not match, **the Editor** does not pop up and CheatLogs will specify an error as shown below.
 
 ![image](https://i.ibb.co/rZ6Rhgn/image.png)
 
-CheatLogs does not allow you to save empty descriptions.  The editor will print the error message at the bottom pane (illustrated below) if you try to do so.
+**CheatLogs** does not allow you to save empty descriptions.  **The Editor** will print the error message at the bottom pane (illustrated below) if you try to do so.
 
 ![image](https://i.ibb.co/gdGnmZS/image.png)
 
@@ -350,11 +350,11 @@ ____
 >Format: `/fav /n CHEATSHEET_NAME /i CHEATSHEET_INDEX /d`  <br>
 >Flag optionality: [`/n`, `/i`] (At least one), `/d`(optional)
 
-If you have some cheatsheets which are used frequently, you can mark them as favourite so that those cheatsheets will always be displayed on the top of the table when using `/list`. The command `/fav` marks the cheatsheet with a name matching `CHEATSHEET_NAME` or index matching `CHEATSHEET_INDEX` whichever you included or both if you included both.  The expected result is similar to below if a matching cheatsheet is found.
+If you have some cheatsheets which are used frequently, you can mark them as favourite so that those cheatsheets will always be displayed on the top of the table when using `/list`. The command `/fav` marks the cheatsheet with a name matching `CHEATSHEET_NAME` or index matching `CHEATSHEET_INDEX` whichever you included.  The expected result is similar to below if a matching cheatsheet is found.
 
 ![image](https://i.ibb.co/VW5JZNx/image.png)
 
-When either the name or index does not match, Cheatlogs will specify the error as shown below.
+When either the name or index does not match, **Cheatlogs** will specify the error as shown below.
 
 ![image](https://i.ibb.co/vPgbnbW/image.png)
 
