@@ -18,7 +18,7 @@ public class ClearCommand extends Command {
 
     /**
      * Constructor for the ClearCommand.
-     * No command argument is required.
+     * No command flag is required.
      *
      * @param printer        The printer object to handle user interaction
      * @param cheatSheetList The current list of cheat sheets
@@ -34,24 +34,32 @@ public class ClearCommand extends Command {
     }
 
     /**
-     * Removes all cheatsheets from CheatSheetList object.
+     * Asks the user to confirm the clearing of cheatsheets, then
+     * Removes all cheatsheets from cheatSheetList object.
      * Removes all cheatsheet files from /data folder.
+     * Prints a confirmation that cheatsheets have been deleted.
      */
     @Override
     public void execute() {
         printer.printClearConfirmation();
         if (isClearConfirmed()) {
-            final int deletedCheatSheets = cheatSheetList.getSize()
-                    - DataFile.preloadedCheatSheets.size();
+            final int originalCheatSheets = cheatSheetList.getSize();
+
             fileDestroyer.executeFunction();
             cheatSheetList.clear();
 
-            fileReader.extractPreloadedCheatSheets();
             fileReader.executeFunction();
-            printer.printClearCheatSheetMessage(deletedCheatSheets);
+            printer.printClearCheatSheetMessage(originalCheatSheets
+                    - cheatSheetList.getSize());
         }
     }
 
+    /**
+     * Asks for user confirmation of operation. Then verifies that the user correctly
+     * confirmed that cheatsheet should be deleted
+     *
+     * @return      true if the user has confirmed correctly else false
+     */
     private boolean isClearConfirmed() {
         String userAnswer = new Ui().getUserInput();
         userAnswer = userAnswer.toLowerCase();

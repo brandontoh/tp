@@ -6,6 +6,7 @@ import exception.CommandException;
 import parser.CommandFlag;
 import ui.Printer;
 
+
 /**
  * Views the content of a specific cheatsheet.
  */
@@ -14,7 +15,7 @@ public class ViewCommand extends FinderCommand {
 
     /**
      * Constructor for ViewCommand.
-     * Required arguments: Either NAME or INDEX.
+     * Required flag: Either NAME or INDEX.
      *
      * @param printer The printer object handles the user interaction
      * @param cheatSheetList The cheatSheetList object holds the current list of cheatsheets
@@ -24,8 +25,8 @@ public class ViewCommand extends FinderCommand {
 
         flagsToDescriptions.put(CommandFlag.NAME, null);
         flagsToDescriptions.put(CommandFlag.INDEX, null);
-        alternativeArguments.add(CommandFlag.NAME);
-        alternativeArguments.add(CommandFlag.INDEX);
+        alternativeFlags.add(CommandFlag.NAME);
+        alternativeFlags.add(CommandFlag.INDEX);
     }
 
     /**

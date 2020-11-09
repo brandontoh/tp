@@ -25,7 +25,7 @@ import java.util.LinkedHashMap;
 
 
 /**
- * Parses the user input to create a Command that can be executed at a later time.
+ * Parser for user input to create Command objects that can be executed at a later time.
  */
 public class Parser {
     private final CheatSheetList cheatSheetList;
@@ -84,9 +84,11 @@ public class Parser {
      * Parses the user input to return a command injected with all the objects
      * it needs to execute.
      *
-     * @param userInput      Input that is used to construct a command
+     * @param userInput            Input that is used to construct a command
      *
-     * @return               The constructed command
+     * @return                     The constructed command
+     *
+     * @throws CommandException    When the command keyword is not recognized
      */
     private Command parseCommandType(String userInput) throws CommandException {
         String parsedInput = userInput.split(" ")[0];
@@ -120,8 +122,8 @@ public class Parser {
 
     /**
      * Parses the user input for flags with their accompanying descriptions
-     * such as /n NAME. These flag and description pairs will be placed in a
-     * hash map where
+     * such as "/n NAME". These flag and description pairs will be placed in a
+     * hash map where:
      * key : the flag represented as a CommandFlag object. (e.g. /n is represented as
      *                                                      a CommandFlag.NAME object)
      * value : the description of the flag (e.g. "if else" in "/n if else")
@@ -130,6 +132,8 @@ public class Parser {
      * @param userInput                 The input used to create the flag and description hash map
      *
      * @return                          The flag and description hash map
+     *
+     * @throws CommandException         One of the flags inputted isn't required by the command
      */
     private LinkedHashMap<CommandFlag, String> parseFlagDescriptions(Command commandToBeExecuted, String userInput)
             throws CommandException {
@@ -164,7 +168,7 @@ public class Parser {
     }
 
     /**
-     * Validate if the command actually needs the flag inputted, or if it is irrelevant to execution.
+     * Validate if the command actually needs the inputted flag, or if it is irrelevant to execution.
      *
      * @param commandToBeExecuted       The command who is accepting the flag
      * @param flag                      The flag we are validating if we need.
@@ -172,8 +176,6 @@ public class Parser {
      * @return                          The CommandFlag Enum that matches the valid flag
      *                                  null if the command doesn't need the flag
      */
-    /* Validate if the command actually needs the flag inputted
-            and insert it if it is needed. */
     private CommandFlag validateCommandFlag(Command commandToBeExecuted, String flag) {
         for (CommandFlag c : commandToBeExecuted.getFlagsToDescriptionsMap().keySet()) {
             if (c.getFlag().equals(flag)) {
@@ -195,23 +197,25 @@ public class Parser {
         /* If the user has set the help message ON, help message for the
            current command are printed as a reference */
         if (settings.getDisplayingHelpMessages()
-                && (!commandToBeExecuted.hasRequiredArguments()
+                && (!commandToBeExecuted.hasRequiredFlags()
                 || commandToBeExecuted instanceof ListCommand
                 || commandToBeExecuted instanceof ClearCommand)) {
             printer.printCommandHelpMessage(commandToBeExecuted.getClass());
         }
 
-        // Ask the user for the missing arguments until the command can execute
-        while (!commandToBeExecuted.hasRequiredArguments()) {
-            printer.printAlternativeArgumentPrompt(commandToBeExecuted);
+        // Ask the user for the missing flags until the command can execute
+        while (!commandToBeExecuted.hasRequiredFlags()) {
+            if (!commandToBeExecuted.hasAlternativeFlags()) {
+                printer.printAlternativeArgumentPrompt(commandToBeExecuted);
+            }
 
             /* commands initialize the required keys they need with value null. We
                thus look for keys with a null value as they haven't been filled yet*/
             for (CommandFlag key : map.keySet()) {
-                /* If one of the alternative arguments have already been filled,
+                /* If one of the alternative flags have already been filled,
                    skip this repeated alternative argument*/
-                if (commandToBeExecuted.getAlternativeArguments().contains(key)
-                    && commandToBeExecuted.hasAlternativeArguments()) {
+                if (commandToBeExecuted.getAlternativeFlags().contains(key)
+                    && commandToBeExecuted.hasAlternativeFlags()) {
                     continue;
                 } else if ((map.get(key) == null || map.get(key).isBlank()) && key != CommandFlag.DELETE) {
                     printer.printMissingArgument(key);

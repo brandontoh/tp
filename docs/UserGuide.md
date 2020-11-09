@@ -344,6 +344,7 @@ ___
 These are commands that allow you to quickly look up the List for the cheatsheets you want. It is recommended to use one command after another,
 e.g. using `/find` to list all matching cheat lists then `/view` with corresponding name to view the cheatsheet.
 
+
 Some of these commands present their results in a table form and allow you to sort the results through various filters provided. We will call this **Sorting Mode**.
 
 In Sorting Mode, cheatsheets are originally shown in the order they were found inside the List. You can then sort them in [lexicographical order](https://en.wikipedia.org/wiki/Lexicographic_order#:~:text=In%20mathematics%2C%20the%20lexicographic%20or,of%20a%20totally%20ordered%20set.) 
@@ -426,7 +427,6 @@ To exit Sorting Mode and simply enter another character (excluding 1-4).
 However, if none of the cheatsheets meet the criteria of your `/find` command, CheatLogs will not enter Sorting Mode as shown in the image below.
 
 ![image](https://i.ibb.co/wcqcFxR/image.png)
-
 
 > :bulb:  Notes on matching algorithm
 > * The search is **case-sensitive** e.g. `help` matches `helpers` but not `Help`. 
