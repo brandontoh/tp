@@ -5,7 +5,6 @@ import cheatsheet.CheatSheetList;
 import exception.CommandException;
 import parser.CommandFlag;
 import ui.Printer;
-import ui.TablePrinter;
 
 import java.util.ArrayList;
 

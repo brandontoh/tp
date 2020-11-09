@@ -16,7 +16,7 @@ class ListCommandTest {
     void execute_success() throws CommandException {
         CheatSheetList cheatSheetList = new CheatSheetList();
         for (int i = 0; i < 10; i++) {
-            AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
+            AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList);
             addCommandStub.populateFlagsToDescription("Test" + i, "Java" + i);
             addCommandStub.executeStub("Content" + i);
         }

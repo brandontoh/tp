@@ -1,11 +1,8 @@
 package command;
 
-import cheatsheet.CheatSheet;
 import cheatsheet.CheatSheetList;
-import editor.Editor;
 import exception.CommandException;
 import org.junit.jupiter.api.Test;
-import parser.CommandFlag;
 import ui.Printer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +13,7 @@ class ViewCommandTest {
     @Test
     void execute_validIndex_success() throws CommandException {
         CheatSheetList cheatSheetList = new CheatSheetList();
-        AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
+        AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList);
         addCommandStub.populateFlagsToDescription("FirstTest", "Java");
         addCommandStub.executeStub("Content1");
         ViewCommandStub viewCommandStub = new ViewCommandStub(new Printer(), cheatSheetList);
@@ -27,7 +24,7 @@ class ViewCommandTest {
     @Test
     void execute_validName_success() throws CommandException {
         CheatSheetList cheatSheetList = new CheatSheetList();
-        AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
+        AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList);
         addCommandStub.populateFlagsToDescription("FirstTest", "Java");
         addCommandStub.executeStub("Content1");
         ViewCommandStub viewCommandStub = new ViewCommandStub(new Printer(), cheatSheetList);
@@ -38,7 +35,7 @@ class ViewCommandTest {
     @Test
     void execute_InvalidName_exceptionThrown() throws CommandException {
         CheatSheetList cheatSheetList = new CheatSheetList();
-        AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
+        AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList);
         addCommandStub.populateFlagsToDescription("FirstTest", "Java");
         addCommandStub.executeStub("Content1");
         ViewCommandStub viewCommandStub = new ViewCommandStub(new Printer(), cheatSheetList);
@@ -49,7 +46,7 @@ class ViewCommandTest {
     @Test
     void execute_InvalidIndex_exceptionThrown() throws CommandException {
         CheatSheetList cheatSheetList = new CheatSheetList();
-        AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList, new Editor());
+        AddCommandStub addCommandStub = new AddCommandStub(new Printer(), cheatSheetList);
         addCommandStub.populateFlagsToDescription("FirstTest", "Java");
         addCommandStub.executeStub("Content1");
         ViewCommandStub viewCommandStub = new ViewCommandStub(new Printer(), cheatSheetList);

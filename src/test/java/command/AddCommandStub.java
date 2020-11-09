@@ -8,14 +8,12 @@ import parser.CommandFlag;
 import ui.Printer;
 
 public class AddCommandStub extends Command {
-    private final Editor editor;
     private static final String NO_SPECIAL_CHAR = "^[^`~!@#$%^&*()_+={}\\[\\]|\\\\:;“’<,>.?]*$";
     public static final String invoker = "/add";
 
-    public AddCommandStub(Printer printer, CheatSheetList cheatSheetList, Editor editor) {
+    public AddCommandStub(Printer printer, CheatSheetList cheatSheetList) {
         super(printer);
         this.cheatSheetList = cheatSheetList;
-        this.editor = editor;
 
         flagsToDescriptions.put(CommandFlag.NAME, null);
         flagsToDescriptions.put(CommandFlag.SUBJECT, null);
