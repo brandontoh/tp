@@ -13,8 +13,8 @@ public class ViewCommandStub extends FinderCommand {
 
         flagsToDescriptions.put(CommandFlag.NAME, null);
         flagsToDescriptions.put(CommandFlag.INDEX, null);
-        alternativeArguments.add(CommandFlag.NAME);
-        alternativeArguments.add(CommandFlag.INDEX);
+        alternativeFlags.add(CommandFlag.NAME);
+        alternativeFlags.add(CommandFlag.INDEX);
     }
 
     @Override

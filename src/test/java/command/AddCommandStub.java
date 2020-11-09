@@ -19,8 +19,8 @@ public class AddCommandStub extends Command {
 
         flagsToDescriptions.put(CommandFlag.NAME, null);
         flagsToDescriptions.put(CommandFlag.SUBJECT, null);
-        alternativeArguments.add(CommandFlag.NAME);
-        alternativeArguments.add(CommandFlag.SUBJECT);
+        alternativeFlags.add(CommandFlag.NAME);
+        alternativeFlags.add(CommandFlag.SUBJECT);
     }
 
     public void populateFlagsToDescription(String name, String subject) {
