@@ -192,25 +192,21 @@ Most of the programmes’ output is made via calls to the same common printer ob
 <a id="command-parser"></a>
 ### 4.2.2. Command Parser<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 //Brandon
-This component would parse the user input to produce useful information which would be used to construct a Command and executed the command. 
+This component would parse the user input to produce useful information which is used to construct a `Command`. 
 
-![](Images/Image6.PNG)
+The image belows shows the sequence for `Parser`.
 
-Image 4: Interaction between components to parse and execute command
+![Parser Sequence Diagram](https://i.ibb.co/wBJtHhq/Parser.png)
 
-![](Images/Image7.PNG)
+`userInput` is what the user types into the terminal when prompted.
 
-Image 5: Sequence Diagram from parsing input to command execution
-
-Image 4 and 5 illustrates the interactions between Parser, CommandExecutor and Command when a user inputs an instruction. 
-
-The steps below explain the sequence diagram:
-1. User input an instruction
-2. A new Parser object is created
-3. Parser#parse() is called to extract command type, name, programming language and details from the user-inputted instruction
-4. If the user input is valid, a new CommandExecutor object would be created
-5. CommandExecutor#execute() would be called to create a new Command object according to type of command user inputted
-6. Command#execute() would call other methods from CheatSheet and CheatSheetList to carry out specific instructions.
+These steps explain the sequence diagram for `Parser` and how `userInput` is dissected into different parts and constructed into a `Command`:
+1. When `Parser#parser(userInput)` is called, `Parser#parserCommandType(userInput)` is called immediately after. 
+2. `Parser#parserCommandType(userInput)` checks which type of command the user entered (`add`, `list`, etc.) and calls the creates a `Command` of that specified type.
+3. The `Command` created is assigned to variable named `commandToBeExecuted`
+4. `commandToBeExecuted` contains a hashmap, `flagsToDescription` with the type of flag (`/n`, `/i`, etc.) as key and flag description ("CheatSheet1", "1", etc.) as value. `Parser#ParserFlagDescription(commandToBeExecuted, userInput)` will split the userInput into the keys and value and populate `flagsToDescription`.
+5. `Parser#setMissingDescriptions(commandToBeExecuted` will be called to ensure all necessary keys in `flagsToDescription` have been filled. If it is not filled, the program will prompt the user and fill the value with what the user inputted.
+6. `commandToBeExecuted` with populated `flagsToDescription` will be returned.
 
 
 <a id="command"></a>
