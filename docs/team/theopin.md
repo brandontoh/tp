@@ -73,7 +73,7 @@ It is written in Java and has about 5000 Lines of Code (LoC).
 * Edited the configurations of the documentation guides to ensure
   proper formatting of tables and emoji icons on github-pages.
   * [#180](https://github.com/AY2021S1-CS2113T-W11-3/tp/pull/180/commits/3ab720ee6bca43e3bf91bea46d83d7c30daaca71), 
-  * [#181](https://github.com/AY2021S1-CS2113T-W11-3/tp/pull/181/commits/2fb6dc102f9a6c6f676d2315918e728fab10848e))
+  * [#181](https://github.com/AY2021S1-CS2113T-W11-3/tp/pull/181/commits/2fb6dc102f9a6c6f676d2315918e728fab10848e)
 
 
 ### Documentation
@@ -109,4 +109,4 @@ It is written in Java and has about 5000 Lines of Code (LoC).
     * Issue [#9](https://github.com/theopin/ped/issues/9)
 
 * Shared a link to the Java DOM Parser library to parse .xml files
-  * Issue [#101](https://github.com/nus-cs2113-AY2021S1/forum/issues/101))
+  * Issue [#101](https://github.com/nus-cs2113-AY2021S1/forum/issues/101)
