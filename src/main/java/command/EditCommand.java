@@ -9,7 +9,7 @@ import parser.CommandFlag;
 import ui.Printer;
 
 /**
- * Command to edit an existing cheatsheet in CheatSheetList.
+ * Command to edit an existing cheatsheet in the list of cheatsheets.
  */
 public class EditCommand extends FinderCommand {
     private final Editor editor;
@@ -21,7 +21,7 @@ public class EditCommand extends FinderCommand {
      * Required argument: either NAME or INDEX.
      *
      * @param printer        The printer object handles user interaction
-     * @param cheatSheetList The cheatSheetList object holds the current list of cheat sheets
+     * @param cheatSheetList The cheatSheetList object holds the current list of cheatsheets
      * @param editor         The editor object opens the text editor
      */
     public EditCommand(Printer printer, CheatSheetList cheatSheetList, Editor editor) {
@@ -29,17 +29,17 @@ public class EditCommand extends FinderCommand {
         this.editor = editor;
         flagsToDescriptions.put(CommandFlag.NAME, null);
         flagsToDescriptions.put(CommandFlag.INDEX, null);
-        alternativeArguments.add(CommandFlag.NAME);
-        alternativeArguments.add(CommandFlag.INDEX);
+        alternativeFlags.add(CommandFlag.NAME);
+        alternativeFlags.add(CommandFlag.INDEX);
     }
 
     /**
-     * Checks whether the EditCommand contains required flag arguments as stated in constructor.
+     * Checks whether the EditCommand contains required flags as stated in constructor.
      *
-     * @return A boolean on whether the EditCommand contains the required flag arguments
+     * @return A boolean on whether the EditCommand contains the required flag
      */
     @Override
-    public boolean hasRequiredArguments() {
+    public boolean hasRequiredFlags() {
         return flagsToDescriptions.get(CommandFlag.NAME) != null
                 || flagsToDescriptions.get(CommandFlag.INDEX) != null;
     }
@@ -47,6 +47,7 @@ public class EditCommand extends FinderCommand {
     /**
      * Gets a cheatsheet from cheatSheetList according to name or index, whichever the user entered.
      * Opens the cheatsheet via the editor object for user to edit.
+     * Outputs the updated cheatsheet for verification
      *
      * @throws CommandException Thrown if for index, user enters non-numerical characters or is out of bound.
      */
@@ -62,7 +63,7 @@ public class EditCommand extends FinderCommand {
     }
 
     /**
-     * Opens the editor.
+     * Resets the editor, then opens it.
      *
      * @param desiredCheatSheet The cheatsheet specified by the user
      */

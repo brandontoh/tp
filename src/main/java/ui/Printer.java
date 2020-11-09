@@ -156,7 +156,7 @@ public final class Printer {
 
                 + ConsoleColorsEnum.BOLD + "" + logoColor + "/set /m on"
                 + reset + NEWLINE
-                + ConsoleColorsEnum.BOLD + "" + logoColor + "/set /m off"
+                + ConsoleColorsEnum.BOLD + "" + favColor + "/set /m off"
                 + reset + NEWLINE
                 + "\tEnables/disables the help message for commands." + NEWLINE
 
@@ -188,11 +188,11 @@ public final class Printer {
     public void printClearCheatSheetMessage(int number) {
         print(textColor + "Cleared total of " + number + " cheat sheets");
         print(LINE);
-        print("Now you have no cheatsheets" + reset);
+        print("Now you have no user-defined cheatsheets" + reset);
     }
 
     public void printDeleteConfirmation(CheatSheet cheatSheet) {
-        print(alertColor + "Are you sure to delete the" + cheatSheet.getName() + " cheatsheet?" + NEWLINE
+        print(alertColor + "Are you sure to delete the " + cheatSheet.getName() + " cheatsheet?" + NEWLINE
                 + "Type Y or Yes to confirm, or any other character to cancel" + reset);
     }
 
@@ -225,11 +225,11 @@ public final class Printer {
         }
         printCheatSheet(cheatSheet);
     }
-    
+
     public void printAlternativeArgumentPrompt(Command command) {
         print(NEWLINE);
         System.out.print(ConsoleColorsEnum.RED_TEXT + "Please enter at least ONE of these: ");
-        for (CommandFlag arg : command.getAlternativeArguments()) {
+        for (CommandFlag arg : command.getAlternativeFlags()) {
             System.out.print(arg + " ");
         }
         print(reset);
@@ -237,7 +237,7 @@ public final class Printer {
     }
 
     public void printMissingArgument(CommandFlag curArg) {
-        System.out.print(textColor + "Please input " + curArg.name() + ": " + reset);
+        System.out.print(textColor + "Please input " + curArg.name() + " [<ENTER> to skip this entry]: " + reset);
     }
 
     public void setColor(int option, boolean isInit) {

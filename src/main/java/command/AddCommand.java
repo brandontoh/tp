@@ -13,13 +13,13 @@ import ui.Printer;
  */
 public class AddCommand extends Command {
     private final Editor editor;
-    private static final String NO_SPECIAL_CHAR = "^[^`~!@#$%^&*()_+={}\\[\\]|\\\\:;“’<,>.?]*$";
+    private static final String ALPHA_NUMERIC = "[A-Za-z0-9 ]+";
     public static final String invoker = "/add";
 
     /**
      * Constructor for the AddCommand.
-     * Required argument: NAME.
-     * Optional argument: SUBJECT.
+     * Required flag: NAME.
+     * Optional flag: SUBJECT.
      *
      * @param printer        The printer object to handle user interaction
      * @param cheatSheetList The current list of cheat sheets
@@ -32,8 +32,8 @@ public class AddCommand extends Command {
 
         flagsToDescriptions.put(CommandFlag.NAME, null);
         flagsToDescriptions.put(CommandFlag.SUBJECT, null);
-        necessaryArguments.add(CommandFlag.NAME);
-        necessaryArguments.add(CommandFlag.SUBJECT);
+        necessaryFlags.add(CommandFlag.NAME);
+        necessaryFlags.add(CommandFlag.SUBJECT);
     }
 
     /**
@@ -49,20 +49,28 @@ public class AddCommand extends Command {
             throw new CommandException("Name cannot be blank");
         }
 
+        if (name.length() > 250) {
+            throw new CommandException("The name exceeds the maximum character limit");
+        }
+
         name = name.trim();
         if (cheatSheetList.exists(name)) {
             throw new CommandException("Name already existed, please enter another name");
         }
 
 
-        if (!name.matches(NO_SPECIAL_CHAR)) {
+        if (!name.matches(ALPHA_NUMERIC)) {
             throw new CommandException("Name can only contain alphanumeric characters");
         }
 
         String subject = flagsToDescriptions.get(CommandFlag.SUBJECT);
+
         if (subject != null) {
-            if (!subject.matches(NO_SPECIAL_CHAR)) {
+            if (!subject.matches(ALPHA_NUMERIC)) {
                 throw new CommandException("Subject can only contain alphanumeric characters");
+            }
+            if (subject.length() > 250) {
+                throw new CommandException("Subject cannot be more than 250 characters");
             }
             subject = convertToPascalCaseNoSpace(subject);
         } else {

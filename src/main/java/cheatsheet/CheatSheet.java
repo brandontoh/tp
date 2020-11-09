@@ -5,7 +5,6 @@ public class CheatSheet {
     private String subject;
     private String details;
     private boolean isFavourite;
-    private boolean isModifiable;
 
     public CheatSheet(String name, String subject, String details) {
         this.name = name;

@@ -14,7 +14,7 @@ public class FavouriteCommand extends FinderCommand {
 
     /**
      * Constructor for the FavouriteCommand.
-     * Required argument: either NAME or INDEX
+     * Required flag: either NAME or INDEX
      *
      * @param printer        The printer object to handle user interaction
      * @param cheatSheetList The current list of cheat sheets
@@ -25,8 +25,8 @@ public class FavouriteCommand extends FinderCommand {
         flagsToDescriptions.put(CommandFlag.NAME, null);
         flagsToDescriptions.put(CommandFlag.INDEX, null);
         flagsToDescriptions.put(CommandFlag.DELETE, null);
-        alternativeArguments.add(CommandFlag.NAME);
-        alternativeArguments.add(CommandFlag.INDEX);
+        alternativeFlags.add(CommandFlag.NAME);
+        alternativeFlags.add(CommandFlag.INDEX);
     }
 
     /**
