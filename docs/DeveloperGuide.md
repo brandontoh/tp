@@ -288,7 +288,7 @@ The `setting` command allows user to change color scheme and either turn off or 
 
 The image below shows the sequence diagram for `settings` command.
 
-![SettingsCommand Sequence Diagram](https://i.ibb.co/WGdwCq4/Settings-Command.png)
+![SettingsCommand Sequence Diagram](https://i.ibb.co/Cvg3Cd2/Settings.png)
 
 These steps explain the sequence diagram for `find` command and how `find` command works:
 
@@ -457,14 +457,11 @@ The text editor is instantiated when the edit command is invoked.
 ## 5.3. Sorting Feature<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 
 This feature allows cheat sheets to be sorted in ascending or descending order according to the name or programming language of the cheat sheet.
+The class `sortFilter` with `Comparator` (`SortByName`, `SortByNameRev`, `SortBySubject`, `SortBySubjectRev`) allows the user to sort their cheatsheets.
 
+The image belows shows the sequence diagram for `sortFilter`.
+![SortFilter Sequence Diagram](https://i.ibb.co/t29tNzK/Sort-Filter.png)
 
-This feature is facilitated by ListCommand class. 
-It made use of Collections.sort along with sortByName and SortByLanguage which both implements Comparator<CheatSheet>. 
-
-
-Collections and Comparator forms the private method askForSortingConfigAndPrint(). 
-The inclusion of the method allows the user to choose the sorting option and the sorted cheat sheets will be printed.	
 
 
 Alternative: Using a for loop to sort by name and another loop that sorts by language
