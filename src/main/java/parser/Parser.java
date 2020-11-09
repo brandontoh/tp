@@ -145,8 +145,6 @@ public class Parser {
             /* The first element at index 0 is the command itself, not the flags
                 so we skip it */
             for (int i = 1; i < details.length; i++) {
-
-
                 int descriptionStartIdx = getDescriptionStartIdx(details[i]);
                 String flag = getFlag(details[i], descriptionStartIdx);
                 String flagDescription = getFlagDescription(details[i], descriptionStartIdx);
@@ -156,9 +154,11 @@ public class Parser {
                 // One of the flags inputted isn't needed by the command
                 if (validatedCommandFlag == null) {
                     throw new CommandException("Please input the correct flags");
-                } else {
-                    flagsToDescriptions.put(validatedCommandFlag, flagDescription);
+                // Duplicate flag
+                } else if (flagsToDescriptions.get(validatedCommandFlag) != null) {
+                    throw new CommandException("Duplicated flags are not allowed");
                 }
+                flagsToDescriptions.put(validatedCommandFlag, flagDescription);
             }
         } catch (IndexOutOfBoundsException i) {
             throw new CommandException("Flag indexing error");

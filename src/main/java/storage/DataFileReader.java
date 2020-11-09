@@ -2,7 +2,9 @@ package storage;
 
 import cheatsheet.CheatSheet;
 import cheatsheet.CheatSheetList;
+
 import exception.DirectoryIsEmptyException;
+import exception.InvalidParamException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -25,6 +27,7 @@ import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Scanner;
 import java.util.jar.JarEntry;
@@ -39,9 +42,11 @@ import java.util.logging.Logger;
  */
 public class DataFileReader extends DataFile {
 
+    public static final int MAX_PATH_LENGTH = 250;
     private final Logger readLogger = Logger.getLogger("FileReader");
     private final Settings settings;
     protected String jarDirectory = JAR_DIR;
+    public static final String ALPHA_NUMERIC_REGEX = "^[a-zA-Z0-9]+$";
 
     public DataFileReader(Settings settings, Printer printer, CheatSheetList cheatSheetList) {
         this.settings = settings;
@@ -73,11 +78,6 @@ public class DataFileReader extends DataFile {
                     + System.lineSeparator()
                     + d.getMessage());
 
-        } catch (IOException f) {
-            readLogger.log(Level.WARNING, "IO File Error");
-            printer.print("The following file could not be read: "
-                    + System.lineSeparator()
-                    + f.getMessage());
         }
     }
 
@@ -188,7 +188,7 @@ public class DataFileReader extends DataFile {
      * @throws DirectoryIsEmptyException Thrown if the /data folder is empty
      */
 
-    protected void loadCheatSheetsAndSettings() throws IOException,
+    protected void loadCheatSheetsAndSettings() throws FileNotFoundException,
             DirectoryIsEmptyException {
         if (!Files.exists(DATA_DIR)) {
             throw new FileNotFoundException();
@@ -207,13 +207,12 @@ public class DataFileReader extends DataFile {
 
     /**
      * Extracts all cheatsheet and settings files from the given directory.
-     *
-     * @throws IOException Thrown if the /data directory is missing or empty.
      */
-    private void extractFromDirectory(Path directoryPath) throws IOException {
+    private void extractFromDirectory(Path directoryPath) {
+        ArrayList<String> convertedCheatSheets = new ArrayList<>();
         File[] dataDirectoryFiles = directoryPath.toFile().listFiles();
         if (dataDirectoryFiles == null) {
-            throw new IOException();
+            return;
         }
 
         for (File dataDirectoryFile : dataDirectoryFiles) {
@@ -231,27 +230,45 @@ public class DataFileReader extends DataFile {
             boolean isPreloadedFile = preloadedFileName.equals(PRELOADED);
 
             if (isPreloadedFile) {
-                preloadedCheatSheets.add(dataDirectoryFile.toPath());
+                Path cheatSheetPath = dataDirectoryFile.toPath();
+                if (preloadedCheatSheets.contains(cheatSheetPath)) {
+                    continue;
+                }
+                preloadedCheatSheets.add(cheatSheetPath);
             }
 
             try {
                 if (dataDirectoryFile.getName().equals("settings.txt")) {
                     loadUserSettings(dataDirectoryFile);
                 } else {
-                    extractCheatSheet(dataDirectoryFile);
+                    if (!convertedCheatSheets.contains(dataDirectoryFile.getName())) {
+                        extractCheatSheet(dataDirectoryFile);
+                        convertedCheatSheets.add(dataDirectoryFile.getName());
+                    }
                 }
-
-            } catch (ParserConfigurationException e) {
-                readLogger.log(Level.WARNING, "XML Parser Error");
-                printer.print("There were issues with building the XML parser: "
+            } catch (IOException e) {
+                readLogger.log(Level.WARNING, "IO File Error");
+                printer.print("There were issues reading this file: "
                         + System.lineSeparator()
                         + e.getMessage());
 
-            } catch (SAXException f) {
+            } catch (ParserConfigurationException f) {
+                readLogger.log(Level.WARNING, "XML Parser Error");
+                printer.print("There were issues with building the XML parser: "
+                        + System.lineSeparator()
+                        + f.getMessage());
+
+            } catch (SAXException g) {
                 readLogger.log(Level.WARNING, "SAX Read File Error");
                 printer.print("There were issues with the usage of the XML parser: "
                         + System.lineSeparator()
-                        + f.getMessage());
+                        + g.getMessage());
+
+            } catch (InvalidParamException h) {
+                readLogger.log(Level.WARNING, "XML File Param Error");
+                printer.print("There were issues with the particular segment of the XML file!"
+                        + System.lineSeparator()
+                        + h.getMessage());
             }
         }
     }
@@ -260,14 +277,18 @@ public class DataFileReader extends DataFile {
      * Extracts the contents of the cheatsheet from the specified file.
      *
      * @param cheatSheetDocument File of the cheatSheet
-     * @throws IOException                  Thrown if an I/O error prevents the file from being fully parsed.
-     * @throws ParserConfigurationException Thrown if a serious configuration error is caught.
-     * @throws SAXException                 Thrown if a basic error or warning information from either
-     *                                      the XML parser or the application is caught.
+     * @throws IOException                       Thrown if an I/O error prevents the file from
+     *                                           being fully parsed.
+     * @throws ParserConfigurationException      Thrown if a serious configuration error is caught.
+     * @throws SAXException                      Thrown if a basic error or warning information
+     *                                           from either the XML parser or the application is caught.
+     * @throws InvalidParamException   Thrown if the xml file content section
+     *                                           is not alphanumeric.
      */
     private void extractCheatSheet(File cheatSheetDocument) throws IOException,
             ParserConfigurationException,
-            SAXException {
+            SAXException,
+            InvalidParamException {
 
         Node favouriteElement = null;
         Node subjectElement = null;
@@ -304,18 +325,21 @@ public class DataFileReader extends DataFile {
     /**
      * Extracts and bundles components together to create a new cheatSheet.
      *
-     * @param cheatSheetDocument File of the cheatSheet
-     * @param favouriteElement   Node containing the favourite status
-     *                           of the cheatsheet.
-     * @param subjectElement     Node containing the subject of the
-     *                           cheatsheet.
-     * @param contentElement     Node containing the details of the
-     *                           cheatsheet.
+     * @param cheatSheetDocument                 File of the cheatSheet
+     * @param favouriteElement                   Node containing the favourite status
+     *                                           of the cheatsheet.
+     * @param subjectElement                     Node containing the subject of the
+     *                                           cheatsheet.
+     * @param contentElement                     Node containing the details of the
+     *                                           cheatsheet.
+     * @throws InvalidParamException             Thrown if the xml file content section
+     *                                           is not alphanumeric.
      */
     private void bundleCheatSheetComponents(File cheatSheetDocument,
                                             Node favouriteElement,
                                             Node subjectElement,
-                                            Node contentElement) {
+                                            Node contentElement)
+            throws InvalidParamException {
         String cheatSheetName = cheatSheetDocument
                 .getName()
                 .replace(XML_EXTENSION, EMPTY);
@@ -324,9 +348,18 @@ public class DataFileReader extends DataFile {
         String cheatSheetSubject = extractCheatSheetSection(subjectElement);
         String cheatSheetContent = extractCheatSheetSection(contentElement);
 
+        if (!cheatSheetSubject.matches(ALPHA_NUMERIC_REGEX)) {
+            throw new InvalidParamException("subject");
+        } else if (!cheatSheetName.matches(ALPHA_NUMERIC_REGEX)) {
+            throw new InvalidParamException("name");
+        }
+
+
         createNewCheatSheet(isMarkedFavourite,
-                cheatSheetName,
-                cheatSheetSubject,
+                cheatSheetName.substring(0, Math.min(cheatSheetName.length(),
+                        MAX_PATH_LENGTH)),
+                cheatSheetSubject.substring(0, Math.min(cheatSheetSubject.length(),
+                        MAX_PATH_LENGTH)),
                 cheatSheetContent);
     }
 

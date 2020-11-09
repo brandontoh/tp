@@ -42,14 +42,14 @@ public class ClearCommand extends Command {
     public void execute() {
         printer.printClearConfirmation();
         if (isClearConfirmed()) {
-            final int deletedCheatSheets = cheatSheetList.getSize()
-                    - DataFile.preloadedCheatSheets.size();
+            final int originalCheatSheets = cheatSheetList.getSize();
+
             fileDestroyer.executeFunction();
             cheatSheetList.clear();
 
-            fileReader.extractPreloadedCheatSheets();
             fileReader.executeFunction();
-            printer.printClearCheatSheetMessage(deletedCheatSheets);
+            printer.printClearCheatSheetMessage(originalCheatSheets
+                    - cheatSheetList.getSize());
         }
     }
 

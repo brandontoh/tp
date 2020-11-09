@@ -13,7 +13,7 @@ import ui.Printer;
  */
 public class AddCommand extends Command {
     private final Editor editor;
-    private static final String ALPHA_NUMERIC = "[A-Za-z0-9 ]+";
+    private static final String ALPHA_NUMERIC = "[A-Za-z0-9 \t\n\r]+";
     public static final String invoker = "/add";
 
     /**
@@ -49,6 +49,10 @@ public class AddCommand extends Command {
             throw new CommandException("Name cannot be blank");
         }
 
+        if (name.length() > 250) {
+            throw new CommandException("The name exceeds the maximum character limit");
+        }
+
         name = name.trim();
         if (cheatSheetList.exists(name)) {
             throw new CommandException("Name already existed, please enter another name");
@@ -60,9 +64,13 @@ public class AddCommand extends Command {
         }
 
         String subject = flagsToDescriptions.get(CommandFlag.SUBJECT);
+
         if (subject != null) {
             if (!subject.matches(ALPHA_NUMERIC)) {
                 throw new CommandException("Subject can only contain alphanumeric characters");
+            }
+            if (subject.length() > 250) {
+                throw new CommandException("Subject cannot be more than 250 characters");
             }
             subject = convertToPascalCaseNoSpace(subject);
         } else {

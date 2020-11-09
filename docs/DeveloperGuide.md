@@ -28,25 +28,27 @@ The table of contents below lets you easily access the documentation for CheatLo
 * [3. Setting Up, Getting Started](#setting-up-getting-started)
     * [3.1. Prerequisites](#prerequisites)
     * [3.2. Running the Project](#running-the-project)
-    * [3.3 Importing into IntelliJ [optional]](#importing-into-intellij)
+    * [3.3 Importing into IntelliJ \[optional\]](#importing-into-intellij)
 * [4. Design](#design)
     * [4.1. Architecture](#architecture)
     * [4.2. Components](#components)
         * [4.2.1. User Interface](#user-interface)
         * [4.2.2. Command Parser](#command-parser)
         * [4.2.3. Command](#command)
-            * [4.2.3.1. Add](#add)
-            * [4.2.3.2. Edit](#edit)
-            * [4.2.3.3. View](view)
-            * [4.2.3.4. Exit](#exit)
-            * [4.2.3.5. List](#list)
-            * [4.2.3.6. Find](#find)
-            * [4.2.3.7. Setting](#setting)
-            * [4.2.3.8. Delete](#delete)
-            * [4.2.3.9. Clear](#clear)
-            * [4.2.3.10. Favourite](#favourite)
-            * [4.2.3.11. Exit](#help)
-        * [4.2.4. Cheat Sheet Management](#cheat-sheet-management)
+            * [4.2.3.1. FinderCommand](#findercommand)
+            * [4.2.3.2. Add](#add)
+            * [4.2.3.3. Edit](#edit)
+            * [4.2.3.4. View](view)
+            * [4.2.3.5. Exit](#exit)
+            * [4.2.3.6. List](#list)
+            * [4.2.3.7. Find](#find)
+            * [4.2.3.8. Setting](#setting)
+            * [4.2.3.9. Delete](#delete)
+            * [4.2.3.10. Clear](#clear)
+            * [4.2.3.11. Favourite](#favourite)
+            * [4.2.3.12. Exit](#help)
+        * [4.2.4. Cheat Sheet Structure](#cheat-sheet-structure)
+        * [4.2.5. Cheat Sheet Management](#cheat-sheet-management)
         * [4.2.6. Data Storage](#data-storage)
             * [4.2.6.1 Overview](#overview-design)
             * [4.2.6.2 Writing files](#file-writer-design)
@@ -60,7 +62,8 @@ The table of contents below lets you easily access the documentation for CheatLo
         * [5.4.1 Writing files](#file-writer)
         * [5.4.2 Reading files](#file-reader)
         * [5.4.3 Deleting files](#file-destroyer)
-    * [5.5. Colour coding for code snippet](#colour-coding-for-code-snippet)
+    * [5.5. Changing default settings](#settings-implementation)
+    * [5.6. \[Proposed\] Colour coding for code snippet](#colour-coding-for-code-snippet)
 * [6. Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
 * [7. Appendix: Requirements](#appendix-requirements)
     * [7.1. Product scope](#product-scope-appendix)
@@ -114,7 +117,7 @@ You are free to use any java file editor and run the program by following the st
 3. Move the file to a folder you want to use as the home folder for this application.
 4. Invoke java -jar CheatLogs.jar on the command line to run the program. A welcome message should appear, as shown below.
 
-![](Images/Image1.PNG)
+![](https://i.ibb.co/pK6CtPv/image.png)
 
 
 <a id="importing-to-intellij"></a>
@@ -155,7 +158,7 @@ CheatLogs is split into 5 major components, each handling distinct features of t
 The UML diagram below illustrates an extensive version of the various classes present in CheatLogs as well as their interactions with each other.
 
 
-![](Images/Image4.PNG)
+![](https://i.ibb.co/Cb8GckB/image.png)
 
 Image 2: In-Depth Architecture of CheatLogs
 
@@ -215,43 +218,136 @@ The steps below explain the sequence diagram:
 
 <a id="command"></a>
 ### 4.2.3. Commands	<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
-//Aldo
+All commands in CheatLogs inherit from an abstract `Command` class. Furthermore, classes which accept `NAME` or `INDEX` as its flag inherit from a sub-class of `Command` class, namely the `FinderCommand` class.
+
+Below is the class diagram for the command package.
+
+![image](https://i.ibb.co/phXS1Z6/image.png)
+
+<a id="findercommand"></a>
+##### 4.2.3.1 FinderCommand
+`FinderCommand` provides the capability to search for the desired cheatsheet using the `getCheatSheetFromNameOrIndex()` method. Upon method calls, the sub-class of `FinderCommand` will first call this method to get the desired cheatsheet, then it proceeds to process this cheatsheet object based on its own functionality. A sequence diagram will be given for each commands to better illustrate the interaction between this class with its sub-classes.
 
 <a id="add"></a>
 ##### 4.2.3.1 Add
+The AddCommand is used to add cheatsheets into CheatLogs.
+The picture bellow shows how the AddCommand is executed.
+![AddCommand Sequence Diagram](https://i.ibb.co/GtFKP7V/Add-Command-4.png)
+1. When the AddCommand.execute()is called, it will self-invoke the `get(CommandFlag.NAME)` and will return `name`
+2. After that, the add command self-invoke the `get(CommandFlag.SUBJECT)` and returns the `subject`
+3. Add command will invoke the `callContentEditor()` within its class.
+4. The callContent Editor will execute the `editor.setEditingContent(name,subject)`method followed by `editor.open()`
+5. The program will wait for the editor in the `editor.waitForClose()` to close and will return the control to the AddCommand class.
+6. The program will give back control to the `AddCommand` object, and will call the `editor.getContent()` to get the description from the Editor.
+7. The AddCommand will construct a CheatSheet object using `CheatSheet(name,subject,description)`
+8. After the CheatSheet object is constructed, it will be added to the CheatSheetList using `cheatSheetList.add(cheatSheet)` method.
+9. Finally, once the cheatSheet has been added into the cheatSheetList, the AddCommand will invoke the `printAddNewCheatSheetMessage(cheatSheet,cheatSheetList)` to print the confirmation message.
 
 <a id="edit"></a>
 ##### 4.2.3.2 Edit
+The edit command allows the user to edit the content of the CheatSheet object.
+The image bellow is how the EditCommand is executed.
+![EditCommand Sequence Diagram](https://i.ibb.co/tPg1pjL/Edit-Command-4.png)
+1. When the `EditCommand.execute()` method is called, it self-invoke the `getCheatSheetFromNameOrIndex()` method
+2. Inside the `getCheatSheetFromNameOrIndex()` method, it will self-invoke the `flagToDescription.get(CommandFlag.NAME)` to retrieve the cheatsheet name.
+3. The program execution continues by self-invoking the `flagToDescription.get(CommandFlag.INDEX)` to retrieve the cheatSheet index.
+4. The program will get the cheatsheet from the CheatSheetList object with either the name using `get(name)` or index `get(index)` of the cheatsheet.
+5. The `getCheatSheetFromNameOrIndex()` method will return the `desiredCheatSheet`
+6. After that, the EditCommand will invoke the `callContentEditor(cheatSheet)` to show the content editor.
+7. Inside the `callContentEditor(cheatSheet)` method, it will call the `editor.open` method (to open the editor). 
+8. After that, the content of the cheatsheet will be set inside the text editor when editor.setContent(desiredCheatSheet) method is called.
+9. The program will wait for the editor to close when the `editor.waitForClose()` is called.
+10. To reflect the change, the EditCommand object will invoke `cheatsheet.setDetail(editor.getContent())` method to get the content of the cheatsheet and also change the content of the cheatsheet.
 
 <a id="view"></a>
 ##### 4.2.3.3 View
+The view command is used to view the content of the cheatsheet in tht command line interface.
+The sequence diagram bellow demonstrates how tht view command is executed.
+![ViewCommand_Sequence_Diagram](https://i.ibb.co/GF4LZYy/View-Command-3.png)
+1. When the `ViewCommand.execute()` method is called, it self-invoke the `getCheatSheetFromNameOrIndex()` method
+2. Inside the `getCheatSheetFromNameOrIndex()` method, it will self-invoke the `flagToDescription.get(CommandFlag.NAME)` to retrieve the cheatsheet name.
+3. The program execution continues by self-invoking the `flagToDescription.get(CommandFlag.INDEX)` to retrieve the cheatSheet index.
+4. The program will get the cheatsheet from the CheatSheetList object with either the name using `get(name)` or index `get(index)` of the cheatsheet.
+5. The `getCheatSheetFromNameOrIndex()` method will return the `desiredCheatSheet`
+6. Afterwards, it will call the `printViewCheatSheetMessage` of the printer class to print the cheatsheet into the command line.
 
 <a id="exit"></a>
 ##### 4.2.3.4 Exit
+The exit command is used to exit the CheatLogs program.
+The sequence digaram bellow will demonstrate how it is executed.
+![ExitCommand_Sequence-Diagram](https://i.ibb.co/4SxcnL5/Exit-Command-1.png)
+1. When a user type /exitThe ExitCommand is constructed.
+2. It will invoke the execute() method which will set the isExitCommand to true.
 
 <a id="list"></a>
-##### 4.2.3.5 List
+##### 4.2.3.6 List
 
 <a id="find"></a>
-##### 4.2.3.6 Find
+##### 4.2.3.7 Find
 
 <a id="setting"></a>
-##### 4.2.3.7 Setting 
+##### 4.2.3.8 Setting 
 
 <a id="delete"></a>
-##### 3.2.3.8 Delete
+##### 3.2.3.9 Delete
+Delete command removes one cheatsheet from the CheatSheetList and deletes the corresponding file in the */data* directory.
 
+Here is an example of the usage of `/delete` command and how it works:
+1. User type `/delete /i 1` to delete all cheatsheets. `UserSession` class reads the input and passes this to the `Parser` class.
+2. The parser parses the user command which results in a `DeleteCommand` object.
+3. This object is passed back to `UserSession` class and it calls `DeleteCommand.execute()`.
+4. `DeleteCommand.execute()` invokes `getCheatSheetFromNameOrIndex()` method from the `FinderCommand` class to find the desired cheatsheet. If the cheatsheet does not exist, it throws an exception.
+5. Then, it asks the user's confirmation through `printer.printDeleteConfirmation()`.
+6. If the user says yes, it invokes the `fileDestroyer.executeFunction(cheatSheetToDelete.getName())` to delete the corresponding file in the */data* directory. 
+7. Next, it invokes `cheatSheetList.remove(cheatSheetToDelete.getName())` to delete the cheatsheet from CheatSheetList.
+8. Lastly, it calls `printer.printDeleteCheatSheetMessage` to give feedback message to the user.
+
+The following sequence diagram illustrates how steps 4 - 8 are executed by DeleteCommand.
+![](https://i.ibb.co/BGgTVgb/image.png)
 <a id="clear"></a>
-##### 4.2.3.9 Clear
+##### 4.2.3.10 Clear
+Clear command deletes all user-defined cheatsheets while maintaining the preloaded cheatsheets.
+
+Here is an example of the usage of `/clear` command and how it works:
+1. User type `/clear` to delete all cheatsheets. `UserSession` class reads the input and passes this to the `Parser` class.
+2. The parser parses the user command which results in a `ClearCommand` object.
+3. This object is passed back to `UserSession` class and it calls `ClearCommand.execute()`.
+4. `ClearCommand.execute()` first asks the user for confirmation by calling `printer.printClearConfirmation()`. If the user confirms, it invokes the `fileDestroyer.executeFunction()` to delete all user-defined cheatsheets stored in the */data* directory.
+5. Subsequently, it invokes the `cheatSheetList.clear()` to delete all cheatsheets in the CheatSheetList.
+6. Next, it invokes `fileReader.extractPreloadedCheatSheets()` and `fileReader.executeFunction()` to restore the preloaded cheatsheets.
+7. Lastly, it calls `printer.printClearCheatSheetMessage` to give feedback message to the user.
+
+The following sequence diagram illustrates how steps 4 - 7 are executed by ClearCommand.
+
+![](https://i.ibb.co/CVRZ9dZ/image.png)
 
 <a id="favourite"></a>
-##### 4.2.3.10 Favourite
+##### 4.2.3.11 Favourite
+Favourite command adds/removes the cheatsheet from/to favourites.
 
+Here is an example of the usage of `/fav` command and how it works:
+1. User type `/fav /i 1` to add the first cheatsheet to favourites. `UserSession` class reads the input and passes this to the `Parser` class.
+2. The parser parses the user command which results in a `FavouriteCommand` object.
+3. This object is passed back to `UserSession` class and it calls `FavouriteCommand.execute()`.
+4. `FavouriteCommand.execute()` invokes `getCheatSheetFromNameOrIndex()` method from the `FinderCommand` class to find the desired cheatsheet. If the cheatsheet does not exist, it throws an exception.
+5. Next, it checks the existence of the delete flag `/d` and invokes `cheatSheetToFavourite.setFavourite(isAddFav)` to add/remove the cheatsheet to/from favourites based on the existence of the delete flag.
+6. Lastly, it calls `printer.printFavouritedCheatSheetMessage` to give feedback message to the user.
+
+The following sequence diagram illustrates how steps 4 - 6 are executed by FavouriteCommand.
+![](https://i.ibb.co/zszqCSf/image.png)
 <a id="help"></a>
-##### 4.2.3.11 Help
+##### 4.2.3.12 Help
+Help command prints the descriptions and examples for all commands.
 
+Here is an example of the usage of `/help` command and how it works:
+1. User type `/fav /i 1` to add the first cheatsheet to favourites. `UserSession` class reads the input and passes this to the `Parser` class.
+2. The parser parses the user command which results in a `FavouriteCommand` object.
+3. This object is passed back to `UserSession` class and it calls `HelpCommand.execute()`.
+4. `HelpCommand.execute()` invokes `printer.printHelpSheet()` method and it prints the help sheet to the user.
+The following sequence diagram illustrates how step 4 is executed by HelpCommand.
+![](https://i.ibb.co/zmGSZhG/image.png)
 <a id="cheat-sheet-structure"></a>
-#### 4.2.4. Cheat Sheet Structure 
+#### 4.2.4. Cheat Sheet Structure <font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 //Aldo
 
 To further understand our cheatsheet management application, it is important to understand the inner workings of the CheatSheet class. 
@@ -278,29 +374,15 @@ Image 6: class diagram of the cheatsheet class
 
 ---
 
-<a id="development-goals"></a>
-###  Development Goals<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
-//TBC
-We are trying to move our existing cheatsheet file format from txt to xml. 
-XML files provide inbuilt tags to differentiate and classify members of the document. 
-With the use of XML file, it simplifies the parsing process of the cheatsheet files into the cheatsheet class, and vice versa.
-
-![](Images/Image9.PNG)
-
-Image 7: XML file showing the content of a cheatsheet file
-
-
-
 <a id="cheat-sheet-management"></a>
 ### 4.2.5. Cheat Sheet Management<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
-//Adhy
-All cheat sheets, both pre-loaded and user-defined, are stored in a class called `CheatSheetList` during runtime. 
+
+All cheat sheets, both pre-loaded and user-defined, are stored in a class called `CheatSheetList` during runtime. Here is a class diagram to illustrate the relation between CheatSheet and CheatSheetList.
+
+![](https://i.ibb.co/t3gR5RV/image.png)
+
 Upon receiving a valid input from the user, the `execute()` method from `Command` class will invoke the mutation of `CheatSheetList`, 
 and then `DataFileWriter` will use the information in `CheatSheetList` to save it to the memory in the form of a `xml` file.
-
-![](Images/Image10.PNG)
-
-Image 8: Class diagram of CheatSheetList class
 
 The cheatSheets ArrayList is of type private, and setter/getter methods must be invoked to access the list. 
 For these setter and getter methods, it accepts both accessing by its index and accessing by its name to allow the user to easily search and fetch the cheat sheet.
@@ -308,6 +390,7 @@ Here is the list of `Commands` that invokes a method call of CheatSheetList:
 - `/add`
 - `/clear`
 - `/delete`
+- `/edit`
 - `/fav`
 - `/find`
 - `/list`
@@ -437,10 +520,25 @@ operation, it will perform a search through the /data directory and delete any s
 This ensures that your /data file is not cluttered with empty directories.
 
 
+<a id="settings-implementation"></a>
+## 5.5. Changing default settings<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
+
+Settings class allows users to customize the application to fit their preference. The user can change the color scheme of the output and also change the behavior of help messages attached to each command. 
+The reason we chose color scheme and help messages to be customizable are as follows:
+1. The color scheme of the terminal for each system may differ. The might be scenarios where the color scheme of the terminal and the application does not match and the text became not readable.
+2. The help messages are designed to help new users familiarize themselves with the commands available in CheatLogs. For more experienced users who are already familiar with all the commands, these help messages can be removed.
+
+Design consideration:
+Alternative 1 (current choice): Saves the file using a txt file
+* Pros: The txt file is simple and the parser used does not interfere with the one used to parse the cheatsheets
+* Cons: Needs to create another parser for the settings file
+
+Alternative 2: Uses xml file to save the settings
+* Pros: Standardizes the save file to xml for both cheatsheets and settings file
+* Cons: Needs to tamper with the existing cheatsheet parsers and not very straightforward to implement
 
 <a id="colour-coding-for-code-snippet"></a>
-## 5.5. Colour coding for code snippet<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
-//Proposed
+## 5.6. \[Proposed\] Colour coding for code snippet<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
 The idea of this feature is to improve the readability of the code snippets (if present) inside the cheat sheet. 
 To make this possible, several adjustments must be made to the save data format to allow more information to be stored inside a single file instead of scattered across multiple files. 
 Thus, instead of saving to a txt file, the program will write the cheat sheet data into a xml file, for easier parsing and sectioning. 
@@ -494,8 +592,15 @@ versions of CheatLogs was designed to solve.
 |v1.0|user|search and filter the cheat sheets by name|open them quickly and easily|
 |v1.0|intermediate user|write and add my own cheat sheets|use the application to help me in matters not strictly related to programming|
 |v1.0|experienced user|delete all cheat sheets|create and customize everything by myself|
+|v2.0|new user|be prompted to fill the required arguments of a command|use the application without memorizing the flags for each command|
 |v2.0|user|edit the cheat sheets|update the cheat sheet and keep them relevant as the time progresses|
-|v2.0|user|customize the settings|add and edit the cheat sheets|
+|v2.0|user|add cheatsheets to favourites|easily access my frequently-used cheatsheets|
+|v2.0|user|sort cheatsheets based on name or subject|easily view and find the list of cheatsheets in my possession|
+|v2.0|user|customize the settings|adjust the behavior of the program to suit my needs|
+|v2.0|user|see the output in different colors|be more comfortable when using the application|
+|v2.0|user|see the cheatsheets in table from|be more comfortable viewing the list of cheatsheets|
+|v2.1|user|remove cheatsheets from favourites|remove cheatsheets which are less relevant at the time being from appearing at the top of the list|
+|v2.1|user|automatically save the settings|use the program without customizing it on each time I run it|
 
 
 <a id="use-cases"></a>
@@ -516,12 +621,3 @@ versions of CheatLogs was designed to solve.
 
 <a id="appendix-instructions-for-manual-testing"></a>
 # 9. Appendix: Instructions for manual testing<font size="5"> [:arrow_up_small:](#table-of-contents)</font>
-
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
-
-<!---
-There are few major components inside the code, and those components are broken down into separate classes. 
-All components can be accessed from the CheatLogs class.
-### CheatSheetList
-All cheatsheets are stored inside a static class CheatSheetList to allow other classes to easily access and write data to the list.
--->
