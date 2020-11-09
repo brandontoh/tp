@@ -250,7 +250,7 @@ The `list` command lists all the cheatsheets in `cheatSheetList`.
 
 The image below shows the sequence diagram for `list` command.
 
-![ListCommand Sequence Diagram](https://i.ibb.co/fFCMvrn/List-Command.png)
+![ListCommand Sequence Diagram](https://i.ibb.co/sRLvDcx/List-Command.png)
 
 `cheatSheetList` is a `CheatSheetList` object that is passed to `ListCommand` when `ListCommand` is created.
 
@@ -268,7 +268,7 @@ The `find` command searches through `cheatSheetList` to find matching cheatsheet
 
 The image below shows the sequence diagram for `find` command.
 
-![FindCommand Sequence Diagram](https://i.ibb.co/GR4TKN5/Find-Command.png)
+![FindCommand Sequence Diagram](https://i.ibb.co/gzNv26r/Find-Command.png)
 
 `cheatSheetList` is a `CheatSheetList` object that is passed to `FindCommand` when `FindCommand` is created.
 
@@ -292,7 +292,7 @@ The `setting` command allows user to change color scheme and either turn off or 
 
 The image below shows the sequence diagram for `settings` command.
 
-![SettingsCommand Sequence Diagram](https://i.ibb.co/1RYjCN9/Settings-Command.png)
+![SettingsCommand Sequence Diagram](https://i.ibb.co/WGdwCq4/Settings-Command.png)
 
 These steps explain the sequence diagram for `find` command and how `find` command works:
 
