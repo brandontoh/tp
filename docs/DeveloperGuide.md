@@ -246,35 +246,67 @@ The picture bellow shows how the add command is executed.
 
 <a id="list"></a>
 ##### 4.2.3.5 List
-The `list` command lists all the cheatsheets in cheatSheetList.
-![ListCommand Sequence Diagram](https://i.ibb.co/XsPGvk9/Find-Command-List.png)
+The `list` command lists all the cheatsheets in `cheatSheetList`.
+
+The image below shows the sequence diagram for `list` command.
+
+![ListCommand Sequence Diagram](https://i.ibb.co/fFCMvrn/List-Command.png)
+
+`cheatSheetList` is a `CheatSheetList` object that is passed to `ListCommand` when `ListCommand` is created.
+
+These steps explain the sequence diagram for `list` command and how `list` command works:
+
+1. When `ListCommand#execute()` is called, the `cheatSheetList` will be sorted by name via `SortByName` comparator.
+2. 
+    1. If `cheatSheetList` is empty, a CommandException will be thrown.
+    2. Else, a `TablePrinter` object will be created and `TablePrinter#execute()` prints `cheatSheetList` in a table format. Afterwards, a `SortFilter` object will be created and `SortFilter#execute()` to enter Sorting Mode. More details on Sorting Mode in [Section 5.3](#53-sorting-featurefont-size5-arrow_up_smalltable-of-contentsfont)
 
 
 <a id="find"></a>
 ##### 4.2.3.6 Find
-The `find` command searches through cheatSheetList to find matching cheatsheets.
+The `find` command searches through `cheatSheetList` to find matching cheatsheets.
 
-![FindCommand Sequence Diagram](https://i.ibb.co/DVVFM3q/Find-Command.png)
+The image below shows the sequence diagram for `find` command.
 
-The steps below explain the sequence diagram for `list`:
+![FindCommand Sequence Diagram](https://i.ibb.co/GR4TKN5/Find-Command.png)
 
-1. FindCommand#execute() is called
-2. FindCommand object calls flagToDescriptions.get(CommandFlag.NAME) and assigns it to variable `name`
-3. FindCommand object calls flagToDescriptions.get(CommandFlag.SUBJECT) and assigns it to variable `subject`
-4. FindCommand object calls flagToDescriptions.get(CommandFlag.SECTIONKEYWORD) and assigns it to variable `keyword`
+`cheatSheetList` is a `CheatSheetList` object that is passed to `FindCommand` when `FindCommand` is created.
+
+These steps explain the sequence diagram for `find` command and how `find` command works:
+
+1. When `FindCommand#execute()` is called, 
+    2. `FindCommand` object calls `flagToDescriptions.get(CommandFlag.NAME)` and assigns it to variable `name`
+    3. `FindCommand` object calls `flagToDescriptions.get(CommandFlag.SUBJECT)` and assigns it to variable `subject`
+    4. `FindCommand` object calls `flagToDescriptions.get(CommandFlag.SECTIONKEYWORD)` and assigns it to variable `keyword`
 5. A new `ArrayList<cheatSheet>` object is created and named `matchedContent`
 6. For every cheatsheet in cheatSheetList, if the cheatsheet corresponds to what the user inputted, the cheatsheet would be added to `matchedContent`
-7. If `matchedContent` is empty after the loop, it means no matching cheatsheet is found and Command Exception would be thrown
-8. Else, 
-    1. new `TablePrinter` object would be created and TablePrinter#execute() would be called to print a table with all matching cheatsheets
-    2. new `SortFilter` object would be created and SortFilter#execute() would be called to enter Sorting Mode.
+7. 
+    8. If `matchedContent` is empty after the loop, it means no matching cheatsheet is found and Command Exception would be thrown
+    9. Else, 
+        1. new `TablePrinter` object would be created and `TablePrinter#execute()` would be called to print a table with all matching cheatsheets
+        2. new `SortFilter` object would be created and `SortFilter#execute()` would be called to enter Sorting Mode. More details on Sorting Mode in [Section 5.3](#53-sorting-featurefont-size5-arrow_up_smalltable-of-contentsfont)
 
 <a id="setting"></a>
 ##### 4.2.3.7 Setting 
 The `setting` command allows user to change color scheme and either turn off or on help messages for commands.
-![SettingsCommand Sequence Diagram](https://i.ibb.co/HxDqqsz/Settings-Command.png)
 
+The image below shows the sequence diagram for `settings` command.
 
+![SettingsCommand Sequence Diagram](https://i.ibb.co/1RYjCN9/Settings-Command.png)
+
+These steps explain the sequence diagram for `find` command and how `find` command works:
+
+1. When `FindCommand#execute()` is called, 
+    2. `FindCommand` object calls `flagToDescriptions.get(CommandFlag.COLOUROPTION)` and assigns it to variable `colorOption`
+    3. `FindCommand` object calls `flagToDescriptions.get(CommandFlag.HELPMESSAGE)` and assigns it to variable `helpMessageOption`
+5. If user entered `/c` flag, it means the user wants to change the color scheme:
+    6. If `colorOption` is valid i.e. an integer within 1 -3, `Settings#setColor(colorOption, false)` will be called to set the color scheme to the choice the user chose. 
+    7. Else, a CommandException will be thrown.
+8. If user entered `/m` flag, it means the user wants to turn on/off the help messages. 
+    9. If `helpMessageOption` is `on`, `Settings#SetIsDisplayingHelpMessages(true, false)` will be called to turn on help messages.
+    10. If `helpMessageOption` is `off`, `Settings#SetIsDisplayingHelpMessages(false, false)` will be called to turn off help messages.
+    11. Else, a CommandException will be thrown
+    
 <a id="delete"></a>
 ##### 3.2.3.8 Delete
 
