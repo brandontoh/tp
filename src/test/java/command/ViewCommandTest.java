@@ -12,7 +12,8 @@ import ui.Printer;
 
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ViewCommandTest {
 
@@ -24,7 +25,7 @@ class ViewCommandTest {
         cheatSheetList = new CheatSheetList();
         editorStub = new EditorStub();
 
-        for (int i = 0; i< 10; i++) {
+        for (int i = 0; i < 10; i++) {
             AddCommand addCommand = new AddCommand(new Printer(), cheatSheetList, editorStub);
             HashMap<CommandFlag, String> addMap = new HashMap<>();
             addMap.put(CommandFlag.NAME, "Test" + i);
