@@ -18,8 +18,8 @@ public abstract class Command {
     protected Printer printer;
     protected CheatSheetList cheatSheetList;
 
-    public ArrayList<CommandFlag> alternativeArguments; // At least one of these must be filled
-    public ArrayList<CommandFlag> necessaryArguments; // All of these must be filled
+    protected ArrayList<CommandFlag> alternativeArguments; // At least one of these must be filled
+    protected ArrayList<CommandFlag> necessaryArguments; // All of these must be filled
 
     protected LinkedHashMap<CommandFlag, String> flagsToDescriptions;
     public boolean isExitCommand;

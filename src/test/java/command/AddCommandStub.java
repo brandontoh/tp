@@ -1,5 +1,5 @@
 package command;
-/*
+
 import cheatsheet.CheatSheet;
 import cheatsheet.CheatSheetList;
 import editor.Editor;
@@ -75,4 +75,3 @@ public class AddCommandStub extends Command {
         return String.join("", splitInput);
     }
 }
-*/

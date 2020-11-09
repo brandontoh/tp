@@ -1,5 +1,5 @@
 package command;
-/*
+
 import cheatsheet.CheatSheetList;
 
 import exception.CommandException;
@@ -31,4 +31,3 @@ public class ListCommandStub extends Command {
         return cheatSheetList;
     }
 }
-*/
