@@ -11,8 +11,8 @@ public class EditorStub extends Editor {
     private String content;
 
     public EditorStub() {
-
     }
+    
     public void setContent(CheatSheet cheatSheet) {
         content = cheatSheet.getDetails();
     }
